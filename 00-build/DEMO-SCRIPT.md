@@ -13,6 +13,11 @@ The room should see the thing work before they hear the theory.
 > `cp .env.example .env`, add your key, set `CORTEX_COST_CAP_USD`. Confirm
 > `python agent.py` returns a clean run. Keep a terminal at large font, or your
 > coding agent open, whichever the room will use. A full demo is a few cents.
+>
+> On macOS, use `python3`/`pip3` if `python`/`pip` isn't found (that's the default
+> on recent Macs). The run prints the full trace to your **terminal** — it does not
+> write an output file. To keep a copy of a trace, redirect it:
+> `python3 agent.py | tee happy-run.txt`.
 
 How to read each demo. **The wow moment** is the one thing the room should feel.
 **Do, live** is the exact runnable steps. **Talk track** is how you frame it. **If
@@ -22,8 +27,10 @@ it breaks** is your fallback.
 
 ## M1 · Cold open · "A PM agent does your Monday morning in 90 seconds" (≈6 min)
 
-**Placement:** run this first, before any theory. It de-risks the whole course and
-earns the room's attention.
+**Placement:** run it when you reach the *"What you'll ship: Cortex, end to end"*
+slide, early, before the Agent-Line theory. You're introducing Cortex end to end
+there, so showing it work in the same breath lands best. It de-risks the whole course
+and earns the room's attention.
 
 **The wow moment:** a plain-English task becomes a grounded, exec-ready status
 update that stops itself and waits for a human, in about a minute and a half.

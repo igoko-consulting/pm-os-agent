@@ -24,6 +24,8 @@ Then, to check it runs at all:
 > Run the happy-path task (`python agent.py` in `00-build/`) and show me the full
 > trace: which tools it called, what it drafted, and where it stopped.
 
+_On macOS, use `python3` if `python` isn't found. The trace prints to the terminal, there's no output file._
+
 ---
 
 ## M1 - Agent line: decide what Cortex may and may not do

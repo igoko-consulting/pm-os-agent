@@ -27,6 +27,9 @@ cp .env.example .env        # add your OPENAI_API_KEY and set the caps
 
 > The `.env` file is gitignored. Never commit your key. Also set a hard spend limit
 > in your provider's dashboard, that limit is part of your M5 bounds story.
+>
+> On macOS, use `python3`/`pip3` if `python`/`pip` isn't found (that's the default on
+> recent Macs). Every `python`/`pip` command below works the same way.
 
 ## 1. Build and run it with your coding agent
 
@@ -42,6 +45,11 @@ python agent.py              # happy path, assemble the weekly status update
 python agent.py missing-data # stuck/escalate
 python agent.py jailbreak    # injection refusal
 ```
+
+> Each run prints the full trace to your terminal, it does not write an output file.
+> To save a trace, redirect it: `python agent.py | tee happy-run.txt`. (Your module
+> deliverables, like `agent-line-map.md`, are files you edit and commit, separate from
+> these runs.)
 
 Then prove the bound trips (ask your coding agent to run these, or run them yourself):
 
