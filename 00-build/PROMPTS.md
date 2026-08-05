@@ -1,5 +1,11 @@
 # Prompt pack, what to say to your coding agent
 
+> **Prefer the guided path?** Each module folder has a **`LAB.md`** runbook. Paste it into
+> your assistant (*"walk me through `03-orchestration/LAB.md` one step at a time"*) and it
+> runs the whole lab for you — asking your decisions, editing the build, running fixtures,
+> and committing. This prompt pack below is the **quick-reference / fallback**: the same
+> prompts, if you'd rather drive each step by hand.
+
 You build Cortex by **directing your coding agent** (Claude Code, Cursor, or Codex).
 You do not write Python. Open your forked repo in your coding agent and paste the
 prompt for the step you're on. Read what it changed, ask follow-ups in plain English,

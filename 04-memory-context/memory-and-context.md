@@ -1,6 +1,10 @@
-# Memory & Context: Cortex PM Chief-of-Staff Agent
+# Context Engineering & Memory: Cortex PM Chief-of-Staff Agent
 
-> Module 4 · Memory & Context
+> Module 4 · Context Engineering & Memory
+>
+> ✅ **What this validates:** the agent reasons on the right, safe inputs — by the end you'll have proven a context budget, per-source retrieve-vs-long-context decisions, and a memory map with risk mitigations.
+>
+> 🗂️ **How the lab maps to this file:** In **Part A** (before the lecture) you don't edit this file — you rough-draft on scratch, focused on the per-source calls in **section 2** plus a quick remember/forget + "how it rots" sketch. In **Part B** (after the lecture) you complete **all five sections**; the Lab Guide's guided builder writes this file for you to copy in and commit.
 
 ## 1. Context budget
 

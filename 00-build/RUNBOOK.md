@@ -33,10 +33,15 @@ cp .env.example .env        # add your OPENAI_API_KEY and set the caps
 
 ## 1. Build and run it with your coding agent
 
-Work module by module using the prompts in [`PROMPTS.md`](PROMPTS.md): shape the
-loop (M2), add the fleet + critic (M3), wire context and your PM brain (M4), and set
-the bounds (M5). After each change, have your coding agent run a fixture and show you
-the trace.
+**The simplest path each module: paste that module's `LAB.md` into your assistant** (e.g.
+`05-bounds-evals/LAB.md`) and say *"walk me through this one step at a time, stop and ask
+me at every decision."* The `LAB.md` runbook drives the whole lab — it asks for your
+calls, edits the build, runs fixtures, and commits.
+
+Prefer to drive it yourself? Work module by module using the prompts in
+[`PROMPTS.md`](PROMPTS.md): shape the loop (M2), add the fleet + critic (M3), wire context
+and your PM brain (M4), and set the bounds (M5). After each change, have your coding agent
+run a fixture and show you the trace.
 
 If you'd rather drive the terminal yourself, the same runs are:
 

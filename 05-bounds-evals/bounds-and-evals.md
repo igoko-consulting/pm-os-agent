@@ -2,6 +2,8 @@
 
 > Module 5 · Bounds, Trust & Evals
 >
+> ✅ **What this validates:** the agent fails safe and is measured — by the end you'll have proven a bounds table, a failure-mode register, and a trajectory eval suite with pass thresholds.
+>
 > Real access = real blast radius. This is where you design for "when it goes sideways," and where you spec the agent by writing its evals.
 
 ## 1. Bounds table

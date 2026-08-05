@@ -1,6 +1,8 @@
 # Agent Line Map: Cortex PM Chief-of-Staff Agent
 
 > Module 1 · The Agent Line
+>
+> ✅ **What this validates:** every risky action has a clear owner — by the end you'll have proven an above/below-the-line map with HITL checkpoints, scored on reversibility, blast radius, and measurability.
 
 ## The workflow, decision by decision
 

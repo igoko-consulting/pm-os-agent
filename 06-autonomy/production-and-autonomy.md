@@ -1,6 +1,8 @@
-# Bounds, Trust & Autonomy Strategy: Cortex PM Chief-of-Staff Agent
+# Production & Autonomy: Cortex PM Chief-of-Staff Agent
 
-> Module 6 · ★ Deliverable 5, how you'd ship it and widen trust over time
+> Module 6 · ★ Deliverable 5, how you'd ship it, govern it, and widen trust over time
+>
+> ✅ **What this validates:** you can ship it, govern it, and widen trust deliberately — by the end you'll have proven an autonomy dial, a Trust Ladder rung with its eval gate, and a governance plan.
 
 ## Autonomy Dial by segment
 
@@ -35,3 +37,10 @@ _Autonomy is a product decision per user, not one global setting._
 ## Widen-autonomy decision rule
 
 _What evidence lets you turn the dial up one notch, stated in advance._
+
+## Governance & forward strategy
+
+- **Compliance:** _what data must never enter a prompt; how PII is handled_
+- **Safety:** _which actions stay above the agent line for everyone; kill switch_
+- **Reliability:** _cost/iteration caps; escalate-on-stuck; fallback if the model is down_
+- **Strategy:** _the next segment or capability you'd widen into, and the eval that gates it_
