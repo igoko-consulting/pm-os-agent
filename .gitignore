@@ -20,3 +20,5 @@ __pycache__/
 *.local.json
 /traces/
 /runs/
+# Cortex draft output (status updates it drafts locally, never posted)
+00-build/run-output/
