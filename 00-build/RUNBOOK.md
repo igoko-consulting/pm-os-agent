@@ -51,10 +51,14 @@ python agent.py missing-data # stuck/escalate
 python agent.py jailbreak    # injection refusal
 ```
 
-> Each run prints the full trace to your terminal, it does not write an output file.
-> To save a trace, redirect it: `python agent.py | tee happy-run.txt`. (Your module
-> deliverables, like `agent-line-map.md`, are files you edit and commit, separate from
-> these runs.)
+> Each run prints the full trace to your terminal AND ends with the drafted status
+> update in a clear `FINAL STATUS UPDATE` (or, on an escalation, `LAST DRAFT (held)`)
+> block, also saved to `00-build/run-output/status-update-<task>.md` for your review.
+> That saved file is always a **draft, held for a human, never posted** (there is no
+> publish tool). To capture the whole trace too, redirect it:
+> `python agent.py | tee happy-run.txt`. (Your module deliverables, like
+> `agent-line-map.md`, are files you edit and commit, separate from these runs; the
+> `run-output/` drafts are git-ignored.)
 
 Then prove the bound trips (ask your coding agent to run these, or run them yourself):
 
@@ -87,3 +91,17 @@ These files are **starters**. As you move through the modules you (via your codi
 agent) will edit the agent-line behaviour (M1), the loop + stop conditions (M2), the
 fleet + critic checks (M3), the retrieval/context (M4), and the bounds (M5) to match
 your own specs. That editing is the assignment, don't just run the defaults and submit.
+
+**Ingest fresh data (Module 4).** In M4 you don't just run on pre-loaded fixtures —
+you **download a refreshed Cortex Data Pack** (from the Module 4 resources), drop the
+five data files into `fixtures/`, run the agent on them, and push the change to GitHub.
+That download→add→run→push loop *is* the M4 warm-up; the copy-paste steps ship in the
+pack's `INGEST.md`.
+
+**Optional — use your own data instead.** The `fixtures/` are already "real data" for
+the labs (the figures Cortex pulls), so you don't have to bring anything. But if you'd
+rather ground Cortex in *your* team's norms, roadmap, past updates, and projects,
+follow [`fixtures/BRING-YOUR-OWN-DATA.md`](fixtures/BRING-YOUR-OWN-DATA.md) — same
+download→add→run→push loop, your numbers. It shows the exact shape to keep and which
+teaching flags (a confidential item, a held launch, a citable metric) to preserve so
+the M4 grounding probe still works.

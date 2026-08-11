@@ -12,6 +12,10 @@ Usage (ask your coding agent to run these for you, or run them yourself):
     python agent.py missing-data   # the stuck/escalate case
     python agent.py jailbreak       # the prompt-injection refusal case
 
+Every run ends by showing the drafted status update in a FINAL STATUS UPDATE block
+(or LAST DRAFT, held, if a bound trips), and saves it to run-output/. That file is
+always a draft held for a human, it is never posted, there is no publish tool.
+
 Requires OPENAI_API_KEY in your environment (see .env.example). Model and bounds
 are read from env so you can tune them, that tuning is your M5 deliverable.
 
@@ -24,6 +28,7 @@ from __future__ import annotations
 import json
 import os
 import sys
+from pathlib import Path
 
 from openai import OpenAI
 
@@ -96,8 +101,40 @@ class Bounds:
         return self.cost >= COST_CAP_USD
 
 
+OUTPUT_DIR = Path(__file__).parent / "run-output"
+
+
 def banner(text: str) -> None:
     print(f"\n{'=' * 64}\n{text}\n{'=' * 64}")
+
+
+def emit_deliverable(which: str, draft: str, *, accepted: bool,
+                     reason: str, cost: float) -> None:
+    """Surface AND persist Cortex's drafted status update so it can't get lost in
+    the scroll-back. This is still a DRAFT held for human review, never a post,
+    there is no publish tool, and an escalated run is held on purpose.
+
+    Runs on every exit: an accepted pass prints the FINAL update; a bound trip or
+    escalation prints the LAST draft it managed to write plus why it was held.
+    """
+    banner("FINAL STATUS UPDATE (draft, validator-approved, NOT posted)" if accepted
+           else "LAST DRAFT (held, NOT posted, escalated to a human)")
+    if draft.strip():
+        print(draft.rstrip())
+    else:
+        print("(Cortex stopped before it produced a draft, nothing to show.)")
+    if not accepted:
+        print(f"\nWhy it was held: {reason}")
+
+    if draft.strip():
+        OUTPUT_DIR.mkdir(exist_ok=True)
+        out = OUTPUT_DIR / f"status-update-{which}.md"
+        state = "accepted by validator" if accepted else "HELD, escalated"
+        out.write_text(
+            f"<!-- Cortex draft, {state}; NOT posted. Run cost ~ ${cost:.4f}. -->\n"
+            f"<!-- {reason} -->\n\n{draft.rstrip()}\n", encoding="utf-8")
+        print(f"\nSaved draft -> {out.relative_to(Path(__file__).parent)}  "
+              f"(for your review, nothing was posted)")
 
 
 def run(which: str = "happy") -> None:
@@ -117,11 +154,14 @@ def run(which: str = "happy") -> None:
     ]
     source_log: list[str] = [task["body"]]
     revisions = 0
+    last_draft = ""
 
     for step in range(1, MAX_ITERATIONS + 1):
         if bounds.over_cap():
-            banner(f"BOUND TRIPPED, cost cap ${COST_CAP_USD} hit at "
-                   f"${bounds.cost:.4f}. Halting and escalating to a human.")
+            reason = f"cost cap ${COST_CAP_USD} hit at ${bounds.cost:.4f}"
+            banner(f"BOUND TRIPPED, {reason}. Halting and escalating to a human.")
+            emit_deliverable(which, last_draft, accepted=False,
+                             reason=reason, cost=bounds.cost)
             return
 
         resp = client.chat.completions.create(
@@ -144,6 +184,7 @@ def run(which: str = "happy") -> None:
 
         # No tool calls => Cortex produced a proposed output. Validate it.
         proposed = msg.content or ""
+        last_draft = proposed
         print(f"\n[step {step}] PROPOSED OUTPUT:\n{proposed}")
 
         banner("CRITIC, independent validation")
@@ -157,11 +198,16 @@ def run(which: str = "happy") -> None:
             banner(f"HITL CHECKPOINT, status update + any proposed stories queued for "
                    f"your review. Nothing posted, no commitments made. "
                    f"Run cost ≈ ${bounds.cost:.4f}")
+            emit_deliverable(which, proposed, accepted=True,
+                             reason="validator passed", cost=bounds.cost)
             return
 
         if revisions >= MAX_REVISIONS:
+            reason = f"validator rejected {MAX_REVISIONS}x (revision cap)"
             banner(f"REVISION CAP hit ({MAX_REVISIONS}). Escalating to a human "
                    f"instead of looping. Run cost ≈ ${bounds.cost:.4f}")
+            emit_deliverable(which, last_draft, accepted=False,
+                             reason=reason, cost=bounds.cost)
             return
 
         revisions += 1
@@ -173,6 +219,9 @@ def run(which: str = "happy") -> None:
 
     banner(f"MAX ITERATIONS ({MAX_ITERATIONS}) reached without finishing. "
            f"Escalating. Run cost ≈ ${bounds.cost:.4f}")
+    emit_deliverable(which, last_draft, accepted=False,
+                     reason=f"max iterations ({MAX_ITERATIONS}) reached",
+                     cost=bounds.cost)
 
 
 if __name__ == "__main__":

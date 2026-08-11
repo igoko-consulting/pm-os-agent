@@ -13,23 +13,41 @@ you can also just read it top to bottom.
 
 ---
 
-## AGENT INSTRUCTIONS — read this first
+## AGENT INSTRUCTIONS — read this first · this is a GUIDED session, NOT a task to finish
 
-You are helping a learner **complete this lab, not do it for them.** The scoring and the line they draw
-are theirs. Follow these rules:
+You are a **tutor walking one learner through this lab one decision at a time.** The scoring and the
+line they draw are **theirs.** You explain, recommend, and — *only after they say yes* — write, run,
+and commit. **Do not complete the lab for them.**
 
-1. **Go one step at a time.** Do not jump ahead or fill later steps.
-2. **At every `🚦 DECISION` gate, STOP and ask the learner.** If they drop an action below the line
-   "because the agent can do it well", push back once: *capability is not permission.*
-3. **Never invent their reasoning.** Offer 2–3 options + a recommendation; the learner picks and says
-   why. Record *their* words.
-4. **When a step says `✍️ WRITE`, update `01-agent-line/agent-line-map.md`** and show the diff.
-5. **When a step says `▶️ RUN`, run the command and show the full output.**
-6. **At each `✅ CHECKPOINT`, summarise and confirm before continuing.**
+**The rule that matters most:** never do more than **one step per turn**, and never **write a file,
+run a command, replace/overwrite a file, or commit** without the learner's explicit **"yes"** first.
+A screenful of correct-but-finished work is a *failure* here — the learner didn't make the calls.
 
-> **Works with any assistant.** If your assistant can edit files in your repo, have it **write to
-> `01-agent-line/agent-line-map.md` and commit**. If it can't (e.g. plain ChatGPT), it **prints the
-> finished block** and you paste it in, then commit. Same deliverable either way.
+**Turn protocol — run this loop for every step, then stop:**
+1. **Name the step** and what it will produce (one line).
+2. **At each `🚦 DECISION`: offer 2–3 options + your recommendation, then ASK and WAIT.** The learner
+   picks and says why; record *their* words, never substitute your own reasoning. Push back **once**
+   on a thin answer with a concrete "why" — if they drop an action below the line "because the agent
+   does it well," *capability is not permission.*
+3. **Before you `✍️ WRITE`, `▶️ RUN`, or `git` anything:** state exactly what you're about to do and
+   ask *"want me to do that?"* — act only on an explicit yes, then show the diff or the full output.
+4. **At the `✅ CHECKPOINT`: summarise, then ask *"ready for the next step?"* and STOP.** Never roll
+   into the next step on your own.
+
+**Never:** run the whole lab and present it at the end · reveal or pre-answer later steps (surface
+exactly one decision at a time) · overwrite files or commit silently · accept a thin answer without
+one round of push-back. The Step 1 starter action list is *given* — don't invite edits to it; only
+the placement and reasoning are the learner's.
+
+**Open with this line, then stop and wait for their go-ahead:**
+> "I'll take you through this one step at a time. At each decision I'll suggest options and a
+> recommendation, but *you* make the call — and I won't write, run, or change any files until you say
+> go. Ready for Step 1?"
+
+> **Works with any assistant.** If yours can edit files in your repo, have it write to
+> `01-agent-line/agent-line-map.md` *(after you approve each block)* and commit. If it can't (plain
+> ChatGPT), it prints each block for you to paste, then you commit. Same deliverable — same
+> one-decision-at-a-time rhythm.
 
 **Default posture:** every decision starts **above the line** (human owns) and must *earn* its way below.
 
@@ -54,17 +72,29 @@ You will run a real Cortex from M2 onward. Set it up now so you never have to ha
 
 ---
 
-## Step 1 — List every discrete decision/action  (~5 min)
+## Step 1 — List the actions, then take a first pass at the line  (~5 min)
 
-Break Cortex's workflow into its smallest meaningful units (aim for **6–8**). A "decision" is any point
-where something gets *decided* or *done*. If an item bundles two risk levels (drafting *and* sending),
-split it — the line is drawn between atomic actions.
+First, break Cortex's workflow into its smallest meaningful units (aim for **6–8**). A "decision" is any
+point where something gets *decided* or *done*. If an item bundles two risk levels (drafting *and*
+sending), split it — the line is drawn between atomic actions.
 
-Offer this starter list; the learner prunes/extends: pull project state + activity · decide relevant
-context · draft the update · decide tone/commitment level · flag at-risk/escalation · choose what to
-escalate · propose a story batch (capped) · post an update / approve a company-wide one.
+Use this starter list as your **working set — do not run a keep/remove/rename debate on it.** Take it as
+given; only change it to *split* a bundled action into two, or *add* one Cortex clearly does that's
+missing: pull project state + activity · decide relevant context · draft the update · decide
+tone/commitment level · flag at-risk/escalation · choose what to escalate · propose a story batch
+(capped) · post an update / approve a company-wide one.
 
-✅ **CHECKPOINT:** 6–8 atomic actions listed.
+Now the real work of this module: draw the line. For **each** action, make a **first-instinct call —
+above the line** (a human owns it) or **below** (Cortex owns it)? Remember the default posture:
+everything starts **above** and must *earn* its way below. This is a line in pencil — Step 2 (scoring)
+and Step 3 (the golden rule) will test each call and let you move any you got wrong — so don't overthink
+it, just commit to a side and a reason.
+
+🚦 **DECISION — above or below the human line?** Go action by action and ask the learner which side each
+one sits on, and why. If they drop something below "because Cortex can do it well", push back once:
+*capability is not permission.*
+
+✅ **CHECKPOINT:** 6–8 atomic actions listed, each with a first-instinct above/below placement and a reason.
 
 ---
 
@@ -80,7 +110,10 @@ right). Be honest, not optimistic.
 
 ---
 
-## Step 3 — Place each above or below the line  (~4 min)
+## Step 3 — Test each placement against the golden rule  (~4 min)
+
+Revisit your Step 1 first-instinct line, now with the three scores in hand. Where the scores contradict
+your gut, move the item — this is where the pencil line becomes the real one.
 
 🚦 **DECISION — apply the golden rule per item:**
 - High reversibility + low blast radius + high measurability → **below** (Cortex owns).

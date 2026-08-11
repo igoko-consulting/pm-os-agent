@@ -14,26 +14,46 @@ moves, finalize the memory map, re-run the grounding probe, and commit.
 
 **Deliverable:** `04-memory-context/memory-and-context.md` (context budget · per-source retrieve-vs-long-context · retrieval-quality plan · memory map · risks & mitigations)
 **Builds on:** M1 agent-line + M2 loop-spec + M3 orchestration-map + your **parked Part A draft**
-**Time:** ~25 min · **Required:** Step 4 (re-run the grounding probe — grounded answer + caught hallucination)
+**Time:** ~29 min (incl. Step 0 data-pack ingest) · **Required:** Step 4 (re-run the grounding probe — grounded answer + caught hallucination)
 
 ---
 
-## AGENT INSTRUCTIONS — read this first
+## AGENT INSTRUCTIONS — read this first · this is a GUIDED session, NOT a task to finish
 
-You are helping a learner **complete this lab, not do it for them.** The per-source calls are theirs.
-Rules:
+You are a **tutor walking one learner through this lab one decision at a time.** The per-source
+calls are **theirs.** You explain, recommend, and — *only after they say yes* — write, run, and
+commit. **Do not complete the lab for them.**
 
-1. **Go one step at a time.** Do not jump ahead or fill later steps.
-2. **At every `🚦 DECISION` gate, STOP and ask the learner.** If a retrieved source has *no* agentic
-   moves, push back: that's naive RAG — the thing that made Cortex hallucinate.
-3. **Never invent their reasoning.** Offer 2–3 options + a recommendation; the learner picks and says why.
-4. **When a step says `✍️ WRITE`, update `04-memory-context/memory-and-context.md`** and show the diff.
-5. **When a step says `▶️ RUN`, run the command and show the full output.**
-6. **At each `✅ CHECKPOINT`, summarise and confirm before continuing.**
+**The rule that matters most:** never do more than **one step per turn**, and never **write a file,
+run a command, replace/overwrite a file, swap fixtures, or commit** without the learner's explicit
+**"yes"** first. A screenful of correct-but-finished work is a *failure* here — the learner didn't
+make the calls. (This includes Step 0: don't swap the data-pack fixtures for them without a yes.)
 
-> **Works with any assistant.** If your assistant can edit files in your repo, have it **write to
-> `04-memory-context/memory-and-context.md`, run the probe, and commit**. If it can't (e.g. plain
-> ChatGPT), it **prints the finished block** and you paste it in, then commit. Same deliverable either way.
+**Turn protocol — run this loop for every step, then stop:**
+1. **Name the step** and what it will produce (one line).
+2. **At each `🚦 DECISION`: offer 2–3 options + your recommendation, then ASK and WAIT.** The learner
+   picks and says why; record *their* words, never substitute your own reasoning. Push back **once**
+   on a thin answer with a concrete "why" — a retrieved source with *no* agentic move is naive RAG,
+   the thing that made Cortex hallucinate.
+3. **Before you `✍️ WRITE`, `▶️ RUN`, replace/ingest a file, or `git` anything:** state exactly what
+   you're about to do and ask *"want me to do that?"* — act only on an explicit yes, then show the
+   diff or the full output.
+4. **At the `✅ CHECKPOINT`: summarise, then ask *"ready for the next step?"* and STOP.** Never roll
+   into the next step on your own.
+
+**Never:** run the whole lab and present it at the end · reveal or pre-answer later steps (surface
+exactly one decision at a time) · overwrite files, swap fixtures, or commit silently · accept a thin
+answer without one round of push-back.
+
+**Open with this line, then stop and wait for their go-ahead:**
+> "I'll take you through this one step at a time. At each decision I'll suggest options and a
+> recommendation, but *you* make the call — and I won't write, run, or change any files until you say
+> go. Ready for Step 0?"
+
+> **Works with any assistant.** If yours can edit files in your repo, have it write to
+> `04-memory-context/memory-and-context.md` *(after you approve each block)*, run the probe, and
+> commit. If it can't (plain ChatGPT), it prints each block for you to paste, then you commit. Same
+> deliverable — same one-decision-at-a-time rhythm.
 
 The build runs on `00-build/fixtures/`; the sources are the real tools in `00-build/tools.py`
 (`get_task`, `get_project`, `get_activity`, `search_past_updates`, `get_roadmap`, `get_norms`).
@@ -47,6 +67,39 @@ Confirm (ask, don't assume):
 - [ ] Their forked repo is open; M1/M2/M3 artifacts exist; the build ran in M2.
 - [ ] They have their **parked Part A draft** (per-source gut calls + remember/forget + "how it rots").
       If skipped, have them skim Part A first.
+
+---
+
+## Step 0 — Ingest this week's data pack (download → add → run → push)  (~4 min)
+
+Module 4 is about *what data flows into the agent* — so start by **ingesting new data
+into the repo yourself**, instead of running on data that was silently pre-loaded. The
+learner downloads the **Cortex Data Pack** (a refreshed pull), drops it into their
+`fixtures/`, runs the agent on it, and pushes the change to GitHub. This is the exact
+loop a PM runs whenever a source updates.
+
+1. ▶️ **Download** `cortex-data-pack.zip` from the Module 4 resources (the deck's
+   *Resources & templates* slide, or the Lab Guide). Unzip it.
+2. ▶️ **Add it to the repo.** Copy the **five data files** (`projects.json`,
+   `past-updates.json`, `decision-log.json`, `roadmap.md`, `team-norms.md`) into
+   `00-build/fixtures/`, overwriting the older pull. **Leave the `task-*.md` files
+   alone.** Then `git status` / `git diff --stat` so the learner *sees* the ingest.
+3. ▶️ **RUN** `python agent.py` on the new data. The draft should now cite the
+   **new** numbers (activation `43%`, prior `41%`; PRs #820/#823) — grounded on files
+   the learner just added. `Pulsar` (new) and `Orbit` stay out of any company-wide update.
+4. ▶️ **Commit + push** the fixtures: `git add 00-build/fixtures/` →
+   `git commit -m "Ingest 2026-07-06 data pack"` → `git push`. (Full steps and the
+   copy-paste commands are in the pack's `INGEST.md`.)
+
+> **Bring your own instead (optional).** A learner who'd rather ground Cortex in their
+> *real* team's norms/roadmap/updates can skip the pack and follow
+> `00-build/fixtures/BRING-YOUR-OWN-DATA.md` — same download→add→run→push loop, their
+> numbers. Hold them to that guide's three flags (one **confidential** item, one
+> **held/unconfirmed** launch, one **citable metric with a prior**) so Step 4's
+> grounding probe still catches a hallucination.
+
+✅ **CHECKPOINT:** `git diff --stat` shows the five fixtures changed; a run cites the
+new figures; the commit is pushed. Now Cortex is grounded on data the learner ingested.
 
 ---
 
