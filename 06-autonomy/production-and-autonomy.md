@@ -2,7 +2,7 @@
 
 > Module 6 · ★ Deliverable 5, how you'd ship it, govern it, and widen trust over time
 >
-> ✅ **What this validates:** you can ship it, govern it, and widen trust deliberately — by the end you'll have proven an autonomy dial, a Trust Ladder rung with its eval gate, and a governance plan.
+> ✅ **What this validates:** you can ship it, govern it, and widen trust deliberately, by the end you'll have proven an autonomy dial, a Trust Ladder rung with its eval gate, and a governance plan.
 
 ## Autonomy Dial by segment
 

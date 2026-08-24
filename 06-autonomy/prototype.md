@@ -2,7 +2,7 @@
 
 > Module 6 · ★ Deliverable 1, the working agent demo
 >
-> ✅ **What this validates:** the agent actually runs end to end — by the end you'll have proven it with real screenshots of your Cortex across the six required moments (M2 to M6).
+> ✅ **What this validates:** the agent actually runs end to end, by the end you'll have proven it with real screenshots of your Cortex across the six required moments (M2 to M6).
 
 ## What it does
 

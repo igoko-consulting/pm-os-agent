@@ -2,7 +2,7 @@
 
 > Module 6 · ★ Deliverable 4, what you learned building it
 >
-> ✅ **What this validates:** you can reflect on what building it taught you — by the end you'll have proven the friction, the learning, and the aha that changes how you'd design your next agent.
+> ✅ **What this validates:** you can reflect on what building it taught you, by the end you'll have proven the friction, the learning, and the aha that changes how you'd design your next agent.
 
 ## Friction
 

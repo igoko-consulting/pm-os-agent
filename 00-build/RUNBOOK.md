@@ -35,7 +35,7 @@ cp .env.example .env        # add your OPENAI_API_KEY and set the caps
 
 **The simplest path each module: paste that module's `LAB.md` into your assistant** (e.g.
 `05-bounds-evals/LAB.md`) and say *"walk me through this one step at a time, stop and ask
-me at every decision."* The `LAB.md` runbook drives the whole lab — it asks for your
+me at every decision."* The `LAB.md` runbook drives the whole lab, it asks for your
 calls, edits the build, runs fixtures, and commits.
 
 Prefer to drive it yourself? Work module by module using the prompts in
@@ -92,16 +92,15 @@ agent) will edit the agent-line behaviour (M1), the loop + stop conditions (M2),
 fleet + critic checks (M3), the retrieval/context (M4), and the bounds (M5) to match
 your own specs. That editing is the assignment, don't just run the defaults and submit.
 
-**Ingest fresh data (Module 4).** In M4 you don't just run on pre-loaded fixtures —
-you **download a refreshed Cortex Data Pack** (from the Module 4 resources), drop the
+**Ingest fresh data (Module 4).** In M4 you don't just run on pre-loaded fixtures, you **download a refreshed Cortex Data Pack** (from the Module 4 resources), drop the
 five data files into `fixtures/`, run the agent on them, and push the change to GitHub.
 That download→add→run→push loop *is* the M4 warm-up; the copy-paste steps ship in the
 pack's `INGEST.md`.
 
-**Optional — use your own data instead.** The `fixtures/` are already "real data" for
+**Optional, use your own data instead.** The `fixtures/` are already "real data" for
 the labs (the figures Cortex pulls), so you don't have to bring anything. But if you'd
 rather ground Cortex in *your* team's norms, roadmap, past updates, and projects,
-follow [`fixtures/BRING-YOUR-OWN-DATA.md`](fixtures/BRING-YOUR-OWN-DATA.md) — same
+follow [`fixtures/BRING-YOUR-OWN-DATA.md`](fixtures/BRING-YOUR-OWN-DATA.md), same
 download→add→run→push loop, your numbers. It shows the exact shape to keep and which
 teaching flags (a confidential item, a held launch, a citable metric) to preserve so
 the M4 grounding probe still works.

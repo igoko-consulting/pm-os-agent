@@ -15,7 +15,7 @@ The room should see the thing work before they hear the theory.
 > coding agent open, whichever the room will use. A full demo is a few cents.
 >
 > On macOS, use `python3`/`pip3` if `python`/`pip` isn't found (that's the default
-> on recent Macs). The run prints the full trace to your **terminal** — it does not
+> on recent Macs). The run prints the full trace to your **terminal**, it does not
 > write an output file. To keep a copy of a trace, redirect it:
 > `python3 agent.py | tee happy-run.txt`.
 
@@ -90,8 +90,10 @@ re-run the clean happy path.
 
 ## M3 · Cold open · "The critic catches a lie" (≈5 min)
 
-**Placement:** run before the subagents lecture. Watching the rejection land beats
-any diagram.
+**Placement:** this *is* the Module 3 warm-up, run before the subagents lecture.
+Watching the rejection land beats any diagram. Stay on Cortex (leadership
+update from fixtures). Do not substitute tickets, a refund policy, or a
+customer-reply task.
 
 **The wow moment:** an *independent* critic, a separate agent with its own
 instructions, rejects a draft that looked fine.
