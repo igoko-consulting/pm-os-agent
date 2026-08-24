@@ -2,7 +2,7 @@
 
 > Module 3 · Orchestration & Subagents, ★ Deliverable 3
 >
-> ✅ **What this validates:** nothing advances unchecked — by the end you'll have proven a justified topology, a roster, and a validator with a defined fail action.
+> ✅ **What this validates:** nothing advances unchecked, by the end you'll have proven a justified topology, a roster, and a validator with a defined fail action.
 >
 > Builds on your M2 Loop Spec. Only split one agent into a team when there's a real reason, coordination has a cost.
 
