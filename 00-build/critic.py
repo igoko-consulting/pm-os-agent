@@ -6,26 +6,39 @@ The revision cap that stops a critic<->drafter loop lives in `agent.py`.
 from __future__ import annotations
 
 import json
+import os
 
 from prompts import CRITIC_SYSTEM
+
+VERDICT_SCHEMA = {
+    "type": "object",
+    "properties": {
+        "verdict": {"type": "string", "enum": ["pass", "fail"]},
+        "reasons": {"type": "array", "items": {"type": "string"}},
+    },
+    "required": ["verdict", "reasons"],
+    "additionalProperties": False,
+}
 
 
 def review(client, model: str, proposed_output: str, source_data: str) -> dict:
     """Return {"verdict": "pass"|"fail", "reasons": [...]} for a proposed output."""
-    resp = client.chat.completions.create(
+    resp = client.messages.create(
         model=model,
+        max_tokens=int(os.environ.get("CORTEX_MAX_OUTPUT_TOKENS", "4096")),
+        system=CRITIC_SYSTEM,
         messages=[
-            {"role": "system", "content": CRITIC_SYSTEM},
             {"role": "user", "content":
                 f"SOURCE DATA Cortex used:\n{source_data}\n\n"
                 f"CORTEX PROPOSED OUTPUT:\n{proposed_output}"},
         ],
-        response_format={"type": "json_object"},
+        output_config={"format": {"type": "json_schema", "schema": VERDICT_SCHEMA}},
     )
     usage = resp.usage
     try:
-        verdict = json.loads(resp.choices[0].message.content)
-    except (json.JSONDecodeError, TypeError):
+        text = next(b.text for b in resp.content if b.type == "text")
+        verdict = json.loads(text)
+    except (json.JSONDecodeError, StopIteration, TypeError):
         verdict = {"verdict": "fail", "reasons": ["critic returned unparseable output"]}
-    verdict["_usage"] = {"prompt": usage.prompt_tokens, "completion": usage.completion_tokens}
+    verdict["_usage"] = {"prompt": usage.input_tokens, "completion": usage.output_tokens}
     return verdict
