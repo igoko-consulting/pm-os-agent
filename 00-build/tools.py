@@ -33,13 +33,13 @@ def get_task(which: str = "happy") -> dict:
     """Read the inbound PM task brief to work on.
 
     Args:
-        which: one of "happy", "missing-data", "jailbreak".
+        which: one of "happy", "missing-data", "jailbreak", "at-risk".
     Returns the raw task text plus its source label.
     """
     path = FIXTURES / f"task-{which}.md"
     if not path.exists():
         return {"error": f"no task fixture named '{which}'",
-                "available": ["happy", "missing-data", "jailbreak"]}
+                "available": ["happy", "missing-data", "jailbreak", "at-risk"]}
     return {"which": which, "body": path.read_text()}
 
 
