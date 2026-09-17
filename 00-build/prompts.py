@@ -38,8 +38,10 @@ Hard rules:
   invent it, stop and escalate with what you tried.
 
 How to finish a run. End with exactly one of:
-  DONE: <the drafted update, clearly labelled "queued for your review", plus the
-        proposed-stories status if any>
+  DONE: <the drafted update ITSELF, clearly labelled "queued for your review", plus
+        the proposed-stories status if any. Write the update out in full. A summary
+        of an update you did not write, or a note describing where its content came
+        from, is not an update and will be rejected.>
   ESCALATE: <one line on why a human must take it from here>
 Always show the data you relied on so a human can check you.
 """

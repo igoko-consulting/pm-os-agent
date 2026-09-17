@@ -27,6 +27,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import sys
 from pathlib import Path
 
@@ -105,6 +106,49 @@ OUTPUT_DIR = Path(__file__).parent / "run-output"
 
 def banner(text: str) -> None:
     print(f"\n{'=' * 64}\n{text}\n{'=' * 64}")
+
+
+# --- Definition of done (M2 loop-spec §2) ----------------------------------
+# "The model stopped calling tools" is a definition of quiet, not of done. A run is
+# only successful if it actually produced the deliverable, checked structurally here
+# rather than asserted by the model.
+MIN_DRAFT_CHARS = 200
+ARTEFACT_PATTERNS = (r"#\d+", r"\b\d{1,3}%")
+# The model writes the marker as a markdown heading ("## DONE") as often as the literal
+# "DONE:" the prompt asks for. A check stricter than the behaviour it checks produces
+# false stucks, which in a real deployment means pulling in a human for nothing.
+MARKER = r"(?mi)^[\s>#*_-]*(%s)\b[:*\s]"
+
+
+def artefacts_in(text: str) -> set[str]:
+    """Pull citable artefact tokens (PR/issue ids, metric values) out of text."""
+    found: set[str] = set()
+    for pattern in ARTEFACT_PATTERNS:
+        found.update(re.findall(pattern, text))
+    return found
+
+
+def check_done(draft: str, source_log: list[str]) -> tuple[str, str]:
+    """Classify a proposed output as done / escalate / stuck, with a reason.
+
+    Tokens are drawn from what this run actually pulled, so the check stays honest
+    when the fixtures change.
+    """
+    if not draft.strip():
+        return "stuck", "run produced no output at all"
+    if re.search(MARKER % "ESCALATE", draft):
+        return "escalate", "Cortex escalated to a human"
+    if not re.search(MARKER % "DONE", draft):
+        return "stuck", "output ended with neither DONE nor ESCALATE"
+    if len(draft.strip()) < MIN_DRAFT_CHARS:
+        return "stuck", f"draft is {len(draft.strip())} chars, below the {MIN_DRAFT_CHARS} minimum"
+    pulled = artefacts_in("\n".join(source_log))
+    cited = pulled & artefacts_in(draft)
+    if pulled and not cited:
+        return "stuck", ("draft cites none of the artefacts this run pulled "
+                         f"({', '.join(sorted(pulled))}), so it describes an update "
+                         "rather than containing one")
+    return "done", f"draft cites {', '.join(sorted(cited))}"
 
 
 def text_of(content) -> str:
@@ -188,10 +232,29 @@ def run(which: str = "happy") -> None:
             messages.append({"role": "user", "content": results})
             continue
 
-        # No tool calls => Cortex produced a proposed output. Validate it.
+        # No tool calls => Cortex produced a proposed output. Check it is the
+        # deliverable before paying for a critic call on it.
         proposed = text_of(resp.content)
         last_draft = proposed
         print(f"\n[step {step}] PROPOSED OUTPUT:\n{proposed}")
+
+        verdict_kind, why = check_done(proposed, source_log)
+        print(f"\n[step {step}] DEFINITION OF DONE: {verdict_kind}, {why}")
+
+        if verdict_kind == "stuck":
+            banner(f"STUCK, {why}. Halting and escalating to a human. "
+                   f"Run cost \u2248 ${bounds.cost:.4f}")
+            emit_deliverable(which, last_draft, accepted=False,
+                             reason=f"definition of done not met: {why}",
+                             cost=bounds.cost)
+            return
+
+        if verdict_kind == "escalate":
+            banner(f"ESCALATED by Cortex, handed to a human. Nothing posted. "
+                   f"Run cost \u2248 ${bounds.cost:.4f}")
+            emit_deliverable(which, last_draft, accepted=False,
+                             reason=why, cost=bounds.cost)
+            return
 
         banner("CRITIC, independent validation")
         verdict = review(client, MODEL, proposed, "\n".join(source_log))

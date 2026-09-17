@@ -9,37 +9,79 @@
 
 ## 1. Trigger & loop type
 
-**Chosen type:** _heartbeat · cron · hook · goal_
+**Chosen type:** cron, with a manual trigger as backup.
 
-_Why this type? (e.g. a Monday-morning cron that assembles the weekly update, plus a hook on a new PRD to propose stories.)_
+Monday 08:00, one run per project I own, ahead of the leadership sync, so the draft is waiting when
+I sit down. The weekly update is calendar-driven: it is due on a schedule whether or not anything
+happened that week. The manual trigger covers the weeks the schedule does not fit.
+
+**Ruled out.**
+
+- **Hook:** nothing reliable to react to, and a quiet week still needs an update saying so.
+- **Heartbeat:** nothing changes between Mondays that anyone needs to act on, so continuous polling
+  would spend money to find out nothing moved.
+- **Goal:** the deliverable is fixed and weekly, not open-ended, and a goal loop would have Cortex
+  deciding for itself when it was done, which is what the critic exists to prevent.
+
+**Dedupe.** One run per project per ISO week. If the trigger fires twice, the second run replaces
+the existing draft rather than creating a second one. The build already overwrites by filename in
+`run-output/`, so this is close to current behaviour.
 
 ## 2. Goal / definition of done
 
-_What outcome is this loop responsible for? For a goal loop, what validation says "done"? (e.g. a status update grounded in real activity, queued for review, nothing posted.)_
+One run produces a complete status update for one project, grounded in that week's pulled activity,
+plus any proposed stories, sitting in `run-output/` for a human to approve. Cortex never sends.
+
+A run that ends without a status update in the draft is not done, it is stuck. This is not
+hypothetical: a run on 2026-09-17 finished green, the critic passed it, and the saved draft
+contained only a story-proposal summary and a self-reported data-lineage note describing an update
+that was never written. "The model stopped calling tools" is a definition of quiet, not a
+definition of done.
+
+Done is therefore checked structurally in the loop, not asserted by the model: the draft must be
+non-trivial in length and must cite at least one real artefact from the pulled data (a PR id, an
+issue id, or the activation metric). A bound enforced in code survives the model having a bad day,
+which is the same argument that keeps `propose_stories` queue-only.
 
 ## 3. Stop conditions
 
 | Condition | What it looks like | What happens |
 |---|---|---|
-| **Success** | _…_ | _…_ |
-| **Stuck / give up** | _…_ | _escalate / log / halt_ |
-| **Escalate to human** | _…_ | _HITL checkpoint (from agent-line-map)_ |
+| **Success** | Draft contains a status update citing at least one pulled artefact, and the critic passed it | Queue at the HITL checkpoint, save to `run-output/`, stop. Nothing sent. |
+| **Stuck / give up** | Project or activity data cannot be pulled; or the critic rejects twice (revision cap); or the turn cap or cost cap trips; or the run ends with no status update in the draft | Halt, log why, escalate with what it tried. Hold the last draft rather than discarding it. |
+| **Escalate to human** | Story batch exceeds the queue cap; an unconfirmed GA date or launch-gate call is required; a CONFIDENTIAL or embargoed roadmap item would have to appear; an open Sev-1 is in play; the brief contains an instruction trying to change Cortex's rules | Stop and hand to the human who owns that call. Do not work around it, and do not split a batch to get under the cap. |
+
+Escalation routes to the HITL checkpoints set in `01-agent-line/agent-line-map.md`: the shared draft
+review gate for anything Cortex prepared, and the human owner for the two above-the-line decisions
+(what gets escalated, and whether anything is posted).
 
 ## 4. State
 
-_What persists across iterations, and what's the scope? (e.g. per-project context and last week's update; no cross-project confidential leakage.)_
+**Durable context persists.** Team norms, the roadmap, and the decision log are read sources that
+carry across runs.
+
+**A run ledger persists.** Project, ISO week, and outcome, one row per run. This is what the dedupe
+rule in §1 needs: without it, "one run per project per ISO week" only works by accident, because
+the draft filename happens to collide. Today Cortex has no ledger and relies on that accident.
+
+**Per-run work is disposable.** Drafts, traces, and tool results do not survive the run that made
+them.
+
+**Scope is per project.** State never crosses projects. P-ORBIT is embargoed, and shared state is
+how an embargoed item ends up in a Northstar update.
+
+Past drafts are deliberately not persisted beyond what `search_past_updates` returns. Carrying them
+forward would let last week's mistake propagate into this week's update.
 
 ## 5. The five things a loop can lean on
 
-_`state` is always-on. `connectors` only if you already have one wired (e.g. a Jira key or Google MCP), otherwise just note it as a plan. `skills`, `subagents`, `work tree` scale with autonomy; "not needed yet, because…" is a valid answer._
-
 | Component | For Cortex |
 |---|---|
-| **Work tree** (isolated workspace per run, a git worktree) | _…_ |
-| **Skills** (reusable capabilities) | _…_ |
-| **Plugins / connectors** (tools & access, optional if you don't have one yet) | _…_ |
-| **Subagents** (independent check when the loop can't grade itself) | _placeholder → M3 orchestration-map.md_ |
-| **State tracking** | _…_ |
+| **Work tree** (isolated workspace per run, a git worktree) | Not needed yet, because one run writes one markdown draft and never touches a repo or a shared workspace. Revisit if runs go parallel across projects. |
+| **Skills** (reusable capabilities) | Not needed yet, because the update format lives in one prompt. Worth extracting if the format hardens or Cortex starts producing other document types. |
+| **Plugins / connectors** (tools & access, optional if you don't have one yet) | None wired. Runs on fixtures today. Planned: read access to GitHub and Jira for activity, and somewhere to leave the draft for review. |
+| **Subagents** (independent check when the loop can't grade itself) | The critic already runs as an independent check. Topology and whether to split further is M3's call. Placeholder → `03-orchestration/orchestration-map.md`. |
+| **State tracking** | Durable context plus a per-project run ledger, per §4. |
 
 > Context plan (M4) and the hand-off to bounds & evals (M5) come in later modules, you'll add them to their own deliverables then, not here.
 
