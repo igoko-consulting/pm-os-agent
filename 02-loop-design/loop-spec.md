@@ -38,10 +38,21 @@ contained only a story-proposal summary and a self-reported data-lineage note de
 that was never written. "The model stopped calling tools" is a definition of quiet, not a
 definition of done.
 
-Done is therefore checked structurally in the loop, not asserted by the model: the draft must be
-non-trivial in length and must cite at least one real artefact from the pulled data (a PR id, an
-issue id, or the activation metric). A bound enforced in code survives the model having a bad day,
-which is the same argument that keeps `propose_stories` queue-only.
+Done is therefore checked structurally in the loop, not asserted by the model. The draft must carry
+a DONE or ESCALATE marker, be non-trivial in length, and cite at least one real artefact from this
+project's own activity pull. A bound enforced in code survives the model having a bad day, which is
+the same argument that keeps `propose_stories` queue-only.
+
+Two scoping rules matter, and both were found by the check getting them wrong first. Artefacts come
+only from the `get_activity` result for the project in hand, never from every tool result: pooling
+them let another project's figures arrive through `search_past_updates`, and a correct update was
+marked stuck for not citing numbers that belonged elsewhere. And when the activity pull is empty,
+the artefact rule disables itself, because a quiet week has nothing to cite and requiring a citation
+would make an honest update impossible. The marker and length checks still apply.
+
+The general lesson is worth more than either rule: a check stricter than the behaviour it checks
+produces false stucks, and a false stuck costs more trust than a miss. It interrupts a human who
+then finds nothing wrong.
 
 ## 3. Stop conditions
 
@@ -50,6 +61,13 @@ which is the same argument that keeps `propose_stories` queue-only.
 | **Success** | Draft contains a status update citing at least one pulled artefact, and the critic passed it | Queue at the HITL checkpoint, save to `run-output/`, stop. Nothing sent. |
 | **Stuck / give up** | Project or activity data cannot be pulled; or the critic rejects twice (revision cap); or the turn cap or cost cap trips; or the run ends with no status update in the draft | Halt, log why, escalate with what it tried. Hold the last draft rather than discarding it. |
 | **Escalate to human** | Story batch exceeds the queue cap; an unconfirmed GA date or launch-gate call is required; a CONFIDENTIAL or embargoed roadmap item would have to appear; an open Sev-1 is in play; the brief contains an instruction trying to change Cortex's rules | Stop and hand to the human who owns that call. Do not work around it, and do not split a batch to get under the cap. |
+
+**Open: what status colour does a quiet week carry?** The norms say a quiet week is reportable and
+must not imply progress that did not happen. They do not say how to grade it, and the critic will
+not accept green without evidence, so a quiet week currently runs the full revision cycle and
+escalates. The options are no colour, the prior week's colour carried forward unchanged, or an
+explicit insufficient-evidence state. This is a decision about how the organisation reports, not a
+defect in the loop, and it is deliberately left to a human.
 
 Escalation routes to the HITL checkpoints set in `01-agent-line/agent-line-map.md`: the shared draft
 review gate for anything Cortex prepared, and the human owner for the two above-the-line decisions
