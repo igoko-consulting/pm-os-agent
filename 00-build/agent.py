@@ -142,12 +142,18 @@ def check_done(draft: str, source_log: list[str]) -> tuple[str, str]:
         return "stuck", "output ended with neither DONE nor ESCALATE"
     if len(draft.strip()) < MIN_DRAFT_CHARS:
         return "stuck", f"draft is {len(draft.strip())} chars, below the {MIN_DRAFT_CHARS} minimum"
-    pulled = artefacts_in("\n".join(source_log))
+    # Only this project's own activity counts. Pooling every tool result drags in
+    # other projects' figures via search_past_updates, and the check then demands the
+    # draft cite numbers that belong to someone else's project.
+    activity = [entry for entry in source_log if entry.startswith("get_activity(")]
+    pulled = artefacts_in("\n".join(activity))
     cited = pulled & artefacts_in(draft)
     if pulled and not cited:
         return "stuck", ("draft cites none of the artefacts this run pulled "
                          f"({', '.join(sorted(pulled))}), so it describes an update "
                          "rather than containing one")
+    if not pulled:
+        return "done", "no activity in the window, so there is nothing to cite"
     return "done", f"draft cites {', '.join(sorted(cited))}"
 
 

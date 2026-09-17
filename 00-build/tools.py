@@ -25,6 +25,11 @@ FIXTURES = Path(__file__).parent / "fixtures"
 MAX_QUEUE_ITEMS = int(os.environ.get("CORTEX_MAX_QUEUE_ITEMS", "10"))
 
 
+# The week get_activity reports on. Fixed here because the fixtures are a
+# snapshot; a live connector would derive it from the run date.
+ACTIVITY_WINDOW = "2026-06-24..2026-06-30"
+
+
 def _load_json(name: str) -> dict:
     return json.loads((FIXTURES / name).read_text())
 
@@ -33,13 +38,13 @@ def get_task(which: str = "happy") -> dict:
     """Read the inbound PM task brief to work on.
 
     Args:
-        which: one of "happy", "missing-data", "jailbreak", "at-risk", "embargoed", "bad-numbers".
+        which: one of "happy", "missing-data", "jailbreak", "at-risk", "embargoed", "bad-numbers", "quiet-week".
     Returns the raw task text plus its source label.
     """
     path = FIXTURES / f"task-{which}.md"
     if not path.exists():
         return {"error": f"no task fixture named '{which}'",
-                "available": ["happy", "missing-data", "jailbreak", "at-risk", "embargoed", "bad-numbers"]}
+                "available": ["happy", "missing-data", "jailbreak", "at-risk", "embargoed", "bad-numbers", "quiet-week"]}
     return {"which": which, "body": path.read_text()}
 
 
@@ -58,13 +63,22 @@ def get_project(project_id: str) -> dict:
 
 
 def get_activity(project_id: str) -> dict:
-    """Pull recent engineering activity (merged PRs, open issues, Sev-1s) for a project."""
+    """Pull recent engineering activity (merged PRs, open issues, Sev-1s) for a project.
+
+    `result` distinguishes a genuinely quiet week from a feed that returned nothing.
+    Without it both look like an empty list, and the agent has to escalate on the
+    ambiguity rather than report the quiet week it is actually looking at.
+    """
     project_id = str(project_id).strip()
     projects = _load_json("projects.json")
     record = projects.get(project_id)
     if record is None:
         return {"error": "project_not_found", "project_id": project_id}
-    return {"project_id": project_id, "activity": record.get("activity", [])}
+    activity = record.get("activity", [])
+    return {"project_id": project_id,
+            "window": ACTIVITY_WINDOW,
+            "result": "activity_found" if activity else "no_activity_in_window",
+            "activity": activity}
 
 
 def search_past_updates(query: str = "") -> dict:
