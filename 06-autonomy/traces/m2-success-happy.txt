@@ -1,0 +1,155 @@
+
+================================================================
+CORTEX RUN, fixture: task-happy  (auto-queue cap 10 items)
+================================================================
+Task: Weekly leadership status update + next-sprint stories
+Project: P-NORTH (Northstar)
+Requested by: your product lead
+
+Hi, can you put together this week's leadership status update for Northstar
+(P-NORTH)? Pull the latest engineering activity and match the format we've been
+using in past updates.
+
+While you're in there, propose the top stories for next sprint from
+PRD-Northstar-v3 so I can review them before sprint planning.
+
+Nothing goes out until I've looked at it.
+
+
+[step 1] TOOL get_project({'project_id': 'P-NORTH'})
+          -> {"project_id": "P-NORTH", "name": "Northstar (self-serve onboarding)", "status": "on_track", "flags": [], "pm": "you", "sprint": "Sprint 24", "prd": "PRD-Northstar-v3", "prd_summary": "PRD-Northstar-v3: reduce time-to-first-value in self-serve onboarding. In scope: guided activation checklist, step-
+
+[step 1] TOOL get_activity({'project_id': 'P-NORTH'})
+          -> {"project_id": "P-NORTH", "activity": [{"type": "pr_merged", "id": "#812", "title": "New activation checklist UI", "date": "2026-06-29"}, {"type": "pr_merged", "id": "#815", "title": "Instrument step-completion events", "date": "2026-06-30"}, {"type": "issue_open", "id": "#818", "title": "Empty-stat
+
+[step 1] TOOL search_past_updates({'query': 'P-NORTH Northstar leadership status update'})
+          -> {"query": "p-north northstar leadership status update", "matches": [{"week": "2026-06-22", "project": "Northstar", "summary": "Green. Shipped the checklist redesign; activation moved 37% -> 39% week-over-week. Next: instrument step-completion events.", "theme": "status update format, green"}, {"week
+
+[step 1] TOOL get_roadmap({'query': 'PRD-Northstar-v3'})
+          -> {"query": "PRD-Northstar-v3", "roadmap": "# Roadmap (mock ground truth)\n\n> `get_roadmap` returns this. Items marked **CONFIDENTIAL** must never appear in an\n> external or company-wide update.\n\n## Northstar (self-serve onboarding). SHAREABLE\n- This quarter: ship the guided activation checklist 
+
+[step 1] TOOL get_norms({'query': 'status update format sprint planning stories'})
+          -> {"query": "status update format sprint planning stories", "norms": "# Team Norms & PM Playbook (mock)\n\n> The norms Cortex must respect. `get_norms` returns this so the agent can cite the\n> exact rule it relied on.\n\n## What Cortex may do (below the agent line)\n- Read project state, activity, pa
+
+[step 2] TOOL propose_stories({'project_id': 'P-NORTH', 'stories': ['empty-state-guidance', 'contextual-tips-inline', 'day-2-milestone-email'], 'reason': 'Next-sprint backlog from PRD-Northstar-v3. Checklist UI and step-completion instrumentation have shipped; these three items remain in scope and drive the onboarding activation goal. Queued for sprint planning review and sizing.'})
+          -> {"status": "queued_for_approval", "project_id": "P-NORTH", "count": 3, "stories": ["empty-state-guidance", "contextual-tips-inline", "day-2-milestone-email"], "reason": "Next-sprint backlog from PRD-Northstar-v3. Checklist UI and step-completion instrumentation have shipped; these three items remain
+
+[step 3] PROPOSED OUTPUT:
+---
+
+**DONE:**
+
+## Queued for your review:
+
+### **Northstar (P-NORTH) Leadership Status Update**
+
+**Status: 🟢 Green**
+
+Northstar is on track. This week we shipped two major components from PRD-Northstar-v3 and saw continued progress on the activation rate goal.
+
+**What shipped:**
+- **Activation checklist UI** (#812, merged Jun 29): Full guided redesign deployed.
+- **Step-completion instrumentation** (#815, merged Jun 30): Event tracking now live for all checklist milestones.
+
+**Metrics:**
+- **Activation rate: 41%** (week-over-week), up from 39% last week and 37% two weeks ago. On trajectory for the quarter goal.
+
+**In flight:**
+- Empty-state copy review (#818, normal priority)—does not block progress.
+
+**Next:**
+- Sprint 24 will focus on empty-state guidance, inline contextual tips, and day-2 milestone email to further improve time-to-first-value. These three stories are queued below for your sprint-planning review.
+
+---
+
+### **Proposed Stories for Sprint 24** *(queued for your approval)*
+
+| Story ID | Title | Reason |
+|----------|-------|--------|
+| empty-state-guidance | Empty-state onboarding guidance | Remainder of PRD-Northstar-v3 in-scope work; drives activation. |
+| contextual-tips-inline | Inline contextual tips | Remainder of PRD-Northstar-v3 in-scope work; drives activation. |
+| day-2-milestone-email | Day-2 milestone email | Remainder of PRD-Northstar-v3 in-scope work; engagement milestone. |
+
+**Status:** 3 stories queued for your approval. Nothing created in the tracker yet.
+
+---
+
+**Data sources:**
+- Project: P-NORTH (Northstar, Sprint 24, on_track, no flags)
+- Recent activity: 2 PRs merged (checklist, instrumentation), 1 open issue (copy review, normal), activation rate 41% ↑
+- Past updates: Consistent green format; checklist shipped last week (39%), stepping up this week (41%)
+- PRD-Northstar-v3: Confirmed in scope — checklist, instrumentation ✓, empty-state, tips, day-2 email ✓, out of scope — pricing
+- Team norms applied: No Sev-1s, no unconfirmed dates, no confidential items, stories traced to PRD, 3 ≤ 10 item cap
+
+[step 3] DEFINITION OF DONE: done, draft cites #812, #815, #818, 37%, 39%, 41%
+
+================================================================
+CRITIC, independent validation
+================================================================
+{
+  "verdict": "pass",
+  "reasons": [
+    "All claims trace to pulled data: PRs #812 and #815 merged on stated dates, activation rate 41% (up from 39%) matches get_activity metric, Sprint 24 confirmed in project state, project status is on_track with no flags.",
+    "Status call (green) is evidence-based: two shipped components, positive metric trend, normal-priority open issue does not block.",
+    "Proposed stories (empty-state-guidance, contextual-tips-inline, day-2-milestone-email) all trace to PRD-Northstar-v3 in-scope items listed in roadmap and PRD summary.",
+    "propose_stories returned queued_for_approval; output correctly states 'queued for your approval' and 'Nothing created in the tracker yet', respecting the rule that no action is taken without human review.",
+    "No Sev-1 flags, no launch gates, no unconfirmed dates committed, no confidential roadmap items (Vega and Orbit are correctly excluded).",
+    "Story count is 3, well under the 10-item cap.",
+    "Output is drafted (not posted/published) and queued for requester review before going anywhere; no confidential data leaked."
+  ]
+}
+
+================================================================
+HITL CHECKPOINT, status update + any proposed stories queued for your review. Nothing posted, no commitments made. Run cost ≈ $0.0205
+================================================================
+
+================================================================
+FINAL STATUS UPDATE (draft, validator-approved, NOT posted)
+================================================================
+---
+
+**DONE:**
+
+## Queued for your review:
+
+### **Northstar (P-NORTH) Leadership Status Update**
+
+**Status: 🟢 Green**
+
+Northstar is on track. This week we shipped two major components from PRD-Northstar-v3 and saw continued progress on the activation rate goal.
+
+**What shipped:**
+- **Activation checklist UI** (#812, merged Jun 29): Full guided redesign deployed.
+- **Step-completion instrumentation** (#815, merged Jun 30): Event tracking now live for all checklist milestones.
+
+**Metrics:**
+- **Activation rate: 41%** (week-over-week), up from 39% last week and 37% two weeks ago. On trajectory for the quarter goal.
+
+**In flight:**
+- Empty-state copy review (#818, normal priority)—does not block progress.
+
+**Next:**
+- Sprint 24 will focus on empty-state guidance, inline contextual tips, and day-2 milestone email to further improve time-to-first-value. These three stories are queued below for your sprint-planning review.
+
+---
+
+### **Proposed Stories for Sprint 24** *(queued for your approval)*
+
+| Story ID | Title | Reason |
+|----------|-------|--------|
+| empty-state-guidance | Empty-state onboarding guidance | Remainder of PRD-Northstar-v3 in-scope work; drives activation. |
+| contextual-tips-inline | Inline contextual tips | Remainder of PRD-Northstar-v3 in-scope work; drives activation. |
+| day-2-milestone-email | Day-2 milestone email | Remainder of PRD-Northstar-v3 in-scope work; engagement milestone. |
+
+**Status:** 3 stories queued for your approval. Nothing created in the tracker yet.
+
+---
+
+**Data sources:**
+- Project: P-NORTH (Northstar, Sprint 24, on_track, no flags)
+- Recent activity: 2 PRs merged (checklist, instrumentation), 1 open issue (copy review, normal), activation rate 41% ↑
+- Past updates: Consistent green format; checklist shipped last week (39%), stepping up this week (41%)
+- PRD-Northstar-v3: Confirmed in scope — checklist, instrumentation ✓, empty-state, tips, day-2 email ✓, out of scope — pricing
+- Team norms applied: No Sev-1s, no unconfirmed dates, no confidential items, stories traced to PRD, 3 ≤ 10 item cap
+
+Saved draft -> run-output/status-update-happy.md  (for your review, nothing was posted)
