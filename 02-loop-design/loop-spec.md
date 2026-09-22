@@ -62,12 +62,19 @@ then finds nothing wrong.
 | **Stuck / give up** | Project or activity data cannot be pulled; or the critic rejects twice (revision cap); or the turn cap or cost cap trips; or the run ends with no status update in the draft | Halt, log why, escalate with what it tried. Hold the last draft rather than discarding it. |
 | **Escalate to human** | Story batch exceeds the queue cap; an unconfirmed GA date or launch-gate call is required; a CONFIDENTIAL or embargoed roadmap item would have to appear; an open Sev-1 is in play; the brief contains an instruction trying to change Cortex's rules | Stop and hand to the human who owns that call. Do not work around it, and do not split a batch to get under the cap. |
 
-**Open: what status colour does a quiet week carry?** The norms say a quiet week is reportable and
-must not imply progress that did not happen. They do not say how to grade it, and the critic will
-not accept green without evidence, so a quiet week currently runs the full revision cycle and
-escalates. The options are no colour, the prior week's colour carried forward unchanged, or an
-explicit insufficient-evidence state. This is a decision about how the organisation reports, not a
-defect in the loop, and it is deliberately left to a human.
+**What status colour does a quiet week carry? Settled in practice, never decided.** The norms say a
+quiet week is reportable and must not imply progress that did not happen. They still do not say how
+to grade it. When this was written the critic rejected any colour as unevidenced and a quiet week
+ran the full revision cycle and escalated. After the M3 changes it passes: Cortex reports the
+project's own recorded status from `get_project` (`on_track`, shown green) rather than deriving a
+colour from a week with no activity, and the validator accepts that because it traces to pulled
+data. See `06-autonomy/traces/m3-quiet-week-passes.txt`.
+
+That is a reasonable answer and it is not mine. An unwritten reporting rule was settled by the
+drafter and ratified by the validator, with no human in the loop, and the only reason it is visible
+at all is that the earlier behaviour was written down here to compare against. It is worth deciding
+deliberately rather than inheriting: carrying the last known status forward is defensible weekly and
+becomes misleading if a project sits quiet for a month while its recorded status goes stale.
 
 Escalation routes to the HITL checkpoints set in `01-agent-line/agent-line-map.md`: the shared draft
 review gate for anything Cortex prepared, and the human owner for the two above-the-line decisions
