@@ -30,8 +30,11 @@ the only ungated row with low measurability.
 
 - **Model:** `claude-haiku-4-5` for drafting and tool use. Cheap, fast, and sufficient on this
   workload. Escalate to `claude-opus-5` for the critic only: it is the last check before a human
-  sees anything, and it runs once per loop, so the cost delta is small. Not yet implemented,
-  `critic.py` currently shares the drafting model. M3 wires it.
+  sees anything, and it runs once per loop. Wired in M3: `CORTEX_CRITIC_MODEL` in `.env`, passed
+  separately from the drafting model in `agent.py`, and priced separately in the cost estimate.
+  The cost delta is not small, it is about 10x per call, and it earned it on the first live run by
+  catching a fabricated forward target the cheaper critic had been passing. See
+  `03-orchestration/orchestration-map.md` Field 7.
   (Worth separating: `claude-opus-5` is also the coding agent building Cortex. That is a different
   bill from Cortex's own runtime model.)
 - **Tools:** read-only project lookup, activity pull, past-update search, roadmap, and team norms,

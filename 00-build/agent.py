@@ -46,6 +46,13 @@ except ImportError:
 
 # --- Bounds (your M5 deliverable: tune these and justify them) ----------------
 MODEL = os.environ.get("CORTEX_MODEL", "claude-haiku-4-5")
+# The critic is the last check before a human sees anything, and it runs once per
+# loop, so it is the one call worth paying more for (M1 agent-line-map anatomy).
+CRITIC_MODEL = os.environ.get("CORTEX_CRITIC_MODEL", MODEL)
+CRITIC_PRICE_IN = float(os.environ.get("CORTEX_CRITIC_PRICE_IN_PER_M",
+                                       os.environ.get("CORTEX_PRICE_IN_PER_M", "1.00")))
+CRITIC_PRICE_OUT = float(os.environ.get("CORTEX_CRITIC_PRICE_OUT_PER_M",
+                                        os.environ.get("CORTEX_PRICE_OUT_PER_M", "5.00")))
 MAX_ITERATIONS = int(os.environ.get("CORTEX_MAX_ITERATIONS", "8"))
 MAX_REVISIONS = int(os.environ.get("CORTEX_MAX_REVISIONS", "2"))
 COST_CAP_USD = float(os.environ.get("CORTEX_COST_CAP_USD", "0.50"))
@@ -215,7 +222,8 @@ def run(which: str = "happy") -> None:
         print(task)
         return
 
-    banner(f"CORTEX RUN, fixture: task-{which}  (auto-queue cap {MAX_QUEUE_ITEMS} items)")
+    banner(f"CORTEX RUN, fixture: task-{which}  (draft {MODEL}, critic {CRITIC_MODEL}, "
+           f"auto-queue cap {MAX_QUEUE_ITEMS} items)")
     print(task["body"])
 
     messages = [
@@ -279,11 +287,11 @@ def run(which: str = "happy") -> None:
             return
 
         banner("CRITIC, independent validation")
-        verdict = review(client, MODEL, proposed, "\n".join(source_log[1:]),
+        verdict = review(client, CRITIC_MODEL, proposed, "\n".join(source_log[1:]),
                          task_brief=task["body"])
         # Estimate critic spend too.
-        bounds.cost += (verdict["_usage"]["prompt"] * PRICE_IN
-                        + verdict["_usage"]["completion"] * PRICE_OUT) / 1_000_000
+        bounds.cost += (verdict["_usage"]["prompt"] * CRITIC_PRICE_IN
+                        + verdict["_usage"]["completion"] * CRITIC_PRICE_OUT) / 1_000_000
         print(json.dumps({k: v for k, v in verdict.items() if k != "_usage"}, indent=2))
 
         if verdict["verdict"] == "pass":

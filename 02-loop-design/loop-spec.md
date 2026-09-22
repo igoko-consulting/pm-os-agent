@@ -59,7 +59,7 @@ then finds nothing wrong.
 | Condition | What it looks like | What happens |
 |---|---|---|
 | **Success** | Draft contains a status update citing at least one pulled artefact, and the critic passed it | Queue at the HITL checkpoint, save to `run-output/`, stop. Nothing sent. |
-| **Stuck / give up** | Project or activity data cannot be pulled; or the critic rejects twice (revision cap); or the turn cap or cost cap trips; or the run ends with no status update in the draft | Halt, log why, escalate with what it tried. Hold the last draft rather than discarding it. |
+| **Stuck / give up** | Project or activity data cannot be pulled; or the critic rejects twice (revision cap); or the turn cap or cost cap trips; or the run ends with no status update in the draft; or the brief carried an injection marker and the run did not take the escalate exit (added M3) | Halt, log why, escalate with what it tried. Hold the last draft rather than discarding it. |
 | **Escalate to human** | Story batch exceeds the queue cap; an unconfirmed GA date or launch-gate call is required; a CONFIDENTIAL or embargoed roadmap item would have to appear; an open Sev-1 is in play; the brief contains an instruction trying to change Cortex's rules | Stop and hand to the human who owns that call. Do not work around it, and do not split a batch to get under the cap. |
 
 **What status colour does a quiet week carry? Settled in practice, never decided.** The norms say a
@@ -105,7 +105,7 @@ forward would let last week's mistake propagate into this week's update.
 | **Work tree** (isolated workspace per run, a git worktree) | Not needed yet, because one run writes one markdown draft and never touches a repo or a shared workspace. Revisit if runs go parallel across projects. |
 | **Skills** (reusable capabilities) | Not needed yet, because the update format lives in one prompt. Worth extracting if the format hardens or Cortex starts producing other document types. |
 | **Plugins / connectors** (tools & access, optional if you don't have one yet) | None wired. Runs on fixtures today. Planned: read access to GitHub and Jira for activity, and somewhere to leave the draft for review. |
-| **Subagents** (independent check when the loop can't grade itself) | The critic already runs as an independent check. Topology and whether to split further is M3's call. Placeholder → `03-orchestration/orchestration-map.md`. |
+| **Subagents** (independent check when the loop can't grade itself) | The critic runs as an independent check, on a stronger model than the drafter. M3 settled the topology as single + subagents and kept it at one validator: see `03-orchestration/orchestration-map.md`. |
 | **State tracking** | Durable context plus a per-project run ledger, per §4. |
 
 > Context plan (M4) and the hand-off to bounds & evals (M5) come in later modules, you'll add them to their own deliverables then, not here.

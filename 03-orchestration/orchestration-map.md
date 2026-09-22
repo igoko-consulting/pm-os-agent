@@ -123,28 +123,40 @@ the absence against. It validates the draft, not the retrieval.
 
 ## 7. Cost & latency budget
 
-**Per run, normal case.** One extra model call. Measured at 2,347 input and 504 output tokens,
-**$0.0049** and about **7 seconds** on `claude-haiku-4-5`. A clean successful run costs roughly
-$0.020 end to end, so the validator is about a quarter of it.
+Measured on the real build, not estimated. The critic runs on `claude-opus-5` while the drafter
+runs on `claude-haiku-4-5`, per the M1 anatomy: it is the last check before a human and it runs
+once per loop.
 
-**Worst case, at the revision cap.** Three validator calls and two redrafts. Measured at **$0.0275**
-on `m2-quiet-week.txt` against about $0.020 for a clean pass, so a fully bounced run costs roughly
-35% more and adds about 20 seconds before anything reaches the PM.
+| | Haiku critic | Opus critic |
+|---|---|---|
+| One validator call | $0.0049, 6.9s | **$0.0518, 20.1s** |
+| Clean run, end to end | ~$0.0200 | ~$0.065 |
+| Run with one rejection + redraft | ~$0.027 | **$0.1196** (measured) |
 
-**Weekly, at the intended cadence.** One run per project per week. Four projects is about $0.08 a
-week, or £4 a year. Cost is not the constraint at this scale. It becomes one if Cortex ever runs
-per-project-per-day, or if the model moves up a tier, and that is the decision to revisit rather
-than this one.
+So the validator went from about a quarter of a run to roughly four fifths of it, and the upgrade
+costs about 10x per call and 3x the latency.
 
-**Latency is not a constraint either.** The run is triggered by a Monday 08:00 cron and read by a
-human later that morning. Seven seconds, or twenty at the cap, is invisible against that. It would
-matter if the trigger became a hook on an inbound request with someone waiting.
+**Worst case, at the revision cap.** Three validator calls and two redrafts, roughly $0.17 and
+about a minute before anything reaches the PM.
 
-**What the budget actually has to justify.** Five deliberate attempts to make the validator reject a
-draft in a live run failed, because the drafter caught the problem first. The same fixtures produced
-rejections in M2. So the validator is no longer catching something most weeks, and its cost is being
-paid for the rare case: a draft that is wrong in a way the drafter cannot see, which is precisely
-the class of error that self-grading misses. `m2-critic-rejection.txt` is that case, where the draft
-claimed stories had been queued that were never queued. A quarter of a run is cheap insurance
-against a false claim reaching leadership. It would not be cheap if the run were 100x larger, and
-that is the number to watch in M5.
+**Weekly, at the intended cadence.** One run per project per week. Four projects is about $0.26 a
+week, around $14 a year. Six times the previous figure and still not the constraint. It becomes one
+if Cortex runs per-project-per-day, which would be roughly $100 a year, or if the fleet grows.
+
+**Latency is still not a constraint.** A Monday 08:00 cron read by a human later that morning does
+not care about twenty seconds, or a minute at the cap. It would matter if the trigger became a hook
+with someone waiting.
+
+**Whether the upgrade is worth 10x.** On the evidence so far, yes, and the evidence is narrow.
+Five deliberate attempts to make the Haiku critic reject a live draft all failed: the drafter caught
+each problem first, or the critic passed it. The Opus critic rejected a draft **on its first live
+run**, catching a fabricated forward target, "end-of-quarter lift to 44%+", that appears in no tool
+result and that the cheaper critic had been passing. See
+`06-autonomy/traces/m3-opus-critic-rejection.txt`.
+
+That is one data point, not a measured error rate, and it should be treated as such. The honest
+statement is that the cheaper critic has never been observed catching anything the drafter did not
+already catch, and the dearer one caught something immediately. What would settle it is an eval set
+of known-bad drafts scored by both, which is M5's job. The number to watch there is not the cost,
+it is how often each critic is the only thing standing between a fabricated figure and a leadership
+audience.
