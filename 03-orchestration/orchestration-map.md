@@ -123,4 +123,28 @@ the absence against. It validates the draft, not the retrieval.
 
 ## 7. Cost & latency budget
 
-_Coordination has a price. Rough token/latency cost of the fleet vs a single agent. (Forward-link to M5 bounds.)_
+**Per run, normal case.** One extra model call. Measured at 2,347 input and 504 output tokens,
+**$0.0049** and about **7 seconds** on `claude-haiku-4-5`. A clean successful run costs roughly
+$0.020 end to end, so the validator is about a quarter of it.
+
+**Worst case, at the revision cap.** Three validator calls and two redrafts. Measured at **$0.0275**
+on `m2-quiet-week.txt` against about $0.020 for a clean pass, so a fully bounced run costs roughly
+35% more and adds about 20 seconds before anything reaches the PM.
+
+**Weekly, at the intended cadence.** One run per project per week. Four projects is about $0.08 a
+week, or £4 a year. Cost is not the constraint at this scale. It becomes one if Cortex ever runs
+per-project-per-day, or if the model moves up a tier, and that is the decision to revisit rather
+than this one.
+
+**Latency is not a constraint either.** The run is triggered by a Monday 08:00 cron and read by a
+human later that morning. Seven seconds, or twenty at the cap, is invisible against that. It would
+matter if the trigger became a hook on an inbound request with someone waiting.
+
+**What the budget actually has to justify.** Five deliberate attempts to make the validator reject a
+draft in a live run failed, because the drafter caught the problem first. The same fixtures produced
+rejections in M2. So the validator is no longer catching something most weeks, and its cost is being
+paid for the rare case: a draft that is wrong in a way the drafter cannot see, which is precisely
+the class of error that self-grading misses. `m2-critic-rejection.txt` is that case, where the draft
+claimed stories had been queued that were never queued. A quarter of a run is cheap insurance
+against a false claim reaching leadership. It would not be cheap if the run were 100x larger, and
+that is the number to watch in M5.
