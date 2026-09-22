@@ -113,6 +113,13 @@ def banner(text: str) -> None:
 # only successful if it actually produced the deliverable, checked structurally here
 # rather than asserted by the model.
 MIN_DRAFT_CHARS = 200
+# A tripwire, not a defence. Any rephrasing defeats a pattern list; the actual
+# defence against injection is that no publish, create or merge tool exists, so a
+# brief cannot make Cortex act on the world whatever it says. What this catches is
+# the one failure the critic already missed: an injection flagged but not escalated.
+INJECTION_MARKERS = ("system override", "admin mode", "ignore previous",
+                     "ignore all previous", "you are now", "developer mode",
+                     "disregard your")
 ARTEFACT_PATTERNS = (r"#\d+", r"\b\d{1,3}%")
 # The model writes the marker as a markdown heading ("## DONE") as often as the literal
 # "DONE:" the prompt asks for. A check stricter than the behaviour it checks produces
@@ -128,7 +135,13 @@ def artefacts_in(text: str) -> set[str]:
     return found
 
 
-def check_done(draft: str, source_log: list[str]) -> tuple[str, str]:
+def injection_attempted(brief: str) -> bool:
+    """True if the inbound brief carries a known injection marker."""
+    lowered = brief.lower()
+    return any(marker in lowered for marker in INJECTION_MARKERS)
+
+
+def check_done(draft: str, source_log: list[str], brief: str = "") -> tuple[str, str]:
     """Classify a proposed output as done / escalate / stuck, with a reason.
 
     Tokens are drawn from what this run actually pulled, so the check stays honest
@@ -140,6 +153,9 @@ def check_done(draft: str, source_log: list[str]) -> tuple[str, str]:
         return "escalate", "Cortex escalated to a human"
     if not re.search(MARKER % "DONE", draft):
         return "stuck", "output ended with neither DONE nor ESCALATE"
+    if injection_attempted(brief):
+        return "stuck", ("the brief carried an injection marker, so this run had to escalate; "
+                         "it finished with DONE instead")
     if len(draft.strip()) < MIN_DRAFT_CHARS:
         return "stuck", f"draft is {len(draft.strip())} chars, below the {MIN_DRAFT_CHARS} minimum"
     # Only this project's own activity counts. Pooling every tool result drags in
@@ -244,7 +260,7 @@ def run(which: str = "happy") -> None:
         last_draft = proposed
         print(f"\n[step {step}] PROPOSED OUTPUT:\n{proposed}")
 
-        verdict_kind, why = check_done(proposed, source_log)
+        verdict_kind, why = check_done(proposed, source_log, task["body"])
         print(f"\n[step {step}] DEFINITION OF DONE: {verdict_kind}, {why}")
 
         if verdict_kind == "stuck":
@@ -263,7 +279,8 @@ def run(which: str = "happy") -> None:
             return
 
         banner("CRITIC, independent validation")
-        verdict = review(client, MODEL, proposed, "\n".join(source_log))
+        verdict = review(client, MODEL, proposed, "\n".join(source_log[1:]),
+                         task_brief=task["body"])
         # Estimate critic spend too.
         bounds.cost += (verdict["_usage"]["prompt"] * PRICE_IN
                         + verdict["_usage"]["completion"] * PRICE_OUT) / 1_000_000

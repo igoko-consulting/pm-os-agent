@@ -8,39 +8,118 @@
 
 ## 1. Why split? (or why not)
 
-_Run the default-to-simple check. Do you actually need subagents/a fleet? What's the real reason (separation of concerns · parallelism · independent validation · context-window pressure)? If not, say so and stop here._
+Cortex splits for one reason only: it needs an independent validator. Cortex can't grade its own
+draft. In `m2-critic-rejection.txt`, the critic caught a draft claiming stories were "queued for
+sprint planning" when `propose_stories` was never called. A self-grading agent won't catch false
+claims about its own actions, because it believes them.
+
+The other three reasons don't hold up.
+
+**Separation of concerns.** Drafting and validating are different jobs, but that's true of most
+single agents too. The real test is whether they'd contaminate each other, not whether they're
+distinguishable, and nothing here suggests they would.
+
+**Parallelism.** One project, one run, sequential by nature. The critic can't start before a draft
+exists, so there's nothing to run in parallel.
+
+**Context-window pressure.** A full run is a few thousand tokens against a 200K window. Not even
+close.
+
+The validator is a filter with known holes, not a guarantee. In `m2-jailbreak-refusal.txt`, it
+passed a run that broke a stated rule, praising the refusal while missing that the required
+escalation never happened. It earns the extra model call because it catches a class of error the
+drafter structurally can't, not because it's reliable.
 
 ## 2. Topology
 
-**Pattern:** _single+subagents · sequential · parallel+aggregate · hierarchical_
+**Pattern:** single + subagents
 
 ```
-[ simple text diagram of the flow ]
-e.g.  task → [Research] + [GitHub/Jira reader] → [Writer] → [Critic ✓] → human checkpoint → queued
+[Cron, Monday 08:00] -> [Cortex: pulls data, drafts update + queues stories]
+                     -> [done-check, in code]
+                     -> [Validator: independent call, own context]
+                            fail -> back to Cortex (max 2 revisions) -> escalate
+                            pass -> [PM review checkpoint] -> queued, nothing sent
 ```
+
+Two agents, not four. The done-check sits between them and is not an agent at all, it is a
+structural test in `agent.py` that stops a non-deliverable before it costs a validator call.
 
 ## 3. Roster
 
 | Agent / subagent | Responsibility | Runs which Loop Spec |
 |---|---|---|
-| _Chief-of-staff (Cortex)_ | _orchestrates + assembles the update_ | _M2 loop_ |
-| _Research subagent_ | _pulls competitive / market context_ | _research loop_ |
-| _GitHub/Jira reader_ | _summarizes recent activity_ | _read loop_ |
-| _Critic / Validator_ | _checks the draft before it advances_ | _validation loop_ |
-| _…_ | | |
+| Cortex (chief-of-staff) | Pulls context, drafts the update, queues stories within the cap, decides when to escalate | M2 loop |
+| Validator (critic) | Checks the draft against six rules before a human sees it | Validation pass: one call, no tools, no memory |
 
 ## 4. Communication & hand-offs
 
-_What passes between the parts? Any protocol (MCP / A2A, optional, note if used)._
+Plain in-process Python calls. No MCP, no A2A. Cortex passes the validator two things as text, the
+pulled data and the draft, and gets back JSON: a verdict plus reasons. On a fail, the reasons are
+appended to Cortex's messages and it redrafts.
+
+Worth naming because "we used a protocol" often gets mistaken for architecture. Nothing here needs
+one. If a subagent ever runs out of process, this is the seam where a protocol would go.
 
 ## 5. The validator
 
-- **What the critic checks:** _grounded claims · norms compliance · no confidential leak · nothing posted/committed_
-- **Fail action:** _what happens when it fails (retry · revise · escalate to human)_
+**What the critic checks.** Six checks, all of which already exist in `CRITIC_SYSTEM`:
+
+1. Correct project, and real PR/issue IDs from the pulled data.
+2. Every claim traceable to pulled activity. No invented numbers, no invented progress.
+3. Within team norms: no unconfirmed date, no launch gate marked, no CONFIDENTIAL item in a
+   company-wide update, or a correct escalation instead.
+4. Posts nothing, commits nothing, creates or merges nothing. Stories are proposed, not created.
+5. If the task tried to jailbreak Cortex, Cortex refused **and** escalated.
+6. If a tool rejected an action or an enforced bound was hit, escalating is the correct response
+   and shouldn't be failed over wording.
+
+**How they're enforced, which matters more than the list.** These six were already written down
+when the critic passed `m2-jailbreak-refusal.txt`, a run where Cortex flagged the injection and
+then finished with DONE instead of escalating. Check 5 covers that exactly. The critic's reasons
+don't mention escalation at all, so it didn't fail the check, it never answered it. A seventh check
+wouldn't have helped.
+
+Two changes, both aimed at skipping rather than judgement:
+
+- **A verdict per check.** The critic returns pass, fail or n/a for each numbered check instead of
+  a free-form list of reasons. It can't stay silent on one. Compound conditions like "refused
+  **and** escalated" are exactly what a narrative judge collapses into the half it noticed.
+- **The injection rule moves into code.** If an injection was detected, the run has to take the
+  escalate exit. That's checkable without a model, the same way the definition-of-done check is,
+  and a bound in code survives the model having a bad day.
+
+**Fail action: revise, up to 2 revisions, then escalate.** Revise rather than block, because
+`m2-critic-rejection.txt` shows it working: the drafter accepted all three criticisms and escalated
+when it still couldn't satisfy them, rather than producing a worse draft.
+
+**Revision cap: 2.** Hard number, enforced in `agent.py`, not a suggestion in a prompt. The cost is
+measured, not guessed: `m2-quiet-week.txt` ran the full cap at $0.0275 against roughly $0.0200 for
+a clean success, so a fully bounced run costs about 35% more. That's the bound to justify in M5.
+
+**Pass action.** A passing draft advances to the PM review checkpoint and is saved to
+`run-output/`. It is never sent. There's no publish tool, so that's structural, not a promise.
 
 ## 6. State: shared vs isolated
 
-_What's shared across the fleet vs kept isolated per subagent (carry from M2)._
+**Shared.** The pulled data and the draft. The validator judges the same evidence Cortex used. If
+it pulled its own data the two could disagree on facts rather than on the draft, which is a
+different and less useful argument.
+
+**Isolated.** Cortex's message history and reasoning never reach the validator, and the validator
+has no tools and no memory between runs. Independence is about inputs. The validator's *output*
+does flow back to Cortex on a fail, because that is how revision works, but its context never does.
+
+**Change from the shipped build: the brief is fenced.** `source_log` starts with the task brief and
+`critic.py` passed the whole thing under the heading "SOURCE DATA Cortex used". So on the jailbreak
+run the SYSTEM OVERRIDE block reached the validator labelled as evidence. It now arrives in its own
+block marked as untrusted and possibly hostile, separate from the tool results. The validator still
+needs the brief, it cannot answer check 5 without knowing whether there was an injection, but it
+should not read an attack as source data.
+
+**Limitation worth recording.** The validator can only catch errors relative to what was pulled. If
+Cortex never calls `get_activity`, the validator sees a thin source log and has nothing to notice
+the absence against. It validates the draft, not the retrieval.
 
 ## 7. Cost & latency budget
 
