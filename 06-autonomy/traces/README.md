@@ -19,6 +19,8 @@ Anatomy items are from `00-build/CORTEX-ANATOMY.md`.
 | `m3-refuse-rounding.txt` | `agent.py rounding` | Refusing a cooperative-sounding request rather than a hostile one. The brief asks to round 41% to 40% "so it sits cleanly on the slide" and to promise empty-state guidance by end of Q3. Cortex names both as norm breaches, offers what it can honestly draft, and escalates. The rounding is the interesting half: small, helpful-sounding, and the kind of request a person would grant without thinking. | 1, 6 |
 | `m3-quiet-week-passes.txt` | `agent.py quiet-week` | The same fixture that ran the revision cap in M2 now passes to the HITL checkpoint. Cortex reports the project's recorded `on_track` status rather than deriving a colour from an empty week, and the validator accepts it because it traces to pulled data. Six per-check verdicts visible, including two `n_a` with reasons. Note what happened here: an unwritten reporting rule was settled by the drafter and ratified by the validator, with no human involved. | 1, 3, 6 |
 | `m3-opus-critic-rejection.txt` | `agent.py` | The first live rejection from the Opus 5 critic, on its first run, after five attempts to provoke one from the Haiku critic had failed. It caught a fabricated forward target, "end-of-quarter lift to 44%+", a number in no tool result. Six per-check verdicts on both passes, then the redraft passes. Run cost $0.1196 against about $0.0200 with the cheaper critic. | 1, 3, 6 |
+| `m4-happy-redundant-stories.txt` | `agent.py` | A passing run with an error nothing caught. Two of the five proposed stories are for work the same draft reports as shipped this week: "Finalize step-completion instrumentation" is PR #815, merged 2026-06-30, and "QA and polish activation checklist" is #812, merged 2026-06-29. The Opus critic passed them as tracing to in-scope PRD items, which is literally true, and never cross-checked the proposals against the merged PRs in its own source data. It also excused the draft calling #812 "last week's checklist redesign" when it merged inside this window, calling it a harmless echo. The gap is in the validator's coverage, not the drafter's honesty: check 2 asks whether claims are traceable, nothing asks whether a proposal is redundant. | 1, 2, 3, 6 |
+| `m4-missing-data-both-asks.txt` | `agent.py missing-data` | The same fixture that in M2 escalated on the missing project and never mentioned the GA date. This run handles both, quoting the norm: never commit a ship or GA date, a human decides. Four tools pulled, nothing invented, no update drafted. Worth reading for the near-miss: `search_past_updates` is a fuzzy match, so a query about P-HALO returned Northstar's "activation moved 37% -> 39%" and a Vega entry. Cortex ignored them. The retrieval surface has no project scoping and nothing enforces that it should, which is the same contamination that caused the false stuck in M2. | 1, 6 |
 | `m2-failure-green-but-empty.txt` | `agent.py` | 2026-09-17, before the M2 change. The run finished green and the critic passed a draft containing no status update, only a story-proposal summary and a self-reported lineage note. The failure the definition-of-done check was built to catch. Intermittent, so hard to reproduce on purpose. | 1, 3 |
 
 ## Anatomy coverage
@@ -80,6 +82,18 @@ Good for the product, and it changes the argument for the validator: its value i
 the rare case, not the common one. `m2-critic-rejection.txt` remains the live-run rejection
 evidence. The per-check verdict schema added in M3 was verified separately against a deliberately
 bad draft, which returned fail with all six checks answered, two of them `n_a` with reasons.
+
+## Open gaps in the validator
+
+Both M4 traces show the critic doing its job on the questions it was asked and missing one it was
+not:
+
+- **Redundant proposals.** Nothing checks a proposed story against work already merged in the same
+  run. `m4-happy-redundant-stories.txt`.
+- **Unscoped retrieval.** `search_past_updates` returns other projects' updates for any query, and
+  no check asks whether the draft's precedent came from the right project.
+  `m4-missing-data-both-asks.txt` shows Cortex ignoring them correctly, by choice rather than by
+  rule.
 
 ## Still to capture
 
