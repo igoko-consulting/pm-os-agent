@@ -40,7 +40,11 @@ definition of done.
 
 Done is therefore checked structurally in the loop, not asserted by the model. The draft must carry
 a DONE or ESCALATE marker, be non-trivial in length, and cite at least one real artefact from this
-project's own activity pull. A bound enforced in code survives the model having a bad day, which is
+project's own activity pull. A run that never called `get_activity` at all is stuck, not quiet: added
+in M4 after the grounding probe, where withholding the evidence tool left the artefact rule with
+nothing to require, so it disabled itself and passed a fabricated draft
+(`06-autonomy/traces/m4-probe-withheld-source.txt`). A missing evidence source and an empty week are
+opposites, and the check was treating them as the same thing. A bound enforced in code survives the model having a bad day, which is
 the same argument that keeps `propose_stories` queue-only.
 
 Two scoping rules matter, and both were found by the check getting them wrong first. Artefacts come
@@ -85,9 +89,12 @@ review gate for anything Cortex prepared, and the human owner for the two above-
 **Durable context persists.** Team norms, the roadmap, and the decision log are read sources that
 carry across runs.
 
-**A run ledger persists.** Project, ISO week, and outcome, one row per run. This is what the dedupe
-rule in §1 needs: without it, "one run per project per ISO week" only works by accident, because
-the draft filename happens to collide. Today Cortex has no ledger and relies on that accident.
+**A run ledger persists.** Project id, ISO week, outcome and cost, one row per run, written at every
+exit. This is what the dedupe rule in §1 needs: without it, "one run per project per ISO week" only
+works by accident, because the draft filename happens to collide. Built in M4 after being specified
+here and restated in `04-memory-context/memory-and-context.md`, while both documents described it in
+the present tense and no such thing existed. Schema is constrained to ids, outcomes and cost, no
+free text, per the PII control in that file.
 
 **Per-run work is disposable.** Drafts, traces, and tool results do not survive the run that made
 them.

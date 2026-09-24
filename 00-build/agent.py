@@ -29,6 +29,7 @@ import json
 import os
 import re
 import sys
+from datetime import date
 from pathlib import Path
 
 import anthropic
@@ -113,6 +114,34 @@ class Bounds:
 
 
 OUTPUT_DIR = Path(__file__).parent / "run-output"
+# The run ledger (M2 loop-spec §4). Specified in M2, restated in M4, never built until
+# now, while both documents described it in the present tense.
+#
+# Schema constraint, not description (M4 memory-and-context §5): ids, outcomes and
+# cost only. No draft text, no brief text, no tool results, no free text of any kind.
+# It is the one store Cortex owns, so it is the one place PII could accumulate.
+LEDGER = OUTPUT_DIR / "run-ledger.json"
+
+
+def iso_week(when: date) -> str:
+    year, week, _ = when.isocalendar()
+    return f"{year}-W{week:02d}"
+
+
+def ledger_record(project_id: str, outcome: str, cost: float) -> dict:
+    """Append one row, and report whether this project already ran this week.
+
+    Makes the dedupe rule in loop-spec §1 real. Until now it held only because the
+    draft filename collided.
+    """
+    OUTPUT_DIR.mkdir(exist_ok=True)
+    rows = json.loads(LEDGER.read_text(encoding="utf-8")) if LEDGER.exists() else []
+    week = iso_week(date.today())
+    prior = [r for r in rows if r["project_id"] == project_id and r["iso_week"] == week]
+    rows.append({"project_id": project_id, "iso_week": week,
+                 "outcome": outcome, "cost_usd": round(cost, 4)})
+    LEDGER.write_text(json.dumps(rows, indent=2) + "\n", encoding="utf-8")
+    return {"repeat_run": bool(prior), "runs_this_week": len(prior) + 1}
 
 
 def banner(text: str) -> None:
@@ -204,7 +233,7 @@ def text_of(content) -> str:
 
 
 def emit_deliverable(which: str, draft: str, *, accepted: bool,
-                     reason: str, cost: float) -> None:
+                     reason: str, cost: float, project_id: str = "unknown") -> None:
     """Surface AND persist Cortex's drafted status update so it can't get lost in
     the scroll-back. This is still a DRAFT held for human review, never a post,
     there is no publish tool, and an escalated run is held on purpose.
@@ -231,6 +260,17 @@ def emit_deliverable(which: str, draft: str, *, accepted: bool,
         print(f"\nSaved draft -> {out.relative_to(Path(__file__).parent)}  "
               f"(for your review, nothing was posted)")
 
+    entry = ledger_record(project_id, "accepted" if accepted else "held", cost)
+    if entry["repeat_run"]:
+        print(f"\nNOTE: this is run {entry['runs_this_week']} for {project_id} this ISO week. "
+              f"The loop spec allows one; a second replaces the draft rather than adding one.")
+
+
+def project_of(task: dict) -> str:
+    """Pull the project id out of the brief for the ledger. Ids only, never content."""
+    match = re.search(r"\bP-[A-Z]+\b", task.get("body", ""))
+    return match.group(0) if match else "unknown"
+
 
 def run(which: str = "happy") -> None:
     client = anthropic.Anthropic()
@@ -255,7 +295,7 @@ def run(which: str = "happy") -> None:
         if bounds.over_cap():
             reason = f"cost cap ${COST_CAP_USD} hit at ${bounds.cost:.4f}"
             banner(f"BOUND TRIPPED, {reason}. Halting and escalating to a human.")
-            emit_deliverable(which, last_draft, accepted=False,
+            emit_deliverable(which, last_draft, accepted=False, project_id=project_of(task),
                              reason=reason, cost=bounds.cost)
             return
 
@@ -292,7 +332,7 @@ def run(which: str = "happy") -> None:
         if verdict_kind == "stuck":
             banner(f"STUCK, {why}. Halting and escalating to a human. "
                    f"Run cost \u2248 ${bounds.cost:.4f}")
-            emit_deliverable(which, last_draft, accepted=False,
+            emit_deliverable(which, last_draft, accepted=False, project_id=project_of(task),
                              reason=f"definition of done not met: {why}",
                              cost=bounds.cost)
             return
@@ -300,7 +340,7 @@ def run(which: str = "happy") -> None:
         if verdict_kind == "escalate":
             banner(f"ESCALATED by Cortex, handed to a human. Nothing posted. "
                    f"Run cost \u2248 ${bounds.cost:.4f}")
-            emit_deliverable(which, last_draft, accepted=False,
+            emit_deliverable(which, last_draft, accepted=False, project_id=project_of(task),
                              reason=why, cost=bounds.cost)
             return
 
@@ -316,7 +356,7 @@ def run(which: str = "happy") -> None:
             banner(f"HITL CHECKPOINT, status update + any proposed stories queued for "
                    f"your review. Nothing posted, no commitments made. "
                    f"Run cost ≈ ${bounds.cost:.4f}")
-            emit_deliverable(which, proposed, accepted=True,
+            emit_deliverable(which, proposed, accepted=True, project_id=project_of(task),
                              reason="validator passed", cost=bounds.cost)
             return
 
@@ -324,7 +364,7 @@ def run(which: str = "happy") -> None:
             reason = f"validator rejected {MAX_REVISIONS}x (revision cap)"
             banner(f"REVISION CAP hit ({MAX_REVISIONS}). Escalating to a human "
                    f"instead of looping. Run cost ≈ ${bounds.cost:.4f}")
-            emit_deliverable(which, last_draft, accepted=False,
+            emit_deliverable(which, last_draft, accepted=False, project_id=project_of(task),
                              reason=reason, cost=bounds.cost)
             return
 
@@ -337,7 +377,7 @@ def run(which: str = "happy") -> None:
 
     banner(f"MAX ITERATIONS ({MAX_ITERATIONS}) reached without finishing. "
            f"Escalating. Run cost ≈ ${bounds.cost:.4f}")
-    emit_deliverable(which, last_draft, accepted=False,
+    emit_deliverable(which, last_draft, accepted=False, project_id=project_of(task),
                      reason=f"max iterations ({MAX_ITERATIONS}) reached",
                      cost=bounds.cost)
 

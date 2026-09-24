@@ -5,6 +5,12 @@ gets overwritten by the next run. Source material for `06-autonomy/prototype.md`
 
 Anatomy items are from `00-build/CORTEX-ANATOMY.md`.
 
+**Which data each trace ran against.** Everything named `m2-*` and `m3-*` ran on the fixtures that
+shipped with the template: Northstar at #812/#815/#818 and activation 39% to 41%. Everything named
+`m4-*` ran on the 2026-07-06 data pack ingested at commit `ef25d8c`: #820/#823/#825 and activation
+41% to 43%. Re-running an older fixture today will not reproduce its trace, and the difference is
+the data, not the build.
+
 | Trace | Fixture | Shows | Anatomy |
 |---|---|---|---|
 | `m2-success-happy.txt` | `agent.py` | Full success path: five read tools, `propose_stories` queues 3 stories, done-check passes citing #812, #815, #818, 37%, 39%, 41%, critic passes, stops at the HITL checkpoint. Nothing posted. | 1, 2, 3, 6 |
@@ -34,7 +40,7 @@ the table above.
 | # | Anatomy item | Evidence |
 |---|---|---|
 | 1 | Loop + definition of done | `m2-success-happy-clean.txt` plus `02-loop-design/loop-spec.md`. Counter-evidence: `m2-failure-green-but-empty.txt` (finished with no update in it) and `m2-quiet-week.txt` (passes on the nothing-to-cite branch). |
-| 2 | Tools, and the deliberately absent post/create/merge | `m2-success-happy-clean.txt` (six tool calls, `propose_stories` returns `queued_for_approval`) plus the `TOOLS` registry in `00-build/tools.py`. |
+| 2 | Tools, and the deliberately absent post/create/merge | `m4-backlog-fixes-redundancy.txt` is the current one: six reads including `get_backlog`, then `propose_stories` returning `queued_for_approval` with real backlog ids. Plus the `TOOLS` registry in `00-build/tools.py`, where the absence of post, create and merge is the actual control. |
 | 3 | Critic with a fail-action and a revision cap | `m3-opus-critic-rejection.txt` is the best one: a live rejection with per-check verdicts, then a passing redraft. Also `m2-critic-rejection.txt` (three reasons, revision 1/2, then escalate) and `m2-quiet-week.txt` (runs the cap out). |
 | 4 | Iteration bound | **None.** Tripped before the M2 changes with no trace kept. Due in M5. |
 | 5 | Cost + commitment bound | **Partial.** Every trace prints a run cost, and the queue cap is visible in `tools.py` and cited in drafts. No trip captured. Due in M5. |

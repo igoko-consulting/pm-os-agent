@@ -94,8 +94,11 @@ Two changes, both aimed at skipping rather than judgement:
 when it still couldn't satisfy them, rather than producing a worse draft.
 
 **Revision cap: 2.** Hard number, enforced in `agent.py`, not a suggestion in a prompt. The cost is
-measured, not guessed: `m2-quiet-week.txt` ran the full cap at $0.0275 against roughly $0.0200 for
-a clean success, so a fully bounced run costs about 35% more. That's the bound to justify in M5.
+measured, not guessed, and the figures have moved twice since this was written. On the Haiku critic
+a bounced run was $0.0275 against $0.0200 clean. On the Opus critic it is $0.1196 against a clean
+run that is now $0.08 to $0.09, the extra coming from `get_backlog` and a larger context. Field 7
+carries the current table; the ratio holds at roughly a third more for a fully bounced run. That's
+the bound to justify in M5.
 
 **Pass action.** A passing draft advances to the PM review checkpoint and is saved to
 `run-output/`. It is never sent. There's no publish tool, so that's structural, not a promise.

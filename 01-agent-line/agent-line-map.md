@@ -37,7 +37,8 @@ the only ungated row with low measurability.
   `03-orchestration/orchestration-map.md` Field 7.
   (Worth separating: `claude-opus-5` is also the coding agent building Cortex. That is a different
   bill from Cortex's own runtime model.)
-- **Tools:** read-only project lookup, activity pull, past-update search, roadmap, and team norms,
+- **Tools:** read-only project lookup, activity pull, past-update search, roadmap, team norms, and
+  backlog listing (`get_backlog`, added M4),
   plus `propose_stories`, which queues a batch and creates nothing. Deliberately absent: post,
   create, merge, close, commit-date. The limit is enforced by what exists in `tools.py`, not by a
   prompt.
