@@ -25,9 +25,13 @@ FIXTURES = Path(__file__).parent / "fixtures"
 MAX_QUEUE_ITEMS = int(os.environ.get("CORTEX_MAX_QUEUE_ITEMS", "10"))
 
 
-# The week get_activity reports on. Fixed here because the fixtures are a
-# snapshot; a live connector would derive it from the run date.
-ACTIVITY_WINDOW = "2026-06-24..2026-06-30"
+# Fallback only. The reporting window lives on each project record in
+# projects.json, so the data owns the fact rather than the code. It was a constant
+# here until the 2026-07-06 data pack moved the activity into July and left the
+# window in June: get_activity then reported a window that did not contain its own
+# data, and the draft repeated it under a leadership heading. A fact kept next to
+# the data it has to agree with cannot drift away from it.
+ACTIVITY_WINDOW = "unknown"
 
 
 def _load_json(name: str) -> dict:
@@ -76,7 +80,7 @@ def get_activity(project_id: str) -> dict:
         return {"error": "project_not_found", "project_id": project_id}
     activity = record.get("activity", [])
     return {"project_id": project_id,
-            "window": ACTIVITY_WINDOW,
+            "window": record.get("window", ACTIVITY_WINDOW),
             "result": "activity_found" if activity else "no_activity_in_window",
             "activity": activity}
 

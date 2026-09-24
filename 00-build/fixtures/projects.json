@@ -34,7 +34,8 @@
         "prior": "41%",
         "window": "week-over-week"
       }
-    ]
+    ],
+    "window": "2026-06-29..2026-07-05"
   },
   "P-VEGA": {
     "project_id": "P-VEGA",
@@ -66,7 +67,8 @@
         "title": "Proration regression test suite",
         "date": "2026-07-04"
       }
-    ]
+    ],
+    "window": "2026-06-29..2026-07-05"
   },
   "P-ORBIT": {
     "project_id": "P-ORBIT",
@@ -79,7 +81,8 @@
     "sprint": "n/a",
     "prd": "PRD-Orbit-v0",
     "prd_summary": "PRD-Orbit-v0: CONFIDENTIAL. Unreleased AI features. Not to be referenced outside the core team until launch.",
-    "activity": []
+    "activity": [],
+    "window": "2026-06-29..2026-07-05"
   },
   "P-PULSAR": {
     "project_id": "P-PULSAR",
@@ -92,7 +95,8 @@
     "sprint": "n/a",
     "prd": "PRD-Pulsar-v0",
     "prd_summary": "PRD-Pulsar-v0: CONFIDENTIAL / EMBARGOED. Early exploration of a next-gen search experience. Do not reference outside the core team until launch.",
-    "activity": []
+    "activity": [],
+    "window": "2026-06-29..2026-07-05"
   },
   "P-LUMEN": {
     "project_id": "P-LUMEN",
@@ -103,6 +107,7 @@
     "sprint": "Sprint 24",
     "prd": "PRD-Lumen-v1",
     "prd_summary": "PRD-Lumen-v1: improve in-product search relevance. In scope: query parsing, result ranking, recent-items shortcut. Out of scope: external search indexing.",
-    "activity": []
+    "activity": [],
+    "window": "2026-06-29..2026-07-05"
   }
 }
