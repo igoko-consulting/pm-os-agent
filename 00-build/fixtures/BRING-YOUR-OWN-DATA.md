@@ -189,3 +189,23 @@ If Cortex cites *your* real PR and *your* real metric, and refuses when you with
 the source, your data is grounded and you're ready for the Part B write-up. If it
 invents a number that isn't in your fixtures, that's the caught-hallucination
 screenshot the lab asks for.
+
+---
+
+## Before you wire a real source: personal data
+
+The mock fixtures contain no personal data. Real Jira, Drive, Slack and Gmail all do. Names,
+email addresses, customer identifiers and account details turn up in issue titles, PR descriptions,
+comment threads and pasted notes, usually where nobody expects them.
+
+Cortex has **no redaction, no detection and no retention enforcement** today. That is a deliberate
+gap, not an oversight: a control written against imagined field shapes reads as coverage while
+providing none.
+
+Two things hold today, and both are constraints rather than filters:
+
+- The task brief is never persisted.
+- The run ledger may hold only project id, ISO week, outcome and cost. No free text.
+
+If you are swapping in your team's real data, that gap is now yours. Decide what Cortex may retain
+and for how long before you point it at a live source, not after.

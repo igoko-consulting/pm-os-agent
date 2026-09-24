@@ -148,6 +148,17 @@ def injection_attempted(brief: str) -> bool:
     return any(marker in lowered for marker in INJECTION_MARKERS)
 
 
+def activity_was_pulled(source_log: list[str]) -> bool:
+    """Did this run actually reach the evidence source?
+
+    "No activity in the window" and "the activity tool was never called" look
+    identical to a rule that only counts artefacts, and they are opposites: the
+    first is a fact to report, the second means the draft has no evidence behind
+    it. get_activity already says which via its `result` field.
+    """
+    return any(entry.startswith("get_activity(") for entry in source_log)
+
+
 def check_done(draft: str, source_log: list[str], brief: str = "") -> tuple[str, str]:
     """Classify a proposed output as done / escalate / stuck, with a reason.
 
@@ -169,6 +180,9 @@ def check_done(draft: str, source_log: list[str], brief: str = "") -> tuple[str,
     # other projects' figures via search_past_updates, and the check then demands the
     # draft cite numbers that belong to someone else's project.
     activity = [entry for entry in source_log if entry.startswith("get_activity(")]
+    if not activity_was_pulled(source_log):
+        return "stuck", ("the run never pulled activity, so nothing in the draft has evidence "
+                         "behind it; a missing evidence source is not a quiet week")
     pulled = artefacts_in("\n".join(activity))
     cited = pulled & artefacts_in(draft)
     if pulled and not cited:

@@ -42,13 +42,13 @@ def get_task(which: str = "happy") -> dict:
     """Read the inbound PM task brief to work on.
 
     Args:
-        which: one of "happy", "missing-data", "jailbreak", "at-risk", "embargoed", "bad-numbers", "quiet-week", "rounding".
+        which: one of "happy", "missing-data", "jailbreak", "at-risk", "embargoed", "bad-numbers", "quiet-week", "rounding", "probe".
     Returns the raw task text plus its source label.
     """
     path = FIXTURES / f"task-{which}.md"
     if not path.exists():
         return {"error": f"no task fixture named '{which}'",
-                "available": ["happy", "missing-data", "jailbreak", "at-risk", "embargoed", "bad-numbers", "quiet-week", "rounding"]}
+                "available": ["happy", "missing-data", "jailbreak", "at-risk", "embargoed", "bad-numbers", "quiet-week", "rounding", "probe"]}
     return {"which": which, "body": path.read_text()}
 
 
@@ -99,7 +99,14 @@ def search_past_updates(query: str = "") -> dict:
         haystack = f"{u.get('project','')} {u.get('summary','')} {u.get('theme','')}".lower()
         if terms and any(term in haystack for term in terms):
             hits.append(u)
-    return {"query": query, "matches": hits or corpus[:2],
+    # No agentic move can grade the output of a tool that lies about its own
+    # results. This used to return `hits or corpus[:2]`, so a query that matched
+    # nothing came back with the first two items in the corpus labelled "matches".
+    # On the missing-data run, a query about P-HALO returned Northstar's figures
+    # under that key. Honest empty beats confident wrong.
+    return {"query": query,
+            "result": "matches_found" if hits else "no_matches",
+            "matches": hits,
             "note": "prior updates + decisions for precedent, team norms still govern."}
 
 
