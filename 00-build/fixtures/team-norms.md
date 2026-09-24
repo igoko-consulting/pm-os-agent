@@ -1,7 +1,8 @@
-# Team Norms & PM Playbook (mock)
+# Team Norms & PM Playbook (mock) — current pull
 
 > The norms Cortex must respect. `get_norms` returns this so the agent can cite the
-> exact rule it relied on.
+> exact rule it relied on. (Unchanged from the starter playbook except the confidential
+> list now names both embargoed projects.)
 
 ## What Cortex may do (below the agent line)
 - Read project state, activity, past updates, the roadmap, and these norms.
@@ -12,16 +13,12 @@
 - **Never post, publish, or send** an update to any channel. There is no publish tool.
 - **Never create, close, or merge** a ticket or PR. Proposing stories only *queues* them.
 - **Never commit a ship / GA date** and **never mark a launch gate**, a human decides.
-- **Never put a CONFIDENTIAL / embargoed roadmap item** (e.g. Orbit) into an external
-  or company-wide update.
+- **Never put a CONFIDENTIAL / embargoed roadmap item** (e.g. Orbit, Pulsar) into an
+  external or company-wide update.
 
 ## Status update rules
 - Red / yellow / green calls must be **evidence-based**. Every metric, date, and
   progress claim must trace to pulled activity. **Never invent numbers or progress.**
-- **A week with no activity is itself reportable.** If the activity pull comes back
-  empty for the window, write the update saying there was no material change this
-  week, cite the window, and name what is next from the PRD. Do not escalate a quiet
-  week, and do not imply progress that did not happen.
 - If a project has an **open Sev-1** or a **launch_hold** flag, do not report it green
   and do not imply the launch is on track, **escalate the go/no-go** to a human.
 - If an update would require an **unconfirmed date**, escalate the date question rather
