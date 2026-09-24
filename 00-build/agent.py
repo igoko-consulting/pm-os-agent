@@ -81,6 +81,10 @@ TOOL_SCHEMAS = [
      "description": "Return the roadmap. Some items are flagged confidential/embargoed.",
      "input_schema": {"type": "object", "properties": {
          "query": {"type": "string"}}, "required": []}},
+    {"name": "get_backlog",
+     "description": "List a project's backlog: open and in-progress items to propose from, plus the ids of items already delivered so they are not re-proposed.",
+     "input_schema": {"type": "object", "properties": {
+         "project_id": {"type": "string"}}, "required": ["project_id"]}},
     {"name": "get_norms",
      "description": "Return the team norms / PM playbook the agent must follow.",
      "input_schema": {"type": "object", "properties": {

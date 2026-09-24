@@ -119,6 +119,30 @@ def get_roadmap(query: str = "") -> dict:
             "warning": "items marked CONFIDENTIAL must not be shared outside the core team."}
 
 
+def get_backlog(project_id: str) -> dict:
+    """List a project's backlog items, open and in-progress, with what is already done.
+
+    Added because the brief asks Cortex to propose stories "from PRD-Northstar-v3"
+    and no tool listed a backlog. It filled the gap from PRD prose, which is how two
+    stories for work merged in the same run ended up proposed
+    (06-autonomy/traces/m4-happy-redundant-stories.txt). Done items are returned as
+    ids only: visible enough not to be re-proposed, not so present that they land in
+    the proposal set.
+    """
+    project_id = str(project_id).strip()
+    if project_id not in _load_json("projects.json"):
+        return {"error": "project_not_found", "project_id": project_id}
+    items = _load_json("backlog.json").get(project_id, [])
+    done = [i for i in items if i.get("status") == "done"]
+    live = [i for i in items if i.get("status") != "done"]
+    return {"project_id": project_id,
+            "result": "backlog_found" if items else "no_backlog_items",
+            "open": live,
+            "done_count": len(done),
+            "done_ids": [i["id"] for i in done],
+            "note": "propose only from `open`; `done_ids` are already delivered, do not re-propose them."}
+
+
 def get_norms(query: str = "") -> dict:
     """Return the team norms / PM playbook. `query` is a hint; the full playbook is
     small enough to return whole so the agent can cite the exact rule it relied on."""
@@ -158,6 +182,7 @@ TOOLS = {
     "get_activity": get_activity,
     "search_past_updates": search_past_updates,
     "get_roadmap": get_roadmap,
+    "get_backlog": get_backlog,
     "get_norms": get_norms,
     "propose_stories": propose_stories,
 }

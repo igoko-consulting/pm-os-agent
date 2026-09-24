@@ -69,6 +69,15 @@ hits to order; here the problem is that irrelevant ones are returned at all, not
 badly. Caching matters when retrieval is slow or repeated; one call per source per week is neither.
 Naming why they are not used is worth more than checking them to fill the grid.
 
+**`get_backlog` was added during this module, and is the routing answer to a question that had no
+source.** The brief asks Cortex to propose stories "from PRD-Northstar-v3", and until now no tool
+listed a backlog: `get_roadmap` returns prose scope. Six runs across M2 to M4 alternated between
+inventing plausible titles and escalating for story ids, which looked like model variance and was a
+missing capability. It is a long-context source by the §2 rubric, small and bounded per project, and
+it needs no agentic move today because it is a keyed lookup rather than a search. Its value is in
+the data shape rather than the retrieval: delivered items carry their status, so re-proposing merged
+work stops being a judgement call.
+
 **`get_task` is not in this grid and should not be.** Its failure mode is instructions smuggled in
 as pasted notes, the jailbreak fixture, and that is not fixed by grading or routing because it is
 not a retrieved source. It is fixed upstream, by fencing the brief and treating its content as data

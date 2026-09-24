@@ -1,0 +1,23 @@
+{
+  "P-NORTH": [
+    { "id": "NORTH-101", "title": "Guided activation checklist UI", "prd_item": "guided activation checklist", "status": "done", "closed_by": "#812" },
+    { "id": "NORTH-102", "title": "Step-completion event instrumentation", "prd_item": "step-completion instrumentation", "status": "done", "closed_by": "#815" },
+    { "id": "NORTH-103", "title": "Day-2 milestone email", "prd_item": "day-2 milestone email", "status": "done", "closed_by": "#820" },
+    { "id": "NORTH-104", "title": "Empty-state guidance copy", "prd_item": "empty-state guidance", "status": "done", "closed_by": "#823" },
+    { "id": "NORTH-105", "title": "Contextual tips A/B analytics review", "prd_item": "contextual tips", "status": "in_progress", "linked": "#825" },
+    { "id": "NORTH-106", "title": "Contextual tips rollout to all self-serve users", "prd_item": "contextual tips", "status": "open" },
+    { "id": "NORTH-107", "title": "Activation funnel instrumentation review", "prd_item": "step-completion instrumentation", "status": "open" }
+  ],
+  "P-VEGA": [
+    { "id": "VEGA-210", "title": "Fix proration rounding", "prd_item": "billing migration", "status": "done", "closed_by": "#442" },
+    { "id": "VEGA-211", "title": "Proration regression test suite", "prd_item": "billing migration", "status": "in_progress", "linked": "#448" },
+    { "id": "VEGA-212", "title": "Double-charge edge case in QA", "prd_item": "billing migration", "status": "open", "linked": "#440" }
+  ],
+  "P-LUMEN": [
+    { "id": "LUMEN-301", "title": "Query parsing improvements", "prd_item": "query parsing", "status": "open" },
+    { "id": "LUMEN-302", "title": "Result ranking v2", "prd_item": "result ranking", "status": "open" },
+    { "id": "LUMEN-303", "title": "Recent-items shortcut", "prd_item": "recent-items shortcut", "status": "open" }
+  ],
+  "P-ORBIT": [],
+  "P-PULSAR": []
+}
