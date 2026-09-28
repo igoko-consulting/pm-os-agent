@@ -1,21 +1,64 @@
 # Build Insights: Cortex PM Chief-of-Staff Agent
 
-> Module 6 · ★ Deliverable 4, what you learned building it
->
-> ✅ **What this validates:** you can reflect on what building it taught you, by the end you'll have proven the friction, the learning, and the aha that changes how you'd design your next agent.
+> Module 6 · ★ Deliverable 5, what building this actually taught me
 
-## Friction
+## One friction
 
-_Where did the build fight you? (Loop stop conditions? Context budget? The validator? Bounds?)_
+Documents drifted from the build in every module. Each end-of-module audit found something: a critic
+model decided in M1 and still unwired in M3, a run ledger that two deliverables described in the
+present tense and that did not exist, stop conditions listing none of the four exits built that day.
 
-## Learning
+Nothing fails when a document is wrong, so the only way to find drift is to go looking. It never
+felt like the main work, yet it produced more corrections than testing did. This is a governance
+problem. A document nobody can trust is not a control.
 
-_The two or three things you now understand about shipping agents that you didn't before the course._
+## What I now understand about shipping agents
 
-## Aha moment
+**A bound is only real if it is in code.** Anything held by prompt text is a suggestion. The
+strongest control in the system is a tool that does not exist: Cortex cannot post because there is
+no publish function, and no prompt injection changes that. The two risks I ranked worst were held by
+norms and a second model until I moved them into code in the last module.
 
-_The single insight that changed how you'd design your next agent._
+**Inconsistent behaviour is usually a spec problem.** Six runs across three modules flip-flopped
+between inventing story IDs and refusing to. I logged it as model variance twice. It was a missing
+tool. The brief asked for something the tool surface could not supply, so inventing and refusing
+were both rational answers. No prompt tuning would have fixed it.
 
-## What you'd do differently
+**A wrong check costs more than no check.** My definition-of-done check marked a correct draft as
+stuck, twice, for two different reasons. My safety guard blocked a draft for naming a confidential
+project when the draft named it to exclude it. Each time the agent was right and the check was
+wrong. False alarms teach people to stop reading alarms, and that removes the control.
 
-_If you rebuilt Cortex from scratch, what changes?_
+## The aha
+
+Writing the plan found more defects than running the build:
+
+- Every ROI metric had no data behind it. The ledger recorded what the agent did and nothing about
+  what the human thought
+- A model outage killed the run with a stack trace and no escalation
+- The loop spec's dedupe rule had no state to dedupe against
+
+None came from a failing run. They came from writing down what should be true and noticing it was
+not.
+
+The ledger gap matters most for scale. Without a human verdict on each run, cost cannot be tied to
+value, so there is no business case for a second team.
+
+## Cost and scale
+
+Cost is bounded on three fronts. A per-run cap, checked between turns and again before the critic
+call because that is the largest single spend. A daily cap, checked before a run starts, which is
+the only genuinely hard one since it refuses rather than halts. And an iteration cap, which stops a
+loop spending forever even when each turn is cheap.
+
+The per-run cap is still not hard, because a call's cost is only known after it returns. The next
+step is a pre-call estimate from the token count, so the bound refuses a call instead of regretting
+one.
+
+A halted run also discards its staged stories, so a stopped run leaves nothing queued.
+
+## What I'd do differently
+
+Write the eval cases in Module 2, not Module 5. I built checks for four modules with nothing to
+validate them against, which is how two of them shipped wrong. The replay harness that caught the
+guard false positives took twenty minutes and would have worked from the first module.
