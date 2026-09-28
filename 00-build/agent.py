@@ -51,6 +51,14 @@ MODEL = os.environ.get("CORTEX_MODEL", "claude-haiku-4-5")
 # The critic is the last check before a human sees anything, and it runs once per
 # loop, so it is the one call worth paying more for (M1 agent-line-map anatomy).
 CRITIC_MODEL = os.environ.get("CORTEX_CRITIC_MODEL", MODEL)
+# Routine validation. The expensive critic is reserved for runs that carry a reason,
+# not for runs the cheap one already doubted: escalating only on a cheap FAIL would
+# spend the money on drafts already flagged, and save it on the ones that sail
+# through looking clean, which is the failure that actually costs you. The cheaper
+# critic passed a fabricated "44%+" target that the dearer one caught first time.
+ROUTINE_CRITIC_MODEL = os.environ.get("CORTEX_ROUTINE_CRITIC_MODEL", CRITIC_MODEL)
+ROUTINE_PRICE_IN = float(os.environ.get("CORTEX_ROUTINE_PRICE_IN_PER_M", "2.00"))
+ROUTINE_PRICE_OUT = float(os.environ.get("CORTEX_ROUTINE_PRICE_OUT_PER_M", "10.00"))
 CRITIC_PRICE_IN = float(os.environ.get("CORTEX_CRITIC_PRICE_IN_PER_M",
                                        os.environ.get("CORTEX_PRICE_IN_PER_M", "1.00")))
 CRITIC_PRICE_OUT = float(os.environ.get("CORTEX_CRITIC_PRICE_OUT_PER_M",
@@ -283,6 +291,26 @@ def guard_violations(draft: str, source_log: list[str], project_id: str) -> list
     return violations
 
 
+def critic_route(draft: str, source_log: list[str], project_id: str, brief: str) -> tuple[str, str]:
+    """Pick the validator for this run, and say why.
+
+    Routes on risk, computed in code from the same signals the guards use. Anything
+    that could hide a fabrication a human would act on gets the stronger model.
+    """
+    record = tools._load_json("projects.json").get(project_id, {})
+    if not activity_was_pulled(source_log):
+        return CRITIC_MODEL, "evidence source was never pulled"
+    if injection_attempted(brief):
+        return CRITIC_MODEL, "brief carried an injection marker"
+    if "confidential" in record.get("flags", []) or "launch_hold" in record.get("flags", []):
+        return CRITIC_MODEL, f"{project_id} carries a restricting flag"
+    if any(i.get("severity") == "sev-1" for i in record.get("activity", [])):
+        return CRITIC_MODEL, f"{project_id} has an open Sev-1"
+    if artefacts_in(draft) - artefacts_in("\n".join(source_log)):
+        return CRITIC_MODEL, "draft cites a figure absent from the tool results"
+    return ROUTINE_CRITIC_MODEL, "routine run, no risk signal"
+
+
 def text_of(content) -> str:
     """Join the text blocks of a Messages API response into one string."""
     return "\n".join(b.text for b in content if b.type == "text")
@@ -476,13 +504,26 @@ def run(which: str = "happy") -> None:
                              staged=staged, reason=reason, cost=bounds.cost)
             return
 
-        banner("CRITIC, independent validation")
-        verdict = review(client, CRITIC_MODEL, proposed, "\n".join(source_log[1:]),
+        critic_model, why_route = critic_route(proposed, source_log, project_of(task), task["body"])
+        escalated = critic_model == CRITIC_MODEL and ROUTINE_CRITIC_MODEL != CRITIC_MODEL
+        banner(f"CRITIC, independent validation  ({critic_model}, {why_route})")
+        verdict = review(client, critic_model, proposed, "\n".join(source_log[1:]),
                          task_brief=task["body"])
         # Estimate critic spend too.
-        bounds.cost += (verdict["_usage"]["prompt"] * CRITIC_PRICE_IN
-                        + verdict["_usage"]["completion"] * CRITIC_PRICE_OUT) / 1_000_000
+        p_in = CRITIC_PRICE_IN if critic_model == CRITIC_MODEL else ROUTINE_PRICE_IN
+        p_out = CRITIC_PRICE_OUT if critic_model == CRITIC_MODEL else ROUTINE_PRICE_OUT
+        bounds.cost += (verdict["_usage"]["prompt"] * p_in
+                        + verdict["_usage"]["completion"] * p_out) / 1_000_000
         print(json.dumps({k: v for k, v in verdict.items() if k != "_usage"}, indent=2))
+
+        if verdict["verdict"] == "fail" and not escalated and ROUTINE_CRITIC_MODEL != CRITIC_MODEL:
+            banner(f"SECOND OPINION, routine critic rejected; confirming with {CRITIC_MODEL} "
+                   f"before spending a revision")
+            verdict = review(client, CRITIC_MODEL, proposed,
+                             "\n".join(source_log[1:]), task_brief=task["body"])
+            bounds.cost += (verdict["_usage"]["prompt"] * CRITIC_PRICE_IN
+                            + verdict["_usage"]["completion"] * CRITIC_PRICE_OUT) / 1_000_000
+            print(json.dumps({k: v for k, v in verdict.items() if k != "_usage"}, indent=2))
 
         if verdict["verdict"] == "pass":
             banner(f"HITL CHECKPOINT, status update + any proposed stories queued for "

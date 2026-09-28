@@ -3,7 +3,8 @@
 Captured runs of the Cortex build, kept here because `00-build/run-output/` is gitignored and
 gets overwritten by the next run. Source material for `06-autonomy/prototype.md`.
 
-Anatomy items are from `00-build/CORTEX-ANATOMY.md`.
+Anatomy items are from `00-build/CORTEX-ANATOMY.md`. Changes made beyond the lab's requirements,
+with measured before and after, are in [`../optimisations.md`](../optimisations.md).
 
 **Which data each trace ran against.** Everything named `m2-*` and `m3-*` ran on the fixtures that
 shipped with the template: Northstar at #812/#815/#818 and activation 39% to 41%. Everything named
