@@ -165,12 +165,14 @@ def propose_stories(project_id: str, stories=None, reason: str = "") -> dict:
                 "count": len(stories),
                 "cap_items": MAX_QUEUE_ITEMS,
                 "action": "escalate to a human, do not split the batch to dodge the cap"}
-    return {"status": "queued_for_approval",
+    return {"status": "staged_for_approval",
             "project_id": str(project_id).strip(),
             "count": len(stories),
             "stories": stories,
             "reason": reason,
-            "note": "queued for a human to approve, nothing was created in the tracker."}
+            "note": ("staged, not yet queued. The batch commits only if this run reaches the human "
+                     "checkpoint; a run halted by a bound discards it. Nothing was created in the "
+                     "tracker either way.")}
 
 
 # Registry the agent loop reads. Add a tool here and the agent can call it.

@@ -22,8 +22,8 @@ Nothing goes out until I've looked at it.
 [step 1] TOOL get_activity({'project_id': 'P-NORTH'})
           -> {"project_id": "P-NORTH", "window": "2026-06-29..2026-07-05", "result": "activity_found", "activity": [{"type": "pr_merged", "id": "#820", "title": "Day-2 milestone email", "date": "2026-07-02"}, {"type": "pr_merged", "id": "#823", "title": "Empty-state guidance copy (closes #818)", "date": "2026-07
 
-[step 1] TOOL search_past_updates({'query': 'P-NORTH weekly leadership status update format tone'})
-          -> {"query": "p-north weekly leadership status update format tone", "result": "matches_found", "matches": [{"week": "2026-06-29", "project": "Northstar", "summary": "Green. Shipped the activation checklist UI and step-completion instrumentation; activation moved 39% -> 41% week-over-week. Next: day-2 m
+[step 1] TOOL search_past_updates({'query': 'P-NORTH Northstar leadership status'})
+          -> {"query": "p-north northstar leadership status", "result": "matches_found", "matches": [{"week": "2026-06-29", "project": "Northstar", "summary": "Green. Shipped the activation checklist UI and step-completion instrumentation; activation moved 39% -> 41% week-over-week. Next: day-2 milestone email a
 
 [step 1] TOOL get_roadmap({'query': 'P-NORTH Northstar'})
           -> {"query": "P-NORTH Northstar", "roadmap": "# Roadmap (mock ground truth) \u2014 refreshed pull, week of 2026-07-06\n\n> `get_roadmap` returns this. Items marked **CONFIDENTIAL** must never appear in an\n> external or company-wide update. This is the refreshed snapshot you ingest in\n> Module 4 \u201
@@ -31,14 +31,14 @@ Nothing goes out until I've looked at it.
 [step 1] TOOL get_backlog({'project_id': 'P-NORTH'})
           -> {"project_id": "P-NORTH", "result": "backlog_found", "open": [{"id": "NORTH-105", "title": "Contextual tips A/B analytics review", "prd_item": "contextual tips", "status": "in_progress", "linked": "#825"}, {"id": "NORTH-106", "title": "Contextual tips rollout to all self-serve users", "prd_item": "c
 
-[step 1] TOOL get_norms({'query': 'weekly status update leadership format next sprint story selection'})
-          -> {"query": "weekly status update leadership format next sprint story selection", "norms": "# Team Norms & PM Playbook (mock) \u2014 current pull\n\n> The norms Cortex must respect. `get_norms` returns this so the agent can cite the\n> exact rule it relied on. (Unchanged from the starter playbook exce
+[step 1] TOOL get_norms({'query': 'leadership status update format sprint planning'})
+          -> {"query": "leadership status update format sprint planning", "norms": "# Team Norms & PM Playbook (mock) \u2014 current pull\n\n> The norms Cortex must respect. `get_norms` returns this so the agent can cite the\n> exact rule it relied on. (Unchanged from the starter playbook except the confidential
 
-[step 2] TOOL propose_stories({'project_id': 'P-NORTH', 'stories': ['NORTH-105', 'NORTH-106'], 'reason': 'Top backlog items for next sprint planning. NORTH-105 is in-progress (contextual tips A/B analytics review, linked to open issue #825). NORTH-106 is the contextual tips rollout to all self-serve users, the next major item in the PRD scope. Both trace to PRD-Northstar-v3 in-scope work.'})
-          -> {"status": "queued_for_approval", "project_id": "P-NORTH", "count": 2, "stories": ["NORTH-105", "NORTH-106"], "reason": "Top backlog items for next sprint planning. NORTH-105 is in-progress (contextual tips A/B analytics review, linked to open issue #825). NORTH-106 is the contextual tips rollout to
+[step 2] TOOL propose_stories({'project_id': 'P-NORTH', 'stories': ['NORTH-105', 'NORTH-106', 'NORTH-107'], 'reason': 'Next sprint candidates from PRD-Northstar-v3 backlog: contextual tips A/B analysis and rollout, plus activation funnel instrumentation review. All three are in scope, with NORTH-105 currently in-progress (linked to open issue #825).'})
+          -> {"status": "staged_for_approval", "project_id": "P-NORTH", "count": 3, "stories": ["NORTH-105", "NORTH-106", "NORTH-107"], "reason": "Next sprint candidates from PRD-Northstar-v3 backlog: contextual tips A/B analysis and rollout, plus activation funnel instrumentation review. All three are in scope,
 
 ================================================================
-MAX ITERATIONS (2) reached without finishing. Escalating. Run cost ≈ $0.0087
+MAX ITERATIONS (2) reached without finishing. Escalating. Run cost ≈ $0.0102
 ================================================================
 
 ================================================================
@@ -48,4 +48,6 @@ LAST DRAFT (held, NOT posted, escalated to a human)
 
 Why it was held: max iterations (2) reached
 
-NOTE: this is run 2 for P-NORTH this ISO week. The loop spec allows one; a second replaces the draft rather than adding one.
+ROLLED BACK: 3 staged story proposal(s) discarded, because the run did not reach the human checkpoint. Nothing was queued.
+
+NOTE: this is run 8 for P-NORTH this ISO week. The loop spec allows one; a second replaces the draft rather than adding one.

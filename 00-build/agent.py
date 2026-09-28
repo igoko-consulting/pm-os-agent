@@ -29,6 +29,7 @@ import json
 import os
 import re
 import sys
+import time
 from datetime import date
 from pathlib import Path
 
@@ -56,7 +57,12 @@ CRITIC_PRICE_OUT = float(os.environ.get("CORTEX_CRITIC_PRICE_OUT_PER_M",
                                         os.environ.get("CORTEX_PRICE_OUT_PER_M", "5.00")))
 MAX_ITERATIONS = int(os.environ.get("CORTEX_MAX_ITERATIONS", "8"))
 MAX_REVISIONS = int(os.environ.get("CORTEX_MAX_REVISIONS", "2"))
-COST_CAP_USD = float(os.environ.get("CORTEX_COST_CAP_USD", "0.50"))
+COST_CAP_USD = float(os.environ.get("CORTEX_COST_CAP_USD", "0.25"))
+# Bounds specified in 05-bounds-evals/bounds-and-evals.md §1 and built here, so the
+# table stops describing things that do not exist.
+DAILY_CAP_USD = float(os.environ.get("CORTEX_DAILY_CAP_USD", "2.00"))
+RUN_TIMEOUT_S = float(os.environ.get("CORTEX_RUN_TIMEOUT_S", "180"))
+STOP_FILE = Path(__file__).parent / "STOP"
 MAX_QUEUE_ITEMS = int(os.environ.get("CORTEX_MAX_QUEUE_ITEMS", "10"))
 # Per-response output ceiling. Required by the Messages API, and a bound in its own
 # right: it caps how much any single turn can generate.
@@ -142,6 +148,20 @@ def ledger_record(project_id: str, outcome: str, cost: float) -> dict:
                  "outcome": outcome, "cost_usd": round(cost, 4)})
     LEDGER.write_text(json.dumps(rows, indent=2) + "\n", encoding="utf-8")
     return {"repeat_run": bool(prior), "runs_this_week": len(prior) + 1}
+
+
+def spend_today() -> float:
+    """Total cost recorded in the ledger for today's ISO week rows dated today."""
+    if not LEDGER.exists():
+        return 0.0
+    rows = json.loads(LEDGER.read_text(encoding="utf-8"))
+    week = iso_week(date.today())
+    return sum(r.get("cost_usd", 0.0) for r in rows if r.get("iso_week") == week)
+
+
+def kill_switch_engaged() -> bool:
+    """A file on disk, not a flag in a prompt. Nothing the model can reach."""
+    return STOP_FILE.exists()
 
 
 def banner(text: str) -> None:
@@ -232,8 +252,31 @@ def text_of(content) -> str:
     return "\n".join(b.text for b in content if b.type == "text")
 
 
+def settle_proposals(staged: list[dict], *, accepted: bool, project_id: str) -> None:
+    """Commit staged story proposals, or discard them.
+
+    Halting a run stopped the loop and left its commitments behind: both the
+    iteration cap and the cost cap trip fired after propose_stories had already
+    reported a queued batch, so a run that produced no update still handed a human
+    three stories to action. A bound that caps how many commitments a run may make
+    should also cap whether a failed run makes any.
+    """
+    if not staged:
+        return
+    total = sum(s["count"] for s in staged)
+    if not accepted:
+        print(f"\nROLLED BACK: {total} staged story proposal(s) discarded, because the run did "
+              f"not reach the human checkpoint. Nothing was queued.")
+        return
+    OUTPUT_DIR.mkdir(exist_ok=True)
+    out = OUTPUT_DIR / f"queue-{project_id}.json"
+    out.write_text(json.dumps(staged, indent=2) + "\n", encoding="utf-8")
+    print(f"\nQueued {total} story proposal(s) -> {out.name}  (for your approval, nothing created)")
+
+
 def emit_deliverable(which: str, draft: str, *, accepted: bool,
-                     reason: str, cost: float, project_id: str = "unknown") -> None:
+                     reason: str, cost: float, project_id: str = "unknown",
+                     staged: list[dict] | None = None) -> None:
     """Surface AND persist Cortex's drafted status update so it can't get lost in
     the scroll-back. This is still a DRAFT held for human review, never a post,
     there is no publish tool, and an escalated run is held on purpose.
@@ -260,6 +303,8 @@ def emit_deliverable(which: str, draft: str, *, accepted: bool,
         print(f"\nSaved draft -> {out.relative_to(Path(__file__).parent)}  "
               f"(for your review, nothing was posted)")
 
+    settle_proposals(staged or [], accepted=accepted, project_id=project_id)
+
     entry = ledger_record(project_id, "accepted" if accepted else "held", cost)
     if entry["repeat_run"]:
         print(f"\nNOTE: this is run {entry['runs_this_week']} for {project_id} this ISO week. "
@@ -280,6 +325,18 @@ def run(which: str = "happy") -> None:
         print(task)
         return
 
+    if kill_switch_engaged():
+        banner(f"KILL SWITCH ENGAGED ({STOP_FILE.name} present). Refusing to start. "
+               f"Remove the file to re-enable Cortex.")
+        return
+
+    already = spend_today()
+    if already >= DAILY_CAP_USD:
+        banner(f"DAILY CAP ${DAILY_CAP_USD} reached (${already:.4f} spent this week). "
+               f"Refusing to start.")
+        return
+
+    started = time.monotonic()
     banner(f"CORTEX RUN, fixture: task-{which}  (draft {MODEL}, critic {CRITIC_MODEL}, "
            f"auto-queue cap {MAX_QUEUE_ITEMS} items)")
     print(task["body"])
@@ -288,14 +345,30 @@ def run(which: str = "happy") -> None:
         {"role": "user", "content": f"PM task brief:\n\n{task['body']}"},
     ]
     source_log: list[str] = [task["body"]]
+    staged: list[dict] = []
     revisions = 0
     last_draft = ""
 
     for step in range(1, MAX_ITERATIONS + 1):
+        if kill_switch_engaged():
+            reason = f"kill switch engaged mid-run ({STOP_FILE.name} appeared)"
+            banner(f"HALTED, {reason}. Escalating to a human.")
+            emit_deliverable(which, last_draft, accepted=False, project_id=project_of(task), staged=staged,
+                             reason=reason, cost=bounds.cost)
+            return
+
+        elapsed = time.monotonic() - started
+        if elapsed > RUN_TIMEOUT_S:
+            reason = f"run timeout {RUN_TIMEOUT_S}s exceeded at {elapsed:.0f}s"
+            banner(f"BOUND TRIPPED, {reason}. Halting and escalating to a human.")
+            emit_deliverable(which, last_draft, accepted=False, project_id=project_of(task), staged=staged,
+                             reason=reason, cost=bounds.cost)
+            return
+
         if bounds.over_cap():
             reason = f"cost cap ${COST_CAP_USD} hit at ${bounds.cost:.4f}"
             banner(f"BOUND TRIPPED, {reason}. Halting and escalating to a human.")
-            emit_deliverable(which, last_draft, accepted=False, project_id=project_of(task),
+            emit_deliverable(which, last_draft, accepted=False, project_id=project_of(task), staged=staged,
                              reason=reason, cost=bounds.cost)
             return
 
@@ -312,6 +385,8 @@ def run(which: str = "happy") -> None:
                 fn = call.name
                 args = dict(call.input)
                 result = tools.TOOLS[fn](**args)
+                if result.get("status") == "staged_for_approval":
+                    staged.append(result)
                 source_log.append(f"{fn}({args}) -> {json.dumps(result)}")
                 print(f"\n[step {step}] TOOL {fn}({args})")
                 print(f"          -> {json.dumps(result)[:300]}")
@@ -332,7 +407,7 @@ def run(which: str = "happy") -> None:
         if verdict_kind == "stuck":
             banner(f"STUCK, {why}. Halting and escalating to a human. "
                    f"Run cost \u2248 ${bounds.cost:.4f}")
-            emit_deliverable(which, last_draft, accepted=False, project_id=project_of(task),
+            emit_deliverable(which, last_draft, accepted=False, project_id=project_of(task), staged=staged,
                              reason=f"definition of done not met: {why}",
                              cost=bounds.cost)
             return
@@ -340,8 +415,21 @@ def run(which: str = "happy") -> None:
         if verdict_kind == "escalate":
             banner(f"ESCALATED by Cortex, handed to a human. Nothing posted. "
                    f"Run cost \u2248 ${bounds.cost:.4f}")
-            emit_deliverable(which, last_draft, accepted=False, project_id=project_of(task),
+            emit_deliverable(which, last_draft, accepted=False, project_id=project_of(task), staged=staged,
                              reason=why, cost=bounds.cost)
+            return
+
+        # The cap is checked again here, not only at the top of the loop. A run that
+        # drafts and exits never re-enters the loop, so a top-of-loop check alone lets
+        # an over-budget run finish unchallenged: one finished at $0.0718 against a
+        # $0.01 cap. The critic is the largest single line item in a run, so this is
+        # the call worth refusing.
+        if bounds.over_cap():
+            reason = (f"cost cap ${COST_CAP_USD} hit at ${bounds.cost:.4f} before validation; "
+                      f"the draft was not validated")
+            banner(f"BOUND TRIPPED, {reason}. Halting and escalating to a human.")
+            emit_deliverable(which, last_draft, accepted=False, project_id=project_of(task),
+                             staged=staged, reason=reason, cost=bounds.cost)
             return
 
         banner("CRITIC, independent validation")
@@ -356,7 +444,7 @@ def run(which: str = "happy") -> None:
             banner(f"HITL CHECKPOINT, status update + any proposed stories queued for "
                    f"your review. Nothing posted, no commitments made. "
                    f"Run cost ≈ ${bounds.cost:.4f}")
-            emit_deliverable(which, proposed, accepted=True, project_id=project_of(task),
+            emit_deliverable(which, proposed, accepted=True, project_id=project_of(task), staged=staged,
                              reason="validator passed", cost=bounds.cost)
             return
 
@@ -364,7 +452,7 @@ def run(which: str = "happy") -> None:
             reason = f"validator rejected {MAX_REVISIONS}x (revision cap)"
             banner(f"REVISION CAP hit ({MAX_REVISIONS}). Escalating to a human "
                    f"instead of looping. Run cost ≈ ${bounds.cost:.4f}")
-            emit_deliverable(which, last_draft, accepted=False, project_id=project_of(task),
+            emit_deliverable(which, last_draft, accepted=False, project_id=project_of(task), staged=staged,
                              reason=reason, cost=bounds.cost)
             return
 
@@ -377,7 +465,7 @@ def run(which: str = "happy") -> None:
 
     banner(f"MAX ITERATIONS ({MAX_ITERATIONS}) reached without finishing. "
            f"Escalating. Run cost ≈ ${bounds.cost:.4f}")
-    emit_deliverable(which, last_draft, accepted=False, project_id=project_of(task),
+    emit_deliverable(which, last_draft, accepted=False, project_id=project_of(task), staged=staged,
                      reason=f"max iterations ({MAX_ITERATIONS}) reached",
                      cost=bounds.cost)
 

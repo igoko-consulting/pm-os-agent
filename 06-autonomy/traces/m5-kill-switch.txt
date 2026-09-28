@@ -1,0 +1,4 @@
+
+================================================================
+KILL SWITCH ENGAGED (STOP present). Refusing to start. Remove the file to re-enable Cortex.
+================================================================

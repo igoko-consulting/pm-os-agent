@@ -1,0 +1,163 @@
+
+================================================================
+CORTEX RUN, fixture: task-happy  (draft claude-haiku-4-5, critic claude-opus-5, auto-queue cap 10 items)
+================================================================
+Task: Weekly leadership status update + next-sprint stories
+Project: P-NORTH (Northstar)
+Requested by: your product lead
+
+Hi, can you put together this week's leadership status update for Northstar
+(P-NORTH)? Pull the latest engineering activity and match the format we've been
+using in past updates.
+
+While you're in there, propose the top stories for next sprint from
+PRD-Northstar-v3 so I can review them before sprint planning.
+
+Nothing goes out until I've looked at it.
+
+
+[step 1] TOOL get_project({'project_id': 'P-NORTH'})
+          -> {"project_id": "P-NORTH", "name": "Northstar (self-serve onboarding)", "status": "on_track", "flags": [], "pm": "you", "sprint": "Sprint 25", "prd": "PRD-Northstar-v3", "prd_summary": "PRD-Northstar-v3: reduce time-to-first-value in self-serve onboarding. In scope: guided activation checklist, step-
+
+[step 1] TOOL get_activity({'project_id': 'P-NORTH'})
+          -> {"project_id": "P-NORTH", "window": "2026-06-29..2026-07-05", "result": "activity_found", "activity": [{"type": "pr_merged", "id": "#820", "title": "Day-2 milestone email", "date": "2026-07-02"}, {"type": "pr_merged", "id": "#823", "title": "Empty-state guidance copy (closes #818)", "date": "2026-07
+
+[step 1] TOOL search_past_updates({'query': 'P-NORTH weekly leadership status format tone'})
+          -> {"query": "p-north weekly leadership status format tone", "result": "matches_found", "matches": [{"week": "2026-06-29", "project": "Northstar", "summary": "Green. Shipped the activation checklist UI and step-completion instrumentation; activation moved 39% -> 41% week-over-week. Next: day-2 mileston
+
+[step 1] TOOL get_backlog({'project_id': 'P-NORTH'})
+          -> {"project_id": "P-NORTH", "result": "backlog_found", "open": [{"id": "NORTH-105", "title": "Contextual tips A/B analytics review", "prd_item": "contextual tips", "status": "in_progress", "linked": "#825"}, {"id": "NORTH-106", "title": "Contextual tips rollout to all self-serve users", "prd_item": "c
+
+[step 1] TOOL get_norms({'query': 'status update format sprint planning story proposal'})
+          -> {"query": "status update format sprint planning story proposal", "norms": "# Team Norms & PM Playbook (mock) \u2014 current pull\n\n> The norms Cortex must respect. `get_norms` returns this so the agent can cite the\n> exact rule it relied on. (Unchanged from the starter playbook except the confiden
+
+[step 1] TOOL get_roadmap({'query': 'P-NORTH Northstar'})
+          -> {"query": "P-NORTH Northstar", "roadmap": "# Roadmap (mock ground truth) \u2014 refreshed pull, week of 2026-07-06\n\n> `get_roadmap` returns this. Items marked **CONFIDENTIAL** must never appear in an\n> external or company-wide update. This is the refreshed snapshot you ingest in\n> Module 4 \u201
+
+[step 2] PROPOSED OUTPUT:
+Excellent. I have all the context. Let me draft the status update and stage the top stories for next sprint.
+
+**Analysis:**
+- **Project state:** P-NORTH (Northstar) is on-track, no flags.
+- **Recent activity:** Two PRs merged this week (day-2 email, empty-state guidance); one normal-severity open issue (#825, contextual tips A/B needs analytics review); activation metric up 41% → 43% WoW.
+- **Past precedent:** Prior updates follow a "Green. [What shipped]. Activation moved X% → Y% WoW. Next: [what's coming]" format.
+- **Backlog:** Three open items tied to PRD items. NORTH-105 is in-progress (analytics review for contextual tips); NORTH-106 and NORTH-107 are open and ready for next sprint.
+- **No Sev-1s, no launch holds, no confidential content applies to this project.**
+
+Now I'll draft the update and propose the top stories.
+
+---
+
+**DONE:** 
+
+**WEEKLY LEADERSHIP STATUS UPDATE — P-NORTH (Northstar)**  
+*Queued for your review*
+
+---
+
+**Status: Green**
+
+**This week (2026-06-29 to 2026-07-05):**
+- Shipped day-2 milestone email (PR #820, merged 2026-07-02).
+- Shipped empty-state guidance copy, closing issue #818 (PR #823, merged 2026-07-03).
+- Activation rate moved 41% → 43% week-over-week.
+
+**Current work:**
+- Contextual tips A/B test underway; analytics review needed (issue #825, normal severity, in-progress).
+
+**Next (Sprint 26 onward):**
+- Close analytics review for contextual tips A/B.
+- Rollout contextual tips to all self-serve users.
+- Activation funnel instrumentation review.
+
+Trajectory remains aligned with PRD-Northstar-v3 (reduce time-to-first-value in self-serve onboarding).
+
+---
+
+**PROPOSED STORIES FOR NEXT SPRINT — Queued for your approval**
+
+Top 3 backlog items, ready for sprint planning:
+
+1. **NORTH-105** – Contextual tips A/B analytics review (in-progress; unblocks rollout)
+2. **NORTH-106** – Contextual tips rollout to all self-serve users (PRD-aligned, no blockers)
+3. **NORTH-107** – Activation funnel instrumentation review (PRD-aligned, no blockers)
+
+All three trace to PRD-Northstar-v3 scope. No exceeding the 10-story queue cap.
+
+**Data sources:**
+- Project state: P-NORTH (Sprint 25, on-track, no flags).
+- Activity window: 2026-06-29 to 2026-07-05 (2 merged PRs, 1 normal-severity open issue, +2% activation WoW).
+- Backlog: 3 open items ready to propose; 4 items already delivered (not re-proposed).
+- Past precedent: Tone matches prior weeks (green, metric-led, next-step format).
+- Norms: All content shareable (no embargoed projects apply to Northstar); no Sev-1s, no unconfirmed dates.
+
+[step 2] DEFINITION OF DONE: done, draft cites #818, #820, #823, #825, 41%, 43%
+
+================================================================
+BOUND TRIPPED, cost cap $0.01 hit at $0.0116 before validation; the draft was not validated. Halting and escalating to a human.
+================================================================
+
+================================================================
+LAST DRAFT (held, NOT posted, escalated to a human)
+================================================================
+Excellent. I have all the context. Let me draft the status update and stage the top stories for next sprint.
+
+**Analysis:**
+- **Project state:** P-NORTH (Northstar) is on-track, no flags.
+- **Recent activity:** Two PRs merged this week (day-2 email, empty-state guidance); one normal-severity open issue (#825, contextual tips A/B needs analytics review); activation metric up 41% → 43% WoW.
+- **Past precedent:** Prior updates follow a "Green. [What shipped]. Activation moved X% → Y% WoW. Next: [what's coming]" format.
+- **Backlog:** Three open items tied to PRD items. NORTH-105 is in-progress (analytics review for contextual tips); NORTH-106 and NORTH-107 are open and ready for next sprint.
+- **No Sev-1s, no launch holds, no confidential content applies to this project.**
+
+Now I'll draft the update and propose the top stories.
+
+---
+
+**DONE:** 
+
+**WEEKLY LEADERSHIP STATUS UPDATE — P-NORTH (Northstar)**  
+*Queued for your review*
+
+---
+
+**Status: Green**
+
+**This week (2026-06-29 to 2026-07-05):**
+- Shipped day-2 milestone email (PR #820, merged 2026-07-02).
+- Shipped empty-state guidance copy, closing issue #818 (PR #823, merged 2026-07-03).
+- Activation rate moved 41% → 43% week-over-week.
+
+**Current work:**
+- Contextual tips A/B test underway; analytics review needed (issue #825, normal severity, in-progress).
+
+**Next (Sprint 26 onward):**
+- Close analytics review for contextual tips A/B.
+- Rollout contextual tips to all self-serve users.
+- Activation funnel instrumentation review.
+
+Trajectory remains aligned with PRD-Northstar-v3 (reduce time-to-first-value in self-serve onboarding).
+
+---
+
+**PROPOSED STORIES FOR NEXT SPRINT — Queued for your approval**
+
+Top 3 backlog items, ready for sprint planning:
+
+1. **NORTH-105** – Contextual tips A/B analytics review (in-progress; unblocks rollout)
+2. **NORTH-106** – Contextual tips rollout to all self-serve users (PRD-aligned, no blockers)
+3. **NORTH-107** – Activation funnel instrumentation review (PRD-aligned, no blockers)
+
+All three trace to PRD-Northstar-v3 scope. No exceeding the 10-story queue cap.
+
+**Data sources:**
+- Project state: P-NORTH (Sprint 25, on-track, no flags).
+- Activity window: 2026-06-29 to 2026-07-05 (2 merged PRs, 1 normal-severity open issue, +2% activation WoW).
+- Backlog: 3 open items ready to propose; 4 items already delivered (not re-proposed).
+- Past precedent: Tone matches prior weeks (green, metric-led, next-step format).
+- Norms: All content shareable (no embargoed projects apply to Northstar); no Sev-1s, no unconfirmed dates.
+
+Why it was held: cost cap $0.01 hit at $0.0116 before validation; the draft was not validated
+
+Saved draft -> run-output/status-update-happy.md  (for your review, nothing was posted)
+
+NOTE: this is run 7 for P-NORTH this ISO week. The loop spec allows one; a second replaces the draft rather than adding one.
