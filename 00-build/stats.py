@@ -56,6 +56,22 @@ def main() -> None:
     else:
         print(f"  never fired in {n} runs")
 
+    reviewed = [r for r in rows if r.get("human_verdict")]
+    print("\nHuman review")
+    if reviewed:
+        approved = sum(1 for r in reviewed if r["human_verdict"] == "approved")
+        reached = sum(1 for r in rows if r.get("outcome") == "accepted")
+        print(f"  reviewed                {len(reviewed):3}  of {reached} that reached a human")
+        print(f"  approved without edit   {approved:3}  {approved / len(reviewed):5.0%}")
+        for verdict, count in Counter(r["human_verdict"] for r in reviewed).most_common():
+            if verdict != "approved":
+                print(f"  {verdict:22} {count:3}")
+        reasons = Counter(r["human_reason"] for r in reviewed if r.get("human_reason"))
+        if reasons:
+            print("  reasons:", ", ".join(f"{k} x{v}" for k, v in reasons.most_common()))
+    else:
+        print("  no run has been reviewed yet. Every ROI metric depends on this.")
+
     repeats = Counter((r["project_id"], r["iso_week"]) for r in rows)
     dupes = {k: v for k, v in repeats.items() if v > 1}
     if dupes:

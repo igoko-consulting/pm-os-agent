@@ -30,7 +30,7 @@ import os
 import re
 import sys
 import time
-from datetime import date
+from datetime import date, datetime, timezone
 from pathlib import Path
 
 import anthropic
@@ -153,8 +153,13 @@ def ledger_record(project_id: str, outcome: str, cost: float,
     rows = json.loads(LEDGER.read_text(encoding="utf-8")) if LEDGER.exists() else []
     week = iso_week(date.today())
     prior = [r for r in rows if r["project_id"] == project_id and r["iso_week"] == week]
-    row = {"project_id": project_id, "iso_week": week,
-           "outcome": outcome, "cost_usd": round(cost, 4)}
+    row = {"run_id": datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ"),
+           "project_id": project_id, "iso_week": week,
+           "outcome": outcome, "cost_usd": round(cost, 4),
+           # Filled later by review.py. The ledger recorded everything the agent did
+           # and nothing about what the human thought of it, so every ROI metric in
+           # 06-autonomy/production-and-autonomy.md had no data behind it.
+           "human_verdict": None}
     row.update(stats or {})
     rows.append(row)
     LEDGER.write_text(json.dumps(rows, indent=2) + "\n", encoding="utf-8")
@@ -478,9 +483,19 @@ def run(which: str = "happy") -> None:
                              reason=reason, cost=bounds.cost)
             return
 
-        resp = client.messages.create(
-            model=MODEL, max_tokens=MAX_OUTPUT_TOKENS, system=CORTEX_SYSTEM,
-            messages=messages, tools=TOOL_SCHEMAS)
+        try:
+            resp = client.messages.create(
+                model=MODEL, max_tokens=MAX_OUTPUT_TOKENS, system=CORTEX_SYSTEM,
+                messages=messages, tools=TOOL_SCHEMAS)
+        except anthropic.APIError as exc:
+            # The SDK already retried. A Monday-morning job that dies with a stack
+            # trace is a silent no-show; this leaves a held draft and a reason.
+            stats["exit"] = "model_unavailable"
+            reason = f"model unavailable after SDK retries: {type(exc).__name__}"
+            banner(f"HALTED, {reason}. Escalating to a human.")
+            emit_deliverable(which, last_draft, accepted=False, project_id=project_of(task),
+                             staged=staged, stats=stats, reason=reason, cost=bounds.cost)
+            return
         bounds.add(resp.usage)
 
         tool_uses = [b for b in resp.content if b.type == "tool_use"]
@@ -557,8 +572,17 @@ def run(which: str = "happy") -> None:
         escalated = critic_model == CRITIC_MODEL and ROUTINE_CRITIC_MODEL != CRITIC_MODEL
         banner(f"CRITIC, independent validation  ({critic_model}, {why_route})")
         stats["critic_model"] = critic_model
-        verdict = review(client, critic_model, proposed, "\n".join(source_log[1:]),
-                         task_brief=task["body"])
+        try:
+            verdict = review(client, critic_model, proposed, "\n".join(source_log[1:]),
+                             task_brief=task["body"])
+        except anthropic.APIError as exc:
+            stats["exit"] = "model_unavailable"
+            reason = (f"validator unavailable after SDK retries: {type(exc).__name__}; "
+                      f"the draft was not validated")
+            banner(f"HALTED, {reason}. Escalating to a human.")
+            emit_deliverable(which, last_draft, accepted=False, project_id=project_of(task),
+                             staged=staged, stats=stats, reason=reason, cost=bounds.cost)
+            return
         # Estimate critic spend too.
         p_in = CRITIC_PRICE_IN if critic_model == CRITIC_MODEL else ROUTINE_PRICE_IN
         p_out = CRITIC_PRICE_OUT if critic_model == CRITIC_MODEL else ROUTINE_PRICE_OUT
