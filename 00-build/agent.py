@@ -577,9 +577,9 @@ def run(which: str = "happy") -> None:
             bounds.cost += (verdict["_usage"]["prompt"] * CRITIC_PRICE_IN
                             + verdict["_usage"]["completion"] * CRITIC_PRICE_OUT) / 1_000_000
             stats["critic_verdict"] = verdict["verdict"]
-        stats["checks_failed"] = [c["id"] for c in verdict.get("checks", [])
-                                  if c.get("result") == "fail"]
-        print(json.dumps({k: v for k, v in verdict.items() if k != "_usage"}, indent=2))
+            stats["checks_failed"] = [c["id"] for c in verdict.get("checks", [])
+                                      if c.get("result") == "fail"]
+            print(json.dumps({k: v for k, v in verdict.items() if k != "_usage"}, indent=2))
 
         if verdict["verdict"] == "pass":
             stats["exit"] = "done"
