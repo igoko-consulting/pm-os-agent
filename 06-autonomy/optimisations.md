@@ -59,13 +59,32 @@ All three guards run only on the `done` path, so an escalation that names an emb
 order to refuse it is untouched. Verified against five cases plus a live run with no false positives:
 `traces/m5-guards-and-note-cap.txt`.
 
+## Measurement
+
+The ledger row is now the structured shape of a run: `project_id`, `iso_week`, `outcome`,
+`cost_usd`, `exit`, `tools_called`, `revisions`, `critic_model`, `critic_verdict`, `checks_failed`,
+`guards_fired`. Ids, counts and enums only, so the PII constraint in `04-memory-context` §5 holds
+without keeping any draft or brief text.
+
+`00-build/stats.py` reads it. Over the first five runs it already showed things no single trace
+does:
+
+- **40% of runs reach the critic.** The cheap structural checks stop the rest first, which is the
+  cost design working: most escalations never pay for validation.
+- **Both validated runs routed to Sonnet.** No risk signal fired.
+- **The guards have never fired in live running**, only in unit tests. A guard that never fires is
+  either unnecessary or untested in anger, and the ledger is what will tell you which.
+- **The dedupe rule is being broken**, three P-NORTH runs in one ISO week. The in-run warning says
+  so each time; the ledger makes the pattern visible.
+
+This is the production-traces stage of the eval lifecycle in `05-bounds-evals` §4, built rather
+than described.
+
 ## Still open
 
 - **Pre-call cost estimate.** The per-run cap refuses the critic call when already over budget, but
   a single expensive drafter turn can still breach it. A token-count estimate before the call would
   let the bound refuse a call rather than regret one.
-- **Ledger metrics.** The ledger records project, week, outcome and cost. Adding exit type, critic
-  verdict, which checks failed and revision count would give rejection and escalation rates over
-  time, which is the only measure here that improves accuracy rather than cost.
+
 - **Prose-only fabrication.** No structural signal catches it. Today it is covered incidentally when
   evidence is missing.

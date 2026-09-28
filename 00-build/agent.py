@@ -142,7 +142,8 @@ def iso_week(when: date) -> str:
     return f"{year}-W{week:02d}"
 
 
-def ledger_record(project_id: str, outcome: str, cost: float) -> dict:
+def ledger_record(project_id: str, outcome: str, cost: float,
+                  stats: dict | None = None) -> dict:
     """Append one row, and report whether this project already ran this week.
 
     Makes the dedupe rule in loop-spec §1 real. Until now it held only because the
@@ -152,8 +153,10 @@ def ledger_record(project_id: str, outcome: str, cost: float) -> dict:
     rows = json.loads(LEDGER.read_text(encoding="utf-8")) if LEDGER.exists() else []
     week = iso_week(date.today())
     prior = [r for r in rows if r["project_id"] == project_id and r["iso_week"] == week]
-    rows.append({"project_id": project_id, "iso_week": week,
-                 "outcome": outcome, "cost_usd": round(cost, 4)})
+    row = {"project_id": project_id, "iso_week": week,
+           "outcome": outcome, "cost_usd": round(cost, 4)}
+    row.update(stats or {})
+    rows.append(row)
     LEDGER.write_text(json.dumps(rows, indent=2) + "\n", encoding="utf-8")
     return {"repeat_run": bool(prior), "runs_this_week": len(prior) + 1}
 
@@ -264,8 +267,8 @@ def check_done(draft: str, source_log: list[str], brief: str = "") -> tuple[str,
 #
 # They run only on the `done` path. An escalation that names an embargoed project in
 # order to refuse it is correct and is not touched.
-def guard_violations(draft: str, source_log: list[str], project_id: str) -> list[str]:
-    violations: list[str] = []
+def guard_violations(draft: str, source_log: list[str], project_id: str) -> list[tuple[str, str]]:
+    violations: list[tuple[str, str]] = []
     lowered = draft.lower()
 
     projects = tools._load_json("projects.json")
@@ -274,20 +277,20 @@ def guard_violations(draft: str, source_log: list[str], project_id: str) -> list
             continue
         name = record.get("name", "").split(" (")[0]
         if pid.lower() in lowered or (name and name.lower() in lowered):
-            violations.append(f"names confidential project {pid} in a draft that would advance")
+            violations.append(("confidential", f"names confidential project {pid} in a draft that would advance"))
 
     record = projects.get(project_id, {})
     blocked = "launch_hold" in record.get("flags", [])
     sev1 = any(i.get("severity") == "sev-1" for i in record.get("activity", []))
     if (blocked or sev1) and "green" in lowered:
         why = "an open Sev-1" if sev1 else "a launch_hold flag"
-        violations.append(f"reports green while {project_id} carries {why}")
+        violations.append(("sev1_green", f"reports green while {project_id} carries {why}"))
 
     pulled = artefacts_in("\n".join(source_log))
     uncited = artefacts_in(draft) - pulled
     if uncited:
-        violations.append("cites figures that appear in no tool result: "
-                          + ", ".join(sorted(uncited)))
+        violations.append(("uncited_figure", "cites figures that appear in no tool result: "
+                           + ", ".join(sorted(uncited))))
     return violations
 
 
@@ -340,7 +343,7 @@ def settle_proposals(staged: list[dict], *, accepted: bool, project_id: str) -> 
 
 def emit_deliverable(which: str, draft: str, *, accepted: bool,
                      reason: str, cost: float, project_id: str = "unknown",
-                     staged: list[dict] | None = None) -> None:
+                     staged: list[dict] | None = None, stats: dict | None = None) -> None:
     """Surface AND persist Cortex's drafted status update so it can't get lost in
     the scroll-back. This is still a DRAFT held for human review, never a post,
     there is no publish tool, and an escalated run is held on purpose.
@@ -369,7 +372,7 @@ def emit_deliverable(which: str, draft: str, *, accepted: bool,
 
     settle_proposals(staged or [], accepted=accepted, project_id=project_id)
 
-    entry = ledger_record(project_id, "accepted" if accepted else "held", cost)
+    entry = ledger_record(project_id, "accepted" if accepted else "held", cost, stats)
     if entry["repeat_run"]:
         print(f"\nNOTE: this is run {entry['runs_this_week']} for {project_id} this ISO week. "
               f"The loop spec allows one; a second replaces the draft rather than adding one.")
@@ -410,29 +413,37 @@ def run(which: str = "happy") -> None:
     ]
     source_log: list[str] = [task["body"]]
     staged: list[dict] = []
+    # Structured only: ids, counts and enums. No draft text, no brief text, no free
+    # text of any kind, per the PII constraint in 04-memory-context §5.
+    stats: dict = {"exit": "unknown", "tools_called": 0, "revisions": 0,
+                   "critic_model": None, "critic_verdict": None,
+                   "checks_failed": [], "guards_fired": []}
     revisions = 0
     last_draft = ""
 
     for step in range(1, MAX_ITERATIONS + 1):
         if kill_switch_engaged():
+            stats["exit"] = "kill_switch"
             reason = f"kill switch engaged mid-run ({STOP_FILE.name} appeared)"
             banner(f"HALTED, {reason}. Escalating to a human.")
-            emit_deliverable(which, last_draft, accepted=False, project_id=project_of(task), staged=staged,
+            emit_deliverable(which, last_draft, accepted=False, project_id=project_of(task), staged=staged, stats=stats,
                              reason=reason, cost=bounds.cost)
             return
 
         elapsed = time.monotonic() - started
         if elapsed > RUN_TIMEOUT_S:
+            stats["exit"] = "timeout"
             reason = f"run timeout {RUN_TIMEOUT_S}s exceeded at {elapsed:.0f}s"
             banner(f"BOUND TRIPPED, {reason}. Halting and escalating to a human.")
-            emit_deliverable(which, last_draft, accepted=False, project_id=project_of(task), staged=staged,
+            emit_deliverable(which, last_draft, accepted=False, project_id=project_of(task), staged=staged, stats=stats,
                              reason=reason, cost=bounds.cost)
             return
 
         if bounds.over_cap():
+            stats["exit"] = "cost_cap"
             reason = f"cost cap ${COST_CAP_USD} hit at ${bounds.cost:.4f}"
             banner(f"BOUND TRIPPED, {reason}. Halting and escalating to a human.")
-            emit_deliverable(which, last_draft, accepted=False, project_id=project_of(task), staged=staged,
+            emit_deliverable(which, last_draft, accepted=False, project_id=project_of(task), staged=staged, stats=stats,
                              reason=reason, cost=bounds.cost)
             return
 
@@ -448,6 +459,7 @@ def run(which: str = "happy") -> None:
             for call in tool_uses:
                 fn = call.name
                 args = dict(call.input)
+                stats["tools_called"] += 1
                 result = tools.TOOLS[fn](**args)
                 if result.get("status") == "staged_for_approval":
                     staged.append(result)
@@ -469,23 +481,27 @@ def run(which: str = "happy") -> None:
         print(f"\n[step {step}] DEFINITION OF DONE: {verdict_kind}, {why}")
 
         if verdict_kind == "stuck":
+            stats["exit"] = "stuck"
             banner(f"STUCK, {why}. Halting and escalating to a human. "
                    f"Run cost \u2248 ${bounds.cost:.4f}")
-            emit_deliverable(which, last_draft, accepted=False, project_id=project_of(task), staged=staged,
+            emit_deliverable(which, last_draft, accepted=False, project_id=project_of(task), staged=staged, stats=stats,
                              reason=f"definition of done not met: {why}",
                              cost=bounds.cost)
             return
 
         if verdict_kind == "escalate":
+            stats["exit"] = "escalate"
             banner(f"ESCALATED by Cortex, handed to a human. Nothing posted. "
                    f"Run cost \u2248 ${bounds.cost:.4f}")
-            emit_deliverable(which, last_draft, accepted=False, project_id=project_of(task), staged=staged,
+            emit_deliverable(which, last_draft, accepted=False, project_id=project_of(task), staged=staged, stats=stats,
                              reason=why, cost=bounds.cost)
             return
 
         breaches = guard_violations(proposed, source_log, project_of(task))
         if breaches:
-            reason = "safety guard: " + "; ".join(breaches)
+            stats["guards_fired"] = [code for code, _ in breaches]
+            stats["exit"] = "guard_blocked"
+            reason = "safety guard: " + "; ".join(msg for _, msg in breaches)
             banner(f"BLOCKED, {reason}. Halting and escalating to a human.")
             emit_deliverable(which, last_draft, accepted=False, project_id=project_of(task),
                              staged=staged, reason=reason, cost=bounds.cost)
@@ -497,6 +513,7 @@ def run(which: str = "happy") -> None:
         # $0.01 cap. The critic is the largest single line item in a run, so this is
         # the call worth refusing.
         if bounds.over_cap():
+            stats["exit"] = "cost_cap_pre_critic"
             reason = (f"cost cap ${COST_CAP_USD} hit at ${bounds.cost:.4f} before validation; "
                       f"the draft was not validated")
             banner(f"BOUND TRIPPED, {reason}. Halting and escalating to a human.")
@@ -504,9 +521,11 @@ def run(which: str = "happy") -> None:
                              staged=staged, reason=reason, cost=bounds.cost)
             return
 
+        stats["exit"] = "validating"
         critic_model, why_route = critic_route(proposed, source_log, project_of(task), task["body"])
         escalated = critic_model == CRITIC_MODEL and ROUTINE_CRITIC_MODEL != CRITIC_MODEL
         banner(f"CRITIC, independent validation  ({critic_model}, {why_route})")
+        stats["critic_model"] = critic_model
         verdict = review(client, critic_model, proposed, "\n".join(source_log[1:]),
                          task_brief=task["body"])
         # Estimate critic spend too.
@@ -514,6 +533,9 @@ def run(which: str = "happy") -> None:
         p_out = CRITIC_PRICE_OUT if critic_model == CRITIC_MODEL else ROUTINE_PRICE_OUT
         bounds.cost += (verdict["_usage"]["prompt"] * p_in
                         + verdict["_usage"]["completion"] * p_out) / 1_000_000
+        stats["critic_verdict"] = verdict["verdict"]
+        stats["checks_failed"] = [c["id"] for c in verdict.get("checks", [])
+                                  if c.get("result") == "fail"]
         print(json.dumps({k: v for k, v in verdict.items() if k != "_usage"}, indent=2))
 
         if verdict["verdict"] == "fail" and not escalated and ROUTINE_CRITIC_MODEL != CRITIC_MODEL:
@@ -523,34 +545,41 @@ def run(which: str = "happy") -> None:
                              "\n".join(source_log[1:]), task_brief=task["body"])
             bounds.cost += (verdict["_usage"]["prompt"] * CRITIC_PRICE_IN
                             + verdict["_usage"]["completion"] * CRITIC_PRICE_OUT) / 1_000_000
-            print(json.dumps({k: v for k, v in verdict.items() if k != "_usage"}, indent=2))
+            stats["critic_verdict"] = verdict["verdict"]
+        stats["checks_failed"] = [c["id"] for c in verdict.get("checks", [])
+                                  if c.get("result") == "fail"]
+        print(json.dumps({k: v for k, v in verdict.items() if k != "_usage"}, indent=2))
 
         if verdict["verdict"] == "pass":
+            stats["exit"] = "done"
             banner(f"HITL CHECKPOINT, status update + any proposed stories queued for "
                    f"your review. Nothing posted, no commitments made. "
                    f"Run cost ≈ ${bounds.cost:.4f}")
-            emit_deliverable(which, proposed, accepted=True, project_id=project_of(task), staged=staged,
+            emit_deliverable(which, proposed, accepted=True, project_id=project_of(task), staged=staged, stats=stats,
                              reason="validator passed", cost=bounds.cost)
             return
 
         if revisions >= MAX_REVISIONS:
+            stats["exit"] = "revision_cap"
             reason = f"validator rejected {MAX_REVISIONS}x (revision cap)"
             banner(f"REVISION CAP hit ({MAX_REVISIONS}). Escalating to a human "
                    f"instead of looping. Run cost ≈ ${bounds.cost:.4f}")
-            emit_deliverable(which, last_draft, accepted=False, project_id=project_of(task), staged=staged,
+            emit_deliverable(which, last_draft, accepted=False, project_id=project_of(task), staged=staged, stats=stats,
                              reason=reason, cost=bounds.cost)
             return
 
         revisions += 1
+        stats["revisions"] = revisions
         print(f"\n-> critic rejected; revision {revisions}/{MAX_REVISIONS}")
         messages.append({"role": "assistant", "content": resp.content})
         messages.append({"role": "user", "content":
                          "A validator rejected that for these reasons: "
                          f"{verdict['reasons']}. Fix it or escalate."})
 
+    stats["exit"] = "max_iterations"
     banner(f"MAX ITERATIONS ({MAX_ITERATIONS}) reached without finishing. "
            f"Escalating. Run cost ≈ ${bounds.cost:.4f}")
-    emit_deliverable(which, last_draft, accepted=False, project_id=project_of(task), staged=staged,
+    emit_deliverable(which, last_draft, accepted=False, project_id=project_of(task), staged=staged, stats=stats,
                      reason=f"max iterations ({MAX_ITERATIONS}) reached",
                      cost=bounds.cost)
 
