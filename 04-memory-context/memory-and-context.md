@@ -91,7 +91,7 @@ cannot know what it did last week.
 
 | Memory type | What Cortex stores | Scope / TTL |
 |---|---|---|
-| **Working** (in-loop) | The fenced task brief, tool results, the draft, the validator's verdict, the revision counter, the running cost | This run only. Nothing survives it. |
+| **Working** (in-loop) | The fenced task brief, tool results, the draft, the validator's verdict, the revision counter, the running cost, and staged story proposals | This run only. Nothing survives it. Staged proposals commit to `run-output/queue-<project>.json` at the human checkpoint and are discarded on any other exit. |
 | **Episodic** (past runs) | Nothing written today. `past-updates.json` and `decision-log.json` are read as episodic memory but are maintained by the team, not by Cortex. **Adding: a run ledger, one row per run.** Constraint, not description: the ledger may hold **only** project id, ISO week, outcome, and cost. No draft text, no brief text, no tool results, no free text of any kind. | Ledger: 12 months, enough to answer "has this week already run". Past updates: read fresh, no cache. |
 | **Semantic** (durable facts) | Nothing stored. Team norms, roadmap and confidentiality flags are re-read every run rather than remembered. | No TTL, because there is no cache. Refetch-every-run is the policy, and it is why the roadmap is long-context rather than retrieved (§2). |
 | **Shared** (across agents) | The pulled data and the draft, which the validator sees. The drafter's message history and the validator's reasoning stay isolated; the validator's *reasons* flow back on a fail, because that is how revision works. | This run only. Carried from `03-orchestration/orchestration-map.md` §6. |

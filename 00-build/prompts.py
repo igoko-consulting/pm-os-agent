@@ -82,6 +82,10 @@ Respond as strict JSON with three keys:
   "reasons": ["..."]           one entry per failure, specific
   "checks":  [{"id": 1, "result": "pass" | "fail" | "n_a", "note": "..."}, ...]
 
+Keep every note under 25 words. State the finding, not the reasoning that led to it,
+and do not restate the check. Notes are read by a human scanning a verdict, not by a
+reviewer reading an essay. "reasons" carries the detail, and only for failures.
+
 "checks" must contain one entry for EVERY numbered check above, 1 to 6, in order.
 Say n_a only when the check genuinely does not apply to this run, and say why in the
 note. Answering every check is not optional: a check you skip is a check that failed

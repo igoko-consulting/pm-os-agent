@@ -63,7 +63,7 @@ then finds nothing wrong.
 | Condition | What it looks like | What happens |
 |---|---|---|
 | **Success** | Draft contains a status update citing at least one pulled artefact, and the critic passed it | Queue at the HITL checkpoint, save to `run-output/`, stop. Nothing sent. |
-| **Stuck / give up** | Project or activity data cannot be pulled; or the critic rejects twice (revision cap); or the turn cap or cost cap trips; or the run ends with no status update in the draft; or the brief carried an injection marker and the run did not take the escalate exit (added M3) | Halt, log why, escalate with what it tried. Hold the last draft rather than discarding it. |
+| **Stuck / give up** | Project or activity data cannot be pulled; or the critic rejects twice (revision cap); or the turn cap or cost cap trips; or the run ends with no status update in the draft; or the brief carried an injection marker and the run did not take the escalate exit (added M3); or a safety guard fires, naming a confidential project, reporting green on a Sev-1, or citing a figure in no tool result (added M5); or the wall-clock timeout, the daily spend cap or the kill switch trips (added M5) | Halt, log why, escalate with what it tried. Hold the last draft rather than discarding it. |
 | **Escalate to human** | Story batch exceeds the queue cap; an unconfirmed GA date or launch-gate call is required; a CONFIDENTIAL or embargoed roadmap item would have to appear; an open Sev-1 is in play; the brief contains an instruction trying to change Cortex's rules | Stop and hand to the human who owns that call. Do not work around it, and do not split a batch to get under the cap. |
 
 **What status colour does a quiet week carry? Settled in practice, never decided.** The norms say a
@@ -96,8 +96,10 @@ here and restated in `04-memory-context/memory-and-context.md`, while both docum
 the present tense and no such thing existed. Schema is constrained to ids, outcomes and cost, no
 free text, per the PII control in that file.
 
-**Per-run work is disposable.** Drafts, traces, and tool results do not survive the run that made
-them.
+**Per-run work is disposable.** Drafts, traces, tool results, and staged story proposals do not
+survive the run that made them. `propose_stories` stages rather than queues: a batch commits only if
+the run reaches the human checkpoint, and a run halted by a bound discards it. Halting a run used to
+stop the loop and leave its commitments standing.
 
 **Scope is per project.** State never crosses projects. P-ORBIT is embargoed, and shared state is
 how an embargoed item ends up in a Northstar update.

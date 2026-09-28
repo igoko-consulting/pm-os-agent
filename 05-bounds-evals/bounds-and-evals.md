@@ -32,11 +32,22 @@ and proposal rollback did not exist when the table was first written. Leaving th
 rows would have been honest and useless: a bounds table whose bounds do not exist is a plan, not a
 control.
 
-**What the table says about the build.** The two worst outcomes in my ranking, a confidential item
-reaching a company-wide audience and leadership acting on an invented figure, are held by prompt
-norms and a second model. Neither is a bound. The things with real bounds are the runaway loop and
-the inability to post, which rank fourth and fifth. The strongest control in the system is a tool
-that does not exist.
+**What the table said about the build, and what changed.** The two worst outcomes in my ranking, a
+confidential item reaching a company-wide audience and leadership acting on an invented figure, were
+held only by prompt norms and a second model. Neither was a bound. Both are now, added after the
+table was first written:
+
+| Guard | Rule | Enforced |
+|---|---|---|
+| **Confidential guard** | An advancing draft may not name a project whose record carries `flags: ["confidential"]` | In code, before validation. Reads the flag, never a name list: P-PULSAR arrived in a data pack and a list written the week before would have passed it |
+| **Sev-1 / launch_hold guard** | A draft may not report green for a project with an open `sev-1` or a `launch_hold` flag | In code, from the project record |
+| **Uncited-figure guard** | An advancing draft may not contain a PR id, issue id or percentage that appears in no tool result | In code. This is EV-2 as a bound rather than an eval |
+
+All three run only on the `done` path. An escalation that names an embargoed project in order to
+refuse it is correct and untouched.
+
+The strongest control in the system is still a tool that does not exist. That holds until M6 wires a
+connector with write scope.
 
 ### Permissions: why there is no standing write access
 

@@ -247,6 +247,42 @@ def check_done(draft: str, source_log: list[str], brief: str = "") -> tuple[str,
     return "done", f"draft cites {', '.join(sorted(cited))}"
 
 
+# --- Safety guards (M5 bounds-and-evals §1) ---------------------------------
+# The two worst-ranked risks, a confidential item reaching a company-wide audience
+# and leadership acting on an invented figure, were held only by prompt norms and
+# the critic's judgement. These move them outside the model. Every one reads the
+# data rather than a name list: P-PULSAR arrived in a data pack, and a list written
+# the week before would have passed it silently.
+#
+# They run only on the `done` path. An escalation that names an embargoed project in
+# order to refuse it is correct and is not touched.
+def guard_violations(draft: str, source_log: list[str], project_id: str) -> list[str]:
+    violations: list[str] = []
+    lowered = draft.lower()
+
+    projects = tools._load_json("projects.json")
+    for pid, record in projects.items():
+        if "confidential" not in record.get("flags", []):
+            continue
+        name = record.get("name", "").split(" (")[0]
+        if pid.lower() in lowered or (name and name.lower() in lowered):
+            violations.append(f"names confidential project {pid} in a draft that would advance")
+
+    record = projects.get(project_id, {})
+    blocked = "launch_hold" in record.get("flags", [])
+    sev1 = any(i.get("severity") == "sev-1" for i in record.get("activity", []))
+    if (blocked or sev1) and "green" in lowered:
+        why = "an open Sev-1" if sev1 else "a launch_hold flag"
+        violations.append(f"reports green while {project_id} carries {why}")
+
+    pulled = artefacts_in("\n".join(source_log))
+    uncited = artefacts_in(draft) - pulled
+    if uncited:
+        violations.append("cites figures that appear in no tool result: "
+                          + ", ".join(sorted(uncited)))
+    return violations
+
+
 def text_of(content) -> str:
     """Join the text blocks of a Messages API response into one string."""
     return "\n".join(b.text for b in content if b.type == "text")
@@ -417,6 +453,14 @@ def run(which: str = "happy") -> None:
                    f"Run cost \u2248 ${bounds.cost:.4f}")
             emit_deliverable(which, last_draft, accepted=False, project_id=project_of(task), staged=staged,
                              reason=why, cost=bounds.cost)
+            return
+
+        breaches = guard_violations(proposed, source_log, project_of(task))
+        if breaches:
+            reason = "safety guard: " + "; ".join(breaches)
+            banner(f"BLOCKED, {reason}. Halting and escalating to a human.")
+            emit_deliverable(which, last_draft, accepted=False, project_id=project_of(task),
+                             staged=staged, reason=reason, cost=bounds.cost)
             return
 
         # The cap is checked again here, not only at the top of the loop. A run that

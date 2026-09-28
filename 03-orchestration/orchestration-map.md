@@ -133,11 +133,16 @@ once per loop.
 | | Haiku critic | Opus critic |
 |---|---|---|
 | One validator call | $0.0049, 6.9s | **$0.0518, 20.1s** |
-| Clean run, end to end | ~$0.0200 | ~$0.065 |
+| Clean run, end to end | ~$0.0200 | ~$0.055 after the M5 note cap, ~$0.075 before it |
 | Run with one rejection + redraft | ~$0.027 | **$0.1196** (measured) |
 
 So the validator went from about a quarter of a run to roughly four fifths of it, and the upgrade
 costs about 10x per call and 3x the latency.
+
+**One free saving, taken in M5.** Critic output was about 70% of the critic's cost and roughly half
+a whole run's. Capping each per-check note at 25 words took a clean run from $0.075 to $0.055,
+around 25%, with no change to what the checks catch: the notes are read by a human scanning a
+verdict, and `reasons` still carries the detail on failures.
 
 **Worst case, at the revision cap.** Three validator calls and two redrafts, roughly $0.17 and
 about a minute before anything reaches the PM.
