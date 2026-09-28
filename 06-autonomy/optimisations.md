@@ -56,8 +56,34 @@ written the week before would have passed it silently, which is the same failure
 window that rotted in code.
 
 All three guards run only on the `done` path, so an escalation that names an embargoed project in
-order to refuse it is untouched. Verified against five cases plus a live run with no false positives:
-`traces/m5-guards-and-note-cap.txt`.
+order to refuse it is untouched.
+
+### Validating a blocking guard
+
+A guard that blocks a run has one risk that matters more than the rest: a **false positive**, which
+pulls a human in for nothing and is how people stop trusting an agent. It cannot be validated by
+waiting for it to fire in live running, because it is a backstop for the model failing to refuse and
+the model mostly does not. Five live runs produced zero guard fires, which says nothing either way.
+
+`00-build/guard_replay.py` replays every recorded draft through the guards. On its first run it
+found two false positives in guards written the same hour:
+
+| False positive | Cause | Fix |
+|---|---|---|
+| Blocked a draft for "names confidential project P-ORBIT" | The draft mentioned Orbit **in order to exclude it**: "no confidential roadmap items". Complying, not leaking | A mention on a line carrying an exclusion word is compliance |
+| Blocked a draft for citing "2%" | That is "+2 percentage points", arithmetic on 41% and 43%, both cited | Percentages derivable from cited figures are allowed |
+
+Two further flags were artefacts of the replay harness, not the guards: evidence was rebuilt from
+`get_activity` alone, and past updates were queried by project id when the corpus is keyed on name.
+Both made legitimate figures look uncited.
+
+After the fixes, of the recorded drafts that actually reached the guards, **none from the current
+data era is blocked**. The single remaining block is a pre-data-pack draft citing #812 and #815,
+figures that genuinely no longer exist, which is the guard working rather than misfiring.
+
+This is the same lesson as M2's false stuck, arrived at from a different direction: a check is
+easy to write, hard to get right, and the only way to know is to run it against real recorded
+behaviour rather than reason about it.
 
 ## Measurement
 

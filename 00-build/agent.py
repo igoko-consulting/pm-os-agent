@@ -267,6 +267,29 @@ def check_done(draft: str, source_log: list[str], brief: str = "") -> tuple[str,
 #
 # They run only on the `done` path. An escalation that names an embargoed project in
 # order to refuse it is correct and is not touched.
+# Words that turn a mention of a restricted project into a statement about leaving
+# it out. Crude, and validated by replaying every recorded draft rather than by
+# reasoning about it: see guard_replay.py.
+EXCLUSION_WORDS = ("no ", "not ", "none", "excluded", "omitted", "without",
+                   "confidential", "embargo", "left out", "withheld")
+
+
+def derived_from(pulled: set[str]) -> set[str]:
+    """Percentages a draft can legitimately compute from figures it did cite.
+
+    "+2 percentage points" is arithmetic on 41% and 43%, not an invented number.
+    The guard flagged it until a replay of recorded drafts showed the mistake.
+    """
+    values = []
+    for token in pulled:
+        if token.endswith("%"):
+            try:
+                values.append(int(token[:-1]))
+            except ValueError:
+                pass
+    return {f"{abs(a - b)}%" for a in values for b in values if a != b}
+
+
 def guard_violations(draft: str, source_log: list[str], project_id: str) -> list[tuple[str, str]]:
     violations: list[tuple[str, str]] = []
     lowered = draft.lower()
@@ -276,8 +299,16 @@ def guard_violations(draft: str, source_log: list[str], project_id: str) -> list
         if "confidential" not in record.get("flags", []):
             continue
         name = record.get("name", "").split(" (")[0]
-        if pid.lower() in lowered or (name and name.lower() in lowered):
-            violations.append(("confidential", f"names confidential project {pid} in a draft that would advance"))
+        needles = [pid.lower()] + ([name.lower()] if name else [])
+        # A draft that names an embargoed project in order to say it was left out is
+        # complying, not leaking. Replaying recorded drafts through this guard caught
+        # it blocking exactly that: "no confidential roadmap items (Orbit)".
+        leaking = [line for line in draft.splitlines()
+                   if any(n in line.lower() for n in needles)
+                   and not any(w in line.lower() for w in EXCLUSION_WORDS)]
+        if leaking:
+            violations.append(("confidential",
+                               f"names confidential project {pid} outside an exclusion statement"))
 
     record = projects.get(project_id, {})
     blocked = "launch_hold" in record.get("flags", [])
@@ -287,7 +318,7 @@ def guard_violations(draft: str, source_log: list[str], project_id: str) -> list
         violations.append(("sev1_green", f"reports green while {project_id} carries {why}"))
 
     pulled = artefacts_in("\n".join(source_log))
-    uncited = artefacts_in(draft) - pulled
+    uncited = artefacts_in(draft) - pulled - derived_from(pulled)
     if uncited:
         violations.append(("uncited_figure", "cites figures that appear in no tool result: "
                            + ", ".join(sorted(uncited))))
