@@ -11,7 +11,7 @@ Numbers are per run on the happy-path fixture, drafter `claude-haiku-4-5`.
 | Change | Before | After | Why it is safe |
 |---|---|---|---|
 | **Critic note cap, 25 words** | $0.075 | $0.0552 | Critic output was ~70% of the critic's cost and ~half a run's. Notes are read by a human scanning a verdict; `reasons` still carries the detail on failures. Nothing about what the checks catch changed. |
-| **Risk-routed critic** | $0.0552 | $0.0389 | Routine runs validate on `claude-sonnet-5`; `claude-opus-5` is used when the run carries a risk signal. See the routing table below. |
+| **Risk-routed critic** | $0.0552 | $0.0389 | Routine runs validate on `claude-sonnet-5`; `claude-opus-5` is used when the run carries a risk signal. See the routing table below, and `traces/m5-risk-routed-sonnet.txt`. |
 | **Cumulative** | **$0.075** | **$0.0389** | ~48% off a routine run. At four projects weekly, roughly $8 a year against $16. |
 
 ### Why routing, and not "cheap first, escalate on fail"
@@ -107,6 +107,11 @@ This is the production-traces stage of the eval lifecycle in `05-bounds-evals` Â
 than described.
 
 ## Still open
+
+- **The second-opinion path is unwitnessed in a saved trace.** It has fired once, a routine
+  rejection confirmed by Opus before a revision was spent, and the terminal output was not captured.
+  It needs a routine critic to reject, which is not reliably forceable, so it stays uncaptured until
+  it happens again during ordinary work.
 
 - **Pre-call cost estimate.** The per-run cap refuses the critic call when already over budget, but
   a single expensive drafter turn can still breach it. A token-count estimate before the call would
