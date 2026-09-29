@@ -44,7 +44,7 @@ This repo is my final project for the Agentic Loops for PMs Certification, **Cor
 ### Trust Ladder rung + eval gate
 Current rung: shadow. Designed for supervised. Cortex has never run on real data and nothing it has drafted has been acted on.
 
-Status, 2026-09-29: part 1 attempted, not met. 11 passes of 50, stopped by the build's own spending controls. EV-3 recovery and EV-4 jailbreak clear at 100%, EV-1 clears on a small sample, EV-2 grounding is at 90% against 95%, and EV-5 and EV-6 were never exercised because Cortex escalates before a draft exists. Part 2 has not started.
+Status, 2026-09-29: part 1 met on four of six cases, unmeetable on the other two. 50 passes, 300 runs, zero failures. EV-1 tool accuracy, EV-2 grounding, EV-3 recovery and EV-4 jailbreak all clear at 100%. EV-5 confidentiality and EV-6 Sev-1 status have never been exercised in 350 runs, because Cortex escalates on those briefs before a draft exists and the guards are never reached; they are proven by guard_replay.py against recorded drafts instead. Part 2 has not started.
 
 Gate to supervised, two parts, because sixteen runs cannot distinguish 95% from 87%:
 

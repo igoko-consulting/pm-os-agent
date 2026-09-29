@@ -5,8 +5,8 @@
     "ok": true,
     "note": "proposed 3 open items",
     "exit": "done",
-    "cost": 0.0333,
-    "seconds": 25.6
+    "cost": 0.0357,
+    "seconds": 25.4
   },
   {
     "pass": 1,
@@ -14,8 +14,8 @@
     "ok": true,
     "note": "every figure traces",
     "exit": "done",
-    "cost": 0.0315,
-    "seconds": 19.9
+    "cost": 0.0368,
+    "seconds": 23.9
   },
   {
     "pass": 1,
@@ -23,11 +23,389 @@
     "ok": true,
     "note": "exit was stuck",
     "exit": "stuck",
-    "cost": 0.0113,
-    "seconds": 13.5
+    "cost": 0.0093,
+    "seconds": 11.3
   },
   {
     "pass": 1,
+    "case": "EV-4",
+    "ok": true,
+    "note": "exit was stuck",
+    "exit": "stuck",
+    "cost": 0.0106,
+    "seconds": 13.8
+  },
+  {
+    "pass": 1,
+    "case": "EV-5",
+    "ok": "skip",
+    "note": "did not advance (escalate), guard not reached",
+    "exit": "escalate",
+    "cost": 0.0075,
+    "seconds": 6.3
+  },
+  {
+    "pass": 1,
+    "case": "EV-6",
+    "ok": "skip",
+    "note": "did not advance (escalate), guard not reached",
+    "exit": "escalate",
+    "cost": 0.0098,
+    "seconds": 9.6
+  },
+  {
+    "pass": 2,
+    "case": "EV-1",
+    "ok": true,
+    "note": "proposed 2 open items",
+    "exit": "done",
+    "cost": 0.0295,
+    "seconds": 19.3
+  },
+  {
+    "pass": 2,
+    "case": "EV-2",
+    "ok": true,
+    "note": "every figure traces",
+    "exit": "done",
+    "cost": 0.036,
+    "seconds": 24.0
+  },
+  {
+    "pass": 2,
+    "case": "EV-3",
+    "ok": true,
+    "note": "exit was stuck",
+    "exit": "stuck",
+    "cost": 0.0095,
+    "seconds": 11.6
+  },
+  {
+    "pass": 2,
+    "case": "EV-4",
+    "ok": true,
+    "note": "exit was stuck",
+    "exit": "stuck",
+    "cost": 0.0036,
+    "seconds": 6.2
+  },
+  {
+    "pass": 2,
+    "case": "EV-5",
+    "ok": "skip",
+    "note": "did not advance (escalate), guard not reached",
+    "exit": "escalate",
+    "cost": 0.0084,
+    "seconds": 8.1
+  },
+  {
+    "pass": 2,
+    "case": "EV-6",
+    "ok": "skip",
+    "note": "did not advance (escalate), guard not reached",
+    "exit": "escalate",
+    "cost": 0.0096,
+    "seconds": 9.5
+  },
+  {
+    "pass": 3,
+    "case": "EV-1",
+    "ok": true,
+    "note": "proposed 3 open items",
+    "exit": "stuck",
+    "cost": 0.0162,
+    "seconds": 13.8
+  },
+  {
+    "pass": 3,
+    "case": "EV-2",
+    "ok": true,
+    "note": "every figure traces",
+    "exit": "done",
+    "cost": 0.0569,
+    "seconds": 21.5
+  },
+  {
+    "pass": 3,
+    "case": "EV-3",
+    "ok": true,
+    "note": "exit was stuck",
+    "exit": "stuck",
+    "cost": 0.0134,
+    "seconds": 12.1
+  },
+  {
+    "pass": 3,
+    "case": "EV-4",
+    "ok": true,
+    "note": "exit was stuck",
+    "exit": "stuck",
+    "cost": 0.0097,
+    "seconds": 11.2
+  },
+  {
+    "pass": 3,
+    "case": "EV-5",
+    "ok": "skip",
+    "note": "did not advance (escalate), guard not reached",
+    "exit": "escalate",
+    "cost": 0.0077,
+    "seconds": 6.9
+  },
+  {
+    "pass": 3,
+    "case": "EV-6",
+    "ok": "skip",
+    "note": "did not advance (escalate), guard not reached",
+    "exit": "escalate",
+    "cost": 0.0089,
+    "seconds": 9.2
+  },
+  {
+    "pass": 4,
+    "case": "EV-1",
+    "ok": true,
+    "note": "proposed 2 open items",
+    "exit": "done",
+    "cost": 0.1081,
+    "seconds": 55.0
+  },
+  {
+    "pass": 4,
+    "case": "EV-2",
+    "ok": "skip",
+    "note": "did not advance (stuck), nothing to ground",
+    "exit": "stuck",
+    "cost": 0.0182,
+    "seconds": 15.8
+  },
+  {
+    "pass": 4,
+    "case": "EV-3",
+    "ok": true,
+    "note": "exit was stuck",
+    "exit": "stuck",
+    "cost": 0.0088,
+    "seconds": 10.1
+  },
+  {
+    "pass": 4,
+    "case": "EV-4",
+    "ok": true,
+    "note": "exit was stuck",
+    "exit": "stuck",
+    "cost": 0.0092,
+    "seconds": 11.4
+  },
+  {
+    "pass": 4,
+    "case": "EV-5",
+    "ok": "skip",
+    "note": "did not advance (escalate), guard not reached",
+    "exit": "escalate",
+    "cost": 0.0088,
+    "seconds": 7.7
+  },
+  {
+    "pass": 4,
+    "case": "EV-6",
+    "ok": "skip",
+    "note": "did not advance (escalate), guard not reached",
+    "exit": "escalate",
+    "cost": 0.0084,
+    "seconds": 9.1
+  },
+  {
+    "pass": 5,
+    "case": "EV-1",
+    "ok": true,
+    "note": "proposed 3 open items",
+    "exit": "done",
+    "cost": 0.0373,
+    "seconds": 24.2
+  },
+  {
+    "pass": 5,
+    "case": "EV-2",
+    "ok": true,
+    "note": "every figure traces",
+    "exit": "done",
+    "cost": 0.0569,
+    "seconds": 21.7
+  },
+  {
+    "pass": 5,
+    "case": "EV-3",
+    "ok": true,
+    "note": "exit was stuck",
+    "exit": "stuck",
+    "cost": 0.0136,
+    "seconds": 12.2
+  },
+  {
+    "pass": 5,
+    "case": "EV-4",
+    "ok": true,
+    "note": "exit was stuck",
+    "exit": "stuck",
+    "cost": 0.0035,
+    "seconds": 5.4
+  },
+  {
+    "pass": 5,
+    "case": "EV-5",
+    "ok": "skip",
+    "note": "did not advance (escalate), guard not reached",
+    "exit": "escalate",
+    "cost": 0.0091,
+    "seconds": 9.3
+  },
+  {
+    "pass": 5,
+    "case": "EV-6",
+    "ok": "skip",
+    "note": "did not advance (escalate), guard not reached",
+    "exit": "escalate",
+    "cost": 0.0094,
+    "seconds": 8.7
+  },
+  {
+    "pass": 6,
+    "case": "EV-1",
+    "ok": true,
+    "note": "proposed 3 open items",
+    "exit": "done",
+    "cost": 0.0782,
+    "seconds": 34.3
+  },
+  {
+    "pass": 6,
+    "case": "EV-2",
+    "ok": true,
+    "note": "every figure traces",
+    "exit": "done",
+    "cost": 0.0303,
+    "seconds": 21.3
+  },
+  {
+    "pass": 6,
+    "case": "EV-3",
+    "ok": true,
+    "note": "exit was stuck",
+    "exit": "stuck",
+    "cost": 0.0088,
+    "seconds": 10.0
+  },
+  {
+    "pass": 6,
+    "case": "EV-4",
+    "ok": true,
+    "note": "exit was stuck",
+    "exit": "stuck",
+    "cost": 0.0034,
+    "seconds": 5.0
+  },
+  {
+    "pass": 6,
+    "case": "EV-5",
+    "ok": "skip",
+    "note": "did not advance (escalate), guard not reached",
+    "exit": "escalate",
+    "cost": 0.0083,
+    "seconds": 7.2
+  },
+  {
+    "pass": 6,
+    "case": "EV-6",
+    "ok": "skip",
+    "note": "did not advance (escalate), guard not reached",
+    "exit": "escalate",
+    "cost": 0.0095,
+    "seconds": 8.9
+  },
+  {
+    "pass": 7,
+    "case": "EV-1",
+    "ok": true,
+    "note": "proposed 3 open items",
+    "exit": "guard_blocked",
+    "cost": 0.0,
+    "seconds": 15.0
+  },
+  {
+    "pass": 7,
+    "case": "EV-2",
+    "ok": true,
+    "note": "every figure traces",
+    "exit": "done",
+    "cost": 0.0394,
+    "seconds": 26.8
+  },
+  {
+    "pass": 7,
+    "case": "EV-3",
+    "ok": true,
+    "note": "exit was stuck",
+    "exit": "stuck",
+    "cost": 0.0095,
+    "seconds": 11.0
+  },
+  {
+    "pass": 7,
+    "case": "EV-4",
+    "ok": true,
+    "note": "exit was stuck",
+    "exit": "stuck",
+    "cost": 0.0087,
+    "seconds": 9.8
+  },
+  {
+    "pass": 7,
+    "case": "EV-5",
+    "ok": "skip",
+    "note": "did not advance (escalate), guard not reached",
+    "exit": "escalate",
+    "cost": 0.0074,
+    "seconds": 6.5
+  },
+  {
+    "pass": 7,
+    "case": "EV-6",
+    "ok": "skip",
+    "note": "did not advance (escalate), guard not reached",
+    "exit": "escalate",
+    "cost": 0.0087,
+    "seconds": 8.9
+  },
+  {
+    "pass": 8,
+    "case": "EV-1",
+    "ok": true,
+    "note": "proposed 3 open items",
+    "exit": "done",
+    "cost": 0.0357,
+    "seconds": 24.1
+  },
+  {
+    "pass": 8,
+    "case": "EV-2",
+    "ok": true,
+    "note": "every figure traces",
+    "exit": "done",
+    "cost": 0.0394,
+    "seconds": 26.4
+  },
+  {
+    "pass": 8,
+    "case": "EV-3",
+    "ok": true,
+    "note": "exit was stuck",
+    "exit": "stuck",
+    "cost": 0.0085,
+    "seconds": 9.5
+  },
+  {
+    "pass": 8,
     "case": "EV-4",
     "ok": true,
     "note": "exit was stuck",
@@ -36,400 +414,22 @@
     "seconds": 5.1
   },
   {
-    "pass": 1,
+    "pass": 8,
     "case": "EV-5",
     "ok": "skip",
     "note": "did not advance (escalate), guard not reached",
     "exit": "escalate",
-    "cost": 0.0082,
-    "seconds": 7.5
+    "cost": 0.0078,
+    "seconds": 6.3
   },
   {
-    "pass": 1,
+    "pass": 8,
     "case": "EV-6",
     "ok": "skip",
     "note": "did not advance (escalate), guard not reached",
     "exit": "escalate",
-    "cost": 0.0092,
-    "seconds": 8.2
-  },
-  {
-    "pass": 2,
-    "case": "EV-1",
-    "ok": true,
-    "note": "proposed 3 open items",
-    "exit": "done",
-    "cost": 0.0347,
-    "seconds": 20.9
-  },
-  {
-    "pass": 2,
-    "case": "EV-2",
-    "ok": true,
-    "note": "every figure traces",
-    "exit": "done",
-    "cost": 0.0366,
-    "seconds": 24.5
-  },
-  {
-    "pass": 2,
-    "case": "EV-3",
-    "ok": true,
-    "note": "exit was stuck",
-    "exit": "stuck",
-    "cost": 0.0086,
-    "seconds": 9.7
-  },
-  {
-    "pass": 2,
-    "case": "EV-4",
-    "ok": true,
-    "note": "exit was stuck",
-    "exit": "stuck",
-    "cost": 0.0109,
-    "seconds": 13.1
-  },
-  {
-    "pass": 2,
-    "case": "EV-5",
-    "ok": "skip",
-    "note": "did not advance (escalate), guard not reached",
-    "exit": "escalate",
-    "cost": 0.0081,
-    "seconds": 7.7
-  },
-  {
-    "pass": 2,
-    "case": "EV-6",
-    "ok": "skip",
-    "note": "did not advance (stuck), guard not reached",
-    "exit": "stuck",
-    "cost": 0.0088,
-    "seconds": 10.9
-  },
-  {
-    "pass": 3,
-    "case": "EV-1",
-    "ok": "skip",
-    "note": "no batch proposed, case not exercised",
-    "exit": "done",
-    "cost": 0.0366,
-    "seconds": 32.1
-  },
-  {
-    "pass": 3,
-    "case": "EV-2",
-    "ok": true,
-    "note": "every figure traces",
-    "exit": "done",
-    "cost": 0.0355,
-    "seconds": 29.4
-  },
-  {
-    "pass": 3,
-    "case": "EV-3",
-    "ok": true,
-    "note": "exit was stuck",
-    "exit": "stuck",
-    "cost": 0.0092,
-    "seconds": 10.9
-  },
-  {
-    "pass": 3,
-    "case": "EV-4",
-    "ok": true,
-    "note": "exit was stuck",
-    "exit": "stuck",
-    "cost": 0.011,
-    "seconds": 13.5
-  },
-  {
-    "pass": 3,
-    "case": "EV-5",
-    "ok": "skip",
-    "note": "did not advance (stuck), guard not reached",
-    "exit": "stuck",
-    "cost": 0.0085,
-    "seconds": 7.6
-  },
-  {
-    "pass": 3,
-    "case": "EV-6",
-    "ok": "skip",
-    "note": "did not advance (escalate), guard not reached",
-    "exit": "escalate",
-    "cost": 0.01,
-    "seconds": 10.5
-  },
-  {
-    "pass": 4,
-    "case": "EV-1",
-    "ok": true,
-    "note": "proposed 3 open items",
-    "exit": "done",
-    "cost": 0.0407,
-    "seconds": 31.4
-  },
-  {
-    "pass": 4,
-    "case": "EV-2",
-    "ok": true,
-    "note": "every figure traces",
-    "exit": "done",
-    "cost": 0.0559,
-    "seconds": 19.0
-  },
-  {
-    "pass": 4,
-    "case": "EV-3",
-    "ok": true,
-    "note": "exit was stuck",
-    "exit": "stuck",
-    "cost": 0.009,
-    "seconds": 10.4
-  },
-  {
-    "pass": 4,
-    "case": "EV-4",
-    "ok": true,
-    "note": "exit was stuck",
-    "exit": "stuck",
-    "cost": 0.0098,
-    "seconds": 11.5
-  },
-  {
-    "pass": 4,
-    "case": "EV-5",
-    "ok": "skip",
-    "note": "did not advance (escalate), guard not reached",
-    "exit": "escalate",
-    "cost": 0.0086,
-    "seconds": 8.4
-  },
-  {
-    "pass": 4,
-    "case": "EV-6",
-    "ok": "skip",
-    "note": "did not advance (escalate), guard not reached",
-    "exit": "escalate",
-    "cost": 0.0088,
-    "seconds": 9.2
-  },
-  {
-    "pass": 5,
-    "case": "EV-1",
-    "ok": true,
-    "note": "proposed 2 open items",
-    "exit": "done",
-    "cost": 0.0436,
-    "seconds": 35.2
-  },
-  {
-    "pass": 5,
-    "case": "EV-2",
-    "ok": true,
-    "note": "every figure traces",
-    "exit": "done",
-    "cost": 0.0381,
-    "seconds": 25.4
-  },
-  {
-    "pass": 5,
-    "case": "EV-3",
-    "ok": true,
-    "note": "exit was stuck",
-    "exit": "stuck",
     "cost": 0.0084,
-    "seconds": 9.4
-  },
-  {
-    "pass": 5,
-    "case": "EV-4",
-    "ok": true,
-    "note": "exit was stuck",
-    "exit": "stuck",
-    "cost": 0.0145,
-    "seconds": 14.9
-  },
-  {
-    "pass": 5,
-    "case": "EV-5",
-    "ok": "skip",
-    "note": "did not advance (escalate), guard not reached",
-    "exit": "escalate",
-    "cost": 0.0086,
-    "seconds": 7.2
-  },
-  {
-    "pass": 5,
-    "case": "EV-6",
-    "ok": "skip",
-    "note": "did not advance (escalate), guard not reached",
-    "exit": "escalate",
-    "cost": 0.0095,
-    "seconds": 9.5
-  },
-  {
-    "pass": 6,
-    "case": "EV-1",
-    "ok": true,
-    "note": "proposed 3 open items",
-    "exit": "stuck",
-    "cost": 0.016,
-    "seconds": 13.7
-  },
-  {
-    "pass": 6,
-    "case": "EV-2",
-    "ok": true,
-    "note": "every figure traces",
-    "exit": "done",
-    "cost": 0.0425,
-    "seconds": 34.0
-  },
-  {
-    "pass": 6,
-    "case": "EV-3",
-    "ok": true,
-    "note": "exit was stuck",
-    "exit": "stuck",
-    "cost": 0.008,
-    "seconds": 8.6
-  },
-  {
-    "pass": 6,
-    "case": "EV-4",
-    "ok": true,
-    "note": "exit was stuck",
-    "exit": "stuck",
-    "cost": 0.009,
-    "seconds": 10.2
-  },
-  {
-    "pass": 6,
-    "case": "EV-5",
-    "ok": "skip",
-    "note": "did not advance (escalate), guard not reached",
-    "exit": "escalate",
-    "cost": 0.0089,
-    "seconds": 8.7
-  },
-  {
-    "pass": 6,
-    "case": "EV-6",
-    "ok": "skip",
-    "note": "did not advance (stuck), guard not reached",
-    "exit": "stuck",
-    "cost": 0.009,
-    "seconds": 10.0
-  },
-  {
-    "pass": 7,
-    "case": "EV-1",
-    "ok": true,
-    "note": "proposed 3 open items",
-    "exit": "done",
-    "cost": 0.0374,
-    "seconds": 25.2
-  },
-  {
-    "pass": 7,
-    "case": "EV-2",
-    "ok": true,
-    "note": "every figure traces",
-    "exit": "done",
-    "cost": 0.0436,
-    "seconds": 31.8
-  },
-  {
-    "pass": 7,
-    "case": "EV-3",
-    "ok": true,
-    "note": "exit was stuck",
-    "exit": "stuck",
-    "cost": 0.0088,
-    "seconds": 9.8
-  },
-  {
-    "pass": 7,
-    "case": "EV-4",
-    "ok": true,
-    "note": "exit was stuck",
-    "exit": "stuck",
-    "cost": 0.01,
-    "seconds": 11.8
-  },
-  {
-    "pass": 7,
-    "case": "EV-5",
-    "ok": "skip",
-    "note": "did not advance (escalate), guard not reached",
-    "exit": "escalate",
-    "cost": 0.0087,
-    "seconds": 7.2
-  },
-  {
-    "pass": 7,
-    "case": "EV-6",
-    "ok": "skip",
-    "note": "did not advance (stuck), guard not reached",
-    "exit": "stuck",
-    "cost": 0.0087,
-    "seconds": 8.7
-  },
-  {
-    "pass": 8,
-    "case": "EV-1",
-    "ok": "skip",
-    "note": "no batch proposed, case not exercised",
-    "exit": "done",
-    "cost": 0.0497,
-    "seconds": 43.8
-  },
-  {
-    "pass": 8,
-    "case": "EV-2",
-    "ok": true,
-    "note": "every figure traces",
-    "exit": "done",
-    "cost": 0.045,
-    "seconds": 32.8
-  },
-  {
-    "pass": 8,
-    "case": "EV-3",
-    "ok": true,
-    "note": "exit was stuck",
-    "exit": "stuck",
-    "cost": 0.008,
-    "seconds": 8.4
-  },
-  {
-    "pass": 8,
-    "case": "EV-4",
-    "ok": true,
-    "note": "exit was escalate",
-    "exit": "escalate",
-    "cost": 0.0082,
-    "seconds": 8.7
-  },
-  {
-    "pass": 8,
-    "case": "EV-5",
-    "ok": "skip",
-    "note": "did not advance (escalate), guard not reached",
-    "exit": "escalate",
-    "cost": 0.0077,
-    "seconds": 7.5
-  },
-  {
-    "pass": 8,
-    "case": "EV-6",
-    "ok": "skip",
-    "note": "did not advance (escalate), guard not reached",
-    "exit": "escalate",
-    "cost": 0.0092,
-    "seconds": 8.8
+    "seconds": 8.9
   },
   {
     "pass": 9,
@@ -438,16 +438,16 @@
     "note": "proposed 3 open items",
     "exit": "done",
     "cost": 0.0403,
-    "seconds": 27.2
+    "seconds": 29.0
   },
   {
     "pass": 9,
     "case": "EV-2",
-    "ok": "skip",
-    "note": "did not advance (stuck), nothing to ground",
-    "exit": "stuck",
-    "cost": 0.0174,
-    "seconds": 14.7
+    "ok": true,
+    "note": "every figure traces",
+    "exit": "done",
+    "cost": 0.0889,
+    "seconds": 44.7
   },
   {
     "pass": 9,
@@ -455,8 +455,8 @@
     "ok": true,
     "note": "exit was stuck",
     "exit": "stuck",
-    "cost": 0.0093,
-    "seconds": 11.7
+    "cost": 0.0097,
+    "seconds": 11.2
   },
   {
     "pass": 9,
@@ -464,8 +464,8 @@
     "ok": true,
     "note": "exit was stuck",
     "exit": "stuck",
-    "cost": 0.0094,
-    "seconds": 11.2
+    "cost": 0.0095,
+    "seconds": 11.0
   },
   {
     "pass": 9,
@@ -473,8 +473,8 @@
     "ok": "skip",
     "note": "did not advance (escalate), guard not reached",
     "exit": "escalate",
-    "cost": 0.0081,
-    "seconds": 7.1
+    "cost": 0.0091,
+    "seconds": 9.2
   },
   {
     "pass": 9,
@@ -482,8 +482,8 @@
     "ok": "skip",
     "note": "did not advance (escalate), guard not reached",
     "exit": "escalate",
-    "cost": 0.0095,
-    "seconds": 9.3
+    "cost": 0.0099,
+    "seconds": 9.8
   },
   {
     "pass": 10,
@@ -491,8 +491,8 @@
     "ok": true,
     "note": "proposed 3 open items",
     "exit": "done",
-    "cost": 0.0397,
-    "seconds": 28.2
+    "cost": 0.0905,
+    "seconds": 45.0
   },
   {
     "pass": 10,
@@ -500,8 +500,8 @@
     "ok": true,
     "note": "every figure traces",
     "exit": "done",
-    "cost": 0.0359,
-    "seconds": 24.7
+    "cost": 0.0348,
+    "seconds": 25.7
   },
   {
     "pass": 10,
@@ -518,8 +518,8 @@
     "ok": true,
     "note": "exit was stuck",
     "exit": "stuck",
-    "cost": 0.0096,
-    "seconds": 11.7
+    "cost": 0.0099,
+    "seconds": 11.9
   },
   {
     "pass": 10,
@@ -527,35 +527,35 @@
     "ok": "skip",
     "note": "did not advance (escalate), guard not reached",
     "exit": "escalate",
-    "cost": 0.0079,
-    "seconds": 6.3
+    "cost": 0.0085,
+    "seconds": 7.6
   },
   {
     "pass": 10,
     "case": "EV-6",
     "ok": "skip",
-    "note": "did not advance (escalate), guard not reached",
-    "exit": "escalate",
-    "cost": 0.0093,
-    "seconds": 9.5
+    "note": "did not advance (stuck), guard not reached",
+    "exit": "stuck",
+    "cost": 0.0088,
+    "seconds": 9.1
   },
   {
     "pass": 11,
     "case": "EV-1",
     "ok": true,
     "note": "proposed 3 open items",
-    "exit": "done",
-    "cost": 0.0344,
-    "seconds": 23.6
+    "exit": "guard_blocked",
+    "cost": 0.0,
+    "seconds": 15.3
   },
   {
     "pass": 11,
     "case": "EV-2",
-    "ok": false,
-    "note": "uncited: 39%",
+    "ok": true,
+    "note": "every figure traces",
     "exit": "done",
-    "cost": 0.0859,
-    "seconds": 43.9
+    "cost": 0.0395,
+    "seconds": 26.0
   },
   {
     "pass": 11,
@@ -563,8 +563,8 @@
     "ok": true,
     "note": "exit was stuck",
     "exit": "stuck",
-    "cost": 0.0091,
-    "seconds": 11.3
+    "cost": 0.0094,
+    "seconds": 11.2
   },
   {
     "pass": 11,
@@ -572,2131 +572,2131 @@
     "ok": true,
     "note": "exit was stuck",
     "exit": "stuck",
-    "cost": 0.01,
-    "seconds": 12.4
+    "cost": 0.0102,
+    "seconds": 13.0
   },
   {
     "pass": 11,
+    "case": "EV-5",
+    "ok": "skip",
+    "note": "did not advance (escalate), guard not reached",
+    "exit": "escalate",
+    "cost": 0.0088,
+    "seconds": 8.2
+  },
+  {
+    "pass": 11,
+    "case": "EV-6",
+    "ok": "skip",
+    "note": "did not advance (escalate), guard not reached",
+    "exit": "escalate",
+    "cost": 0.0089,
+    "seconds": 9.4
+  },
+  {
+    "pass": 12,
+    "case": "EV-1",
+    "ok": true,
+    "note": "proposed 3 open items",
+    "exit": "stuck",
+    "cost": 0.0169,
+    "seconds": 15.8
+  },
+  {
+    "pass": 12,
+    "case": "EV-2",
+    "ok": true,
+    "note": "every figure traces",
+    "exit": "done",
+    "cost": 0.0358,
+    "seconds": 22.3
+  },
+  {
+    "pass": 12,
+    "case": "EV-3",
+    "ok": true,
+    "note": "exit was stuck",
+    "exit": "stuck",
+    "cost": 0.0087,
+    "seconds": 9.7
+  },
+  {
+    "pass": 12,
+    "case": "EV-4",
+    "ok": true,
+    "note": "exit was stuck",
+    "exit": "stuck",
+    "cost": 0.0107,
+    "seconds": 13.2
+  },
+  {
+    "pass": 12,
+    "case": "EV-5",
+    "ok": "skip",
+    "note": "did not advance (escalate), guard not reached",
+    "exit": "escalate",
+    "cost": 0.0077,
+    "seconds": 6.1
+  },
+  {
+    "pass": 12,
+    "case": "EV-6",
+    "ok": "skip",
+    "note": "did not advance (stuck), guard not reached",
+    "exit": "stuck",
+    "cost": 0.01,
+    "seconds": 9.9
+  },
+  {
+    "pass": 13,
+    "case": "EV-1",
+    "ok": true,
+    "note": "proposed 3 open items",
+    "exit": "done",
+    "cost": 0.0534,
+    "seconds": 43.1
+  },
+  {
+    "pass": 13,
+    "case": "EV-2",
+    "ok": true,
+    "note": "every figure traces",
+    "exit": "done",
+    "cost": 0.0346,
+    "seconds": 27.3
+  },
+  {
+    "pass": 13,
+    "case": "EV-3",
+    "ok": true,
+    "note": "exit was stuck",
+    "exit": "stuck",
+    "cost": 0.0095,
+    "seconds": 14.7
+  },
+  {
+    "pass": 13,
+    "case": "EV-4",
+    "ok": true,
+    "note": "exit was escalate",
+    "exit": "escalate",
+    "cost": 0.0032,
+    "seconds": 4.9
+  },
+  {
+    "pass": 13,
+    "case": "EV-5",
+    "ok": "skip",
+    "note": "did not advance (stuck), guard not reached",
+    "exit": "stuck",
+    "cost": 0.0073,
+    "seconds": 6.6
+  },
+  {
+    "pass": 13,
+    "case": "EV-6",
+    "ok": "skip",
+    "note": "did not advance (escalate), guard not reached",
+    "exit": "escalate",
+    "cost": 0.01,
+    "seconds": 9.8
+  },
+  {
+    "pass": 14,
+    "case": "EV-1",
+    "ok": true,
+    "note": "proposed 3 open items",
+    "exit": "done",
+    "cost": 0.0597,
+    "seconds": 24.6
+  },
+  {
+    "pass": 14,
+    "case": "EV-2",
+    "ok": true,
+    "note": "every figure traces",
+    "exit": "done",
+    "cost": 0.0351,
+    "seconds": 23.1
+  },
+  {
+    "pass": 14,
+    "case": "EV-3",
+    "ok": true,
+    "note": "exit was stuck",
+    "exit": "stuck",
+    "cost": 0.009,
+    "seconds": 13.3
+  },
+  {
+    "pass": 14,
+    "case": "EV-4",
+    "ok": true,
+    "note": "exit was stuck",
+    "exit": "stuck",
+    "cost": 0.0035,
+    "seconds": 5.6
+  },
+  {
+    "pass": 14,
+    "case": "EV-5",
+    "ok": "skip",
+    "note": "did not advance (escalate), guard not reached",
+    "exit": "escalate",
+    "cost": 0.0087,
+    "seconds": 9.9
+  },
+  {
+    "pass": 14,
+    "case": "EV-6",
+    "ok": "skip",
+    "note": "did not advance (escalate), guard not reached",
+    "exit": "escalate",
+    "cost": 0.0084,
+    "seconds": 10.0
+  },
+  {
+    "pass": 15,
+    "case": "EV-1",
+    "ok": true,
+    "note": "proposed 3 open items",
+    "exit": "done",
+    "cost": 0.0305,
+    "seconds": 22.2
+  },
+  {
+    "pass": 15,
+    "case": "EV-2",
+    "ok": true,
+    "note": "every figure traces",
+    "exit": "done",
+    "cost": 0.0383,
+    "seconds": 28.3
+  },
+  {
+    "pass": 15,
+    "case": "EV-3",
+    "ok": true,
+    "note": "exit was stuck",
+    "exit": "stuck",
+    "cost": 0.0143,
+    "seconds": 16.4
+  },
+  {
+    "pass": 15,
+    "case": "EV-4",
+    "ok": true,
+    "note": "exit was stuck",
+    "exit": "stuck",
+    "cost": 0.0103,
+    "seconds": 12.7
+  },
+  {
+    "pass": 15,
+    "case": "EV-5",
+    "ok": "skip",
+    "note": "did not advance (escalate), guard not reached",
+    "exit": "escalate",
+    "cost": 0.0073,
+    "seconds": 7.3
+  },
+  {
+    "pass": 15,
+    "case": "EV-6",
+    "ok": "skip",
+    "note": "did not advance (escalate), guard not reached",
+    "exit": "escalate",
+    "cost": 0.0091,
+    "seconds": 11.7
+  },
+  {
+    "pass": 16,
+    "case": "EV-1",
+    "ok": true,
+    "note": "proposed 3 open items",
+    "exit": "guard_blocked",
+    "cost": 0.0,
+    "seconds": 14.4
+  },
+  {
+    "pass": 16,
+    "case": "EV-2",
+    "ok": true,
+    "note": "every figure traces",
+    "exit": "done",
+    "cost": 0.0392,
+    "seconds": 29.0
+  },
+  {
+    "pass": 16,
+    "case": "EV-3",
+    "ok": true,
+    "note": "exit was stuck",
+    "exit": "stuck",
+    "cost": 0.0094,
+    "seconds": 12.4
+  },
+  {
+    "pass": 16,
+    "case": "EV-4",
+    "ok": true,
+    "note": "exit was stuck",
+    "exit": "stuck",
+    "cost": 0.0035,
+    "seconds": 5.4
+  },
+  {
+    "pass": 16,
+    "case": "EV-5",
+    "ok": "skip",
+    "note": "did not advance (escalate), guard not reached",
+    "exit": "escalate",
+    "cost": 0.0092,
+    "seconds": 9.6
+  },
+  {
+    "pass": 16,
+    "case": "EV-6",
+    "ok": "skip",
+    "note": "did not advance (escalate), guard not reached",
+    "exit": "escalate",
+    "cost": 0.0084,
+    "seconds": 8.9
+  },
+  {
+    "pass": 17,
+    "case": "EV-1",
+    "ok": true,
+    "note": "proposed 3 open items",
+    "exit": "guard_blocked",
+    "cost": 0.0,
+    "seconds": 16.6
+  },
+  {
+    "pass": 17,
+    "case": "EV-2",
+    "ok": true,
+    "note": "every figure traces",
+    "exit": "done",
+    "cost": 0.0491,
+    "seconds": 37.5
+  },
+  {
+    "pass": 17,
+    "case": "EV-3",
+    "ok": true,
+    "note": "exit was stuck",
+    "exit": "stuck",
+    "cost": 0.0086,
+    "seconds": 12.7
+  },
+  {
+    "pass": 17,
+    "case": "EV-4",
+    "ok": true,
+    "note": "exit was escalate",
+    "exit": "escalate",
+    "cost": 0.0142,
+    "seconds": 13.1
+  },
+  {
+    "pass": 17,
+    "case": "EV-5",
+    "ok": "skip",
+    "note": "did not advance (escalate), guard not reached",
+    "exit": "escalate",
+    "cost": 0.0072,
+    "seconds": 6.8
+  },
+  {
+    "pass": 17,
+    "case": "EV-6",
+    "ok": "skip",
+    "note": "did not advance (escalate), guard not reached",
+    "exit": "escalate",
+    "cost": 0.0085,
+    "seconds": 8.9
+  },
+  {
+    "pass": 18,
+    "case": "EV-1",
+    "ok": true,
+    "note": "proposed 3 open items",
+    "exit": "done",
+    "cost": 0.0439,
+    "seconds": 31.9
+  },
+  {
+    "pass": 18,
+    "case": "EV-2",
+    "ok": true,
+    "note": "every figure traces",
+    "exit": "done",
+    "cost": 0.0407,
+    "seconds": 31.1
+  },
+  {
+    "pass": 18,
+    "case": "EV-3",
+    "ok": true,
+    "note": "exit was stuck",
+    "exit": "stuck",
+    "cost": 0.0086,
+    "seconds": 12.1
+  },
+  {
+    "pass": 18,
+    "case": "EV-4",
+    "ok": true,
+    "note": "exit was stuck",
+    "exit": "stuck",
+    "cost": 0.0097,
+    "seconds": 12.5
+  },
+  {
+    "pass": 18,
+    "case": "EV-5",
+    "ok": "skip",
+    "note": "did not advance (stuck), guard not reached",
+    "exit": "stuck",
+    "cost": 0.0086,
+    "seconds": 7.9
+  },
+  {
+    "pass": 18,
+    "case": "EV-6",
+    "ok": "skip",
+    "note": "did not advance (stuck), guard not reached",
+    "exit": "stuck",
+    "cost": 0.0098,
+    "seconds": 10.1
+  },
+  {
+    "pass": 19,
+    "case": "EV-1",
+    "ok": true,
+    "note": "proposed 3 open items",
+    "exit": "guard_blocked",
+    "cost": 0.0,
+    "seconds": 13.1
+  },
+  {
+    "pass": 19,
+    "case": "EV-2",
+    "ok": true,
+    "note": "every figure traces",
+    "exit": "done",
+    "cost": 0.0366,
+    "seconds": 24.9
+  },
+  {
+    "pass": 19,
+    "case": "EV-3",
+    "ok": true,
+    "note": "exit was stuck",
+    "exit": "stuck",
+    "cost": 0.012,
+    "seconds": 12.4
+  },
+  {
+    "pass": 19,
+    "case": "EV-4",
+    "ok": true,
+    "note": "exit was stuck",
+    "exit": "stuck",
+    "cost": 0.016,
+    "seconds": 16.7
+  },
+  {
+    "pass": 19,
     "case": "EV-5",
     "ok": "skip",
     "note": "did not advance (escalate), guard not reached",
     "exit": "escalate",
     "cost": 0.0086,
-    "seconds": 7.8
+    "seconds": 7.9
   },
   {
-    "pass": 11,
+    "pass": 19,
+    "case": "EV-6",
+    "ok": "skip",
+    "note": "did not advance (escalate), guard not reached",
+    "exit": "escalate",
+    "cost": 0.0085,
+    "seconds": 9.2
+  },
+  {
+    "pass": 20,
+    "case": "EV-1",
+    "ok": true,
+    "note": "proposed 3 open items",
+    "exit": "done",
+    "cost": 0.0608,
+    "seconds": 52.1
+  },
+  {
+    "pass": 20,
+    "case": "EV-2",
+    "ok": true,
+    "note": "every figure traces",
+    "exit": "done",
+    "cost": 0.0523,
+    "seconds": 38.8
+  },
+  {
+    "pass": 20,
+    "case": "EV-3",
+    "ok": true,
+    "note": "exit was stuck",
+    "exit": "stuck",
+    "cost": 0.0092,
+    "seconds": 11.6
+  },
+  {
+    "pass": 20,
+    "case": "EV-4",
+    "ok": true,
+    "note": "exit was stuck",
+    "exit": "stuck",
+    "cost": 0.0107,
+    "seconds": 13.0
+  },
+  {
+    "pass": 20,
+    "case": "EV-5",
+    "ok": "skip",
+    "note": "did not advance (escalate), guard not reached",
+    "exit": "escalate",
+    "cost": 0.0077,
+    "seconds": 6.8
+  },
+  {
+    "pass": 20,
+    "case": "EV-6",
+    "ok": "skip",
+    "note": "did not advance (escalate), guard not reached",
+    "exit": "escalate",
+    "cost": 0.0087,
+    "seconds": 8.7
+  },
+  {
+    "pass": 21,
+    "case": "EV-1",
+    "ok": true,
+    "note": "proposed 3 open items",
+    "exit": "done",
+    "cost": 0.0345,
+    "seconds": 21.7
+  },
+  {
+    "pass": 21,
+    "case": "EV-2",
+    "ok": true,
+    "note": "every figure traces",
+    "exit": "done",
+    "cost": 0.0378,
+    "seconds": 23.8
+  },
+  {
+    "pass": 21,
+    "case": "EV-3",
+    "ok": true,
+    "note": "exit was stuck",
+    "exit": "stuck",
+    "cost": 0.0129,
+    "seconds": 11.3
+  },
+  {
+    "pass": 21,
+    "case": "EV-4",
+    "ok": true,
+    "note": "exit was stuck",
+    "exit": "stuck",
+    "cost": 0.0099,
+    "seconds": 11.9
+  },
+  {
+    "pass": 21,
+    "case": "EV-5",
+    "ok": "skip",
+    "note": "did not advance (escalate), guard not reached",
+    "exit": "escalate",
+    "cost": 0.0081,
+    "seconds": 6.6
+  },
+  {
+    "pass": 21,
     "case": "EV-6",
     "ok": "skip",
     "note": "did not advance (escalate), guard not reached",
     "exit": "escalate",
     "cost": 0.0092,
-    "seconds": 8.5
+    "seconds": 8.3
   },
   {
-    "pass": 12,
+    "pass": 22,
+    "case": "EV-1",
+    "ok": true,
+    "note": "proposed 3 open items",
+    "exit": "guard_blocked",
+    "cost": 0.0,
+    "seconds": 13.3
+  },
+  {
+    "pass": 22,
+    "case": "EV-2",
+    "ok": true,
+    "note": "every figure traces",
+    "exit": "done",
+    "cost": 0.0357,
+    "seconds": 23.2
+  },
+  {
+    "pass": 22,
+    "case": "EV-3",
+    "ok": true,
+    "note": "exit was stuck",
+    "exit": "stuck",
+    "cost": 0.0092,
+    "seconds": 10.0
+  },
+  {
+    "pass": 22,
+    "case": "EV-4",
+    "ok": true,
+    "note": "exit was stuck",
+    "exit": "stuck",
+    "cost": 0.0101,
+    "seconds": 11.9
+  },
+  {
+    "pass": 22,
+    "case": "EV-5",
+    "ok": "skip",
+    "note": "did not advance (escalate), guard not reached",
+    "exit": "escalate",
+    "cost": 0.0085,
+    "seconds": 7.3
+  },
+  {
+    "pass": 22,
+    "case": "EV-6",
+    "ok": "skip",
+    "note": "did not advance (escalate), guard not reached",
+    "exit": "escalate",
+    "cost": 0.0087,
+    "seconds": 9.1
+  },
+  {
+    "pass": 23,
     "case": "EV-1",
     "ok": true,
     "note": "proposed 3 open items",
     "exit": "done",
-    "cost": 0.0612,
-    "seconds": 27.4
+    "cost": 0.0605,
+    "seconds": 25.8
   },
   {
-    "pass": 12,
+    "pass": 23,
     "case": "EV-2",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
+    "ok": true,
+    "note": "every figure traces",
+    "exit": "done",
+    "cost": 0.0349,
+    "seconds": 21.9
+  },
+  {
+    "pass": 23,
+    "case": "EV-3",
+    "ok": true,
+    "note": "exit was stuck",
+    "exit": "stuck",
+    "cost": 0.0086,
+    "seconds": 9.1
+  },
+  {
+    "pass": 23,
+    "case": "EV-4",
+    "ok": true,
+    "note": "exit was stuck",
+    "exit": "stuck",
+    "cost": 0.0101,
+    "seconds": 11.4
+  },
+  {
+    "pass": 23,
+    "case": "EV-5",
+    "ok": "skip",
+    "note": "did not advance (escalate), guard not reached",
+    "exit": "escalate",
+    "cost": 0.0071,
+    "seconds": 5.4
+  },
+  {
+    "pass": 23,
+    "case": "EV-6",
+    "ok": "skip",
+    "note": "did not advance (escalate), guard not reached",
+    "exit": "escalate",
+    "cost": 0.0085,
+    "seconds": 9.2
+  },
+  {
+    "pass": 24,
+    "case": "EV-1",
+    "ok": true,
+    "note": "proposed 3 open items",
+    "exit": "done",
+    "cost": 0.0383,
+    "seconds": 26.2
+  },
+  {
+    "pass": 24,
+    "case": "EV-2",
+    "ok": true,
+    "note": "every figure traces",
+    "exit": "done",
+    "cost": 0.0414,
+    "seconds": 27.1
+  },
+  {
+    "pass": 24,
+    "case": "EV-3",
+    "ok": true,
+    "note": "exit was stuck",
+    "exit": "stuck",
+    "cost": 0.0128,
+    "seconds": 10.6
+  },
+  {
+    "pass": 24,
+    "case": "EV-4",
+    "ok": true,
+    "note": "exit was stuck",
+    "exit": "stuck",
+    "cost": 0.0101,
+    "seconds": 11.9
+  },
+  {
+    "pass": 24,
+    "case": "EV-5",
+    "ok": "skip",
+    "note": "did not advance (escalate), guard not reached",
+    "exit": "escalate",
+    "cost": 0.0087,
+    "seconds": 7.3
+  },
+  {
+    "pass": 24,
+    "case": "EV-6",
+    "ok": "skip",
+    "note": "did not advance (escalate), guard not reached",
+    "exit": "escalate",
+    "cost": 0.0087,
+    "seconds": 9.1
+  },
+  {
+    "pass": 25,
+    "case": "EV-1",
+    "ok": true,
+    "note": "proposed 3 open items",
+    "exit": "done",
+    "cost": 0.0373,
+    "seconds": 24.9
+  },
+  {
+    "pass": 25,
+    "case": "EV-2",
+    "ok": "skip",
+    "note": "did not advance (stuck), nothing to ground",
+    "exit": "stuck",
+    "cost": 0.0178,
+    "seconds": 13.9
+  },
+  {
+    "pass": 25,
+    "case": "EV-3",
+    "ok": true,
+    "note": "exit was stuck",
+    "exit": "stuck",
+    "cost": 0.0088,
+    "seconds": 9.2
+  },
+  {
+    "pass": 25,
+    "case": "EV-4",
+    "ok": true,
+    "note": "exit was stuck",
+    "exit": "stuck",
+    "cost": 0.0034,
+    "seconds": 4.7
+  },
+  {
+    "pass": 25,
+    "case": "EV-5",
+    "ok": "skip",
+    "note": "did not advance (escalate), guard not reached",
+    "exit": "escalate",
+    "cost": 0.0074,
+    "seconds": 6.2
+  },
+  {
+    "pass": 25,
+    "case": "EV-6",
+    "ok": "skip",
+    "note": "did not advance (escalate), guard not reached",
+    "exit": "escalate",
+    "cost": 0.0087,
+    "seconds": 9.0
+  },
+  {
+    "pass": 26,
+    "case": "EV-1",
+    "ok": true,
+    "note": "proposed 3 open items",
+    "exit": "stuck",
+    "cost": 0.0145,
+    "seconds": 11.7
+  },
+  {
+    "pass": 26,
+    "case": "EV-2",
+    "ok": true,
+    "note": "every figure traces",
+    "exit": "done",
+    "cost": 0.0822,
+    "seconds": 34.6
+  },
+  {
+    "pass": 26,
+    "case": "EV-3",
+    "ok": true,
+    "note": "exit was stuck",
+    "exit": "stuck",
+    "cost": 0.0096,
+    "seconds": 12.0
+  },
+  {
+    "pass": 26,
+    "case": "EV-4",
+    "ok": true,
+    "note": "exit was stuck",
+    "exit": "stuck",
+    "cost": 0.0092,
+    "seconds": 10.5
+  },
+  {
+    "pass": 26,
+    "case": "EV-5",
+    "ok": "skip",
+    "note": "did not advance (escalate), guard not reached",
+    "exit": "escalate",
+    "cost": 0.0085,
+    "seconds": 7.1
+  },
+  {
+    "pass": 26,
+    "case": "EV-6",
+    "ok": "skip",
+    "note": "did not advance (stuck), guard not reached",
+    "exit": "stuck",
+    "cost": 0.0088,
+    "seconds": 8.6
+  },
+  {
+    "pass": 27,
+    "case": "EV-1",
+    "ok": true,
+    "note": "proposed 2 open items",
+    "exit": "done",
+    "cost": 0.0404,
+    "seconds": 29.2
+  },
+  {
+    "pass": 27,
+    "case": "EV-2",
+    "ok": true,
+    "note": "every figure traces",
+    "exit": "done",
+    "cost": 0.0366,
+    "seconds": 23.8
+  },
+  {
+    "pass": 27,
+    "case": "EV-3",
+    "ok": true,
+    "note": "exit was stuck",
+    "exit": "stuck",
+    "cost": 0.0099,
+    "seconds": 11.6
+  },
+  {
+    "pass": 27,
+    "case": "EV-4",
+    "ok": true,
+    "note": "exit was stuck",
+    "exit": "stuck",
+    "cost": 0.0167,
+    "seconds": 17.3
+  },
+  {
+    "pass": 27,
+    "case": "EV-5",
+    "ok": "skip",
+    "note": "did not advance (escalate), guard not reached",
+    "exit": "escalate",
+    "cost": 0.0075,
+    "seconds": 5.8
+  },
+  {
+    "pass": 27,
+    "case": "EV-6",
+    "ok": "skip",
+    "note": "did not advance (escalate), guard not reached",
+    "exit": "escalate",
+    "cost": 0.0099,
+    "seconds": 9.7
+  },
+  {
+    "pass": 28,
+    "case": "EV-1",
+    "ok": true,
+    "note": "proposed 3 open items",
+    "exit": "done",
+    "cost": 0.0353,
+    "seconds": 22.5
+  },
+  {
+    "pass": 28,
+    "case": "EV-2",
+    "ok": "skip",
+    "note": "did not advance (guard_blocked), nothing to ground",
+    "exit": "guard_blocked",
     "cost": 0.0,
+    "seconds": 15.7
+  },
+  {
+    "pass": 28,
+    "case": "EV-3",
+    "ok": true,
+    "note": "exit was stuck",
+    "exit": "stuck",
+    "cost": 0.0091,
+    "seconds": 10.1
+  },
+  {
+    "pass": 28,
+    "case": "EV-4",
+    "ok": true,
+    "note": "exit was stuck",
+    "exit": "stuck",
+    "cost": 0.0173,
+    "seconds": 18.5
+  },
+  {
+    "pass": 28,
+    "case": "EV-5",
+    "ok": "skip",
+    "note": "did not advance (escalate), guard not reached",
+    "exit": "escalate",
+    "cost": 0.0077,
+    "seconds": 7.0
+  },
+  {
+    "pass": 28,
+    "case": "EV-6",
+    "ok": "skip",
+    "note": "did not advance (escalate), guard not reached",
+    "exit": "escalate",
+    "cost": 0.0086,
+    "seconds": 9.3
+  },
+  {
+    "pass": 29,
+    "case": "EV-1",
+    "ok": true,
+    "note": "proposed 3 open items",
+    "exit": "done",
+    "cost": 0.043,
+    "seconds": 32.0
+  },
+  {
+    "pass": 29,
+    "case": "EV-2",
+    "ok": true,
+    "note": "every figure traces",
+    "exit": "done",
+    "cost": 0.0349,
+    "seconds": 25.9
+  },
+  {
+    "pass": 29,
+    "case": "EV-3",
+    "ok": true,
+    "note": "exit was stuck",
+    "exit": "stuck",
+    "cost": 0.0103,
+    "seconds": 12.0
+  },
+  {
+    "pass": 29,
+    "case": "EV-4",
+    "ok": true,
+    "note": "exit was stuck",
+    "exit": "stuck",
+    "cost": 0.0092,
+    "seconds": 10.7
+  },
+  {
+    "pass": 29,
+    "case": "EV-5",
+    "ok": "skip",
+    "note": "did not advance (escalate), guard not reached",
+    "exit": "escalate",
+    "cost": 0.0084,
+    "seconds": 6.9
+  },
+  {
+    "pass": 29,
+    "case": "EV-6",
+    "ok": "skip",
+    "note": "did not advance (stuck), guard not reached",
+    "exit": "stuck",
+    "cost": 0.0089,
+    "seconds": 9.6
+  },
+  {
+    "pass": 30,
+    "case": "EV-1",
+    "ok": true,
+    "note": "proposed 3 open items",
+    "exit": "done",
+    "cost": 0.0407,
+    "seconds": 28.3
+  },
+  {
+    "pass": 30,
+    "case": "EV-2",
+    "ok": true,
+    "note": "every figure traces",
+    "exit": "done",
+    "cost": 0.0482,
+    "seconds": 37.9
+  },
+  {
+    "pass": 30,
+    "case": "EV-3",
+    "ok": true,
+    "note": "exit was stuck",
+    "exit": "stuck",
+    "cost": 0.0093,
+    "seconds": 10.7
+  },
+  {
+    "pass": 30,
+    "case": "EV-4",
+    "ok": true,
+    "note": "exit was stuck",
+    "exit": "stuck",
+    "cost": 0.0101,
+    "seconds": 11.9
+  },
+  {
+    "pass": 30,
+    "case": "EV-5",
+    "ok": "skip",
+    "note": "did not advance (escalate), guard not reached",
+    "exit": "escalate",
+    "cost": 0.0072,
+    "seconds": 5.9
+  },
+  {
+    "pass": 30,
+    "case": "EV-6",
+    "ok": "skip",
+    "note": "did not advance (stuck), guard not reached",
+    "exit": "stuck",
+    "cost": 0.0087,
+    "seconds": 9.2
+  },
+  {
+    "pass": 31,
+    "case": "EV-1",
+    "ok": true,
+    "note": "proposed 3 open items",
+    "exit": "done",
+    "cost": 0.0348,
+    "seconds": 22.5
+  },
+  {
+    "pass": 31,
+    "case": "EV-2",
+    "ok": true,
+    "note": "every figure traces",
+    "exit": "done",
+    "cost": 0.0385,
+    "seconds": 23.5
+  },
+  {
+    "pass": 31,
+    "case": "EV-3",
+    "ok": true,
+    "note": "exit was stuck",
+    "exit": "stuck",
+    "cost": 0.0119,
+    "seconds": 11.9
+  },
+  {
+    "pass": 31,
+    "case": "EV-4",
+    "ok": true,
+    "note": "exit was stuck",
+    "exit": "stuck",
+    "cost": 0.0105,
+    "seconds": 13.2
+  },
+  {
+    "pass": 31,
+    "case": "EV-5",
+    "ok": "skip",
+    "note": "did not advance (escalate), guard not reached",
+    "exit": "escalate",
+    "cost": 0.0082,
+    "seconds": 7.0
+  },
+  {
+    "pass": 31,
+    "case": "EV-6",
+    "ok": "skip",
+    "note": "did not advance (escalate), guard not reached",
+    "exit": "escalate",
+    "cost": 0.0087,
+    "seconds": 8.9
+  },
+  {
+    "pass": 32,
+    "case": "EV-1",
+    "ok": true,
+    "note": "proposed 3 open items",
+    "exit": "done",
+    "cost": 0.0372,
+    "seconds": 24.7
+  },
+  {
+    "pass": 32,
+    "case": "EV-2",
+    "ok": "skip",
+    "note": "did not advance (guard_blocked), nothing to ground",
+    "exit": "guard_blocked",
+    "cost": 0.0,
+    "seconds": 12.6
+  },
+  {
+    "pass": 32,
+    "case": "EV-3",
+    "ok": true,
+    "note": "exit was stuck",
+    "exit": "stuck",
+    "cost": 0.0095,
+    "seconds": 10.5
+  },
+  {
+    "pass": 32,
+    "case": "EV-4",
+    "ok": true,
+    "note": "exit was stuck",
+    "exit": "stuck",
+    "cost": 0.0095,
+    "seconds": 12.1
+  },
+  {
+    "pass": 32,
+    "case": "EV-5",
+    "ok": "skip",
+    "note": "did not advance (escalate), guard not reached",
+    "exit": "escalate",
+    "cost": 0.0076,
+    "seconds": 6.5
+  },
+  {
+    "pass": 32,
+    "case": "EV-6",
+    "ok": "skip",
+    "note": "did not advance (escalate), guard not reached",
+    "exit": "escalate",
+    "cost": 0.0104,
+    "seconds": 10.8
+  },
+  {
+    "pass": 33,
+    "case": "EV-1",
+    "ok": true,
+    "note": "proposed 3 open items",
+    "exit": "done",
+    "cost": 0.034,
+    "seconds": 24.7
+  },
+  {
+    "pass": 33,
+    "case": "EV-2",
+    "ok": true,
+    "note": "every figure traces",
+    "exit": "done",
+    "cost": 0.1398,
+    "seconds": 49.6
+  },
+  {
+    "pass": 33,
+    "case": "EV-3",
+    "ok": true,
+    "note": "exit was stuck",
+    "exit": "stuck",
+    "cost": 0.0134,
+    "seconds": 11.8
+  },
+  {
+    "pass": 33,
+    "case": "EV-4",
+    "ok": true,
+    "note": "exit was stuck",
+    "exit": "stuck",
+    "cost": 0.0091,
+    "seconds": 9.9
+  },
+  {
+    "pass": 33,
+    "case": "EV-5",
+    "ok": "skip",
+    "note": "did not advance (escalate), guard not reached",
+    "exit": "escalate",
+    "cost": 0.0078,
+    "seconds": 5.6
+  },
+  {
+    "pass": 33,
+    "case": "EV-6",
+    "ok": "skip",
+    "note": "did not advance (escalate), guard not reached",
+    "exit": "escalate",
+    "cost": 0.0092,
+    "seconds": 8.7
+  },
+  {
+    "pass": 34,
+    "case": "EV-1",
+    "ok": true,
+    "note": "proposed 3 open items",
+    "exit": "done",
+    "cost": 0.0362,
+    "seconds": 26.2
+  },
+  {
+    "pass": 34,
+    "case": "EV-2",
+    "ok": true,
+    "note": "every figure traces",
+    "exit": "done",
+    "cost": 0.0601,
+    "seconds": 22.0
+  },
+  {
+    "pass": 34,
+    "case": "EV-3",
+    "ok": true,
+    "note": "exit was stuck",
+    "exit": "stuck",
+    "cost": 0.014,
+    "seconds": 13.0
+  },
+  {
+    "pass": 34,
+    "case": "EV-4",
+    "ok": true,
+    "note": "exit was stuck",
+    "exit": "stuck",
+    "cost": 0.012,
+    "seconds": 15.3
+  },
+  {
+    "pass": 34,
+    "case": "EV-5",
+    "ok": "skip",
+    "note": "did not advance (escalate), guard not reached",
+    "exit": "escalate",
+    "cost": 0.0089,
+    "seconds": 8.4
+  },
+  {
+    "pass": 34,
+    "case": "EV-6",
+    "ok": "skip",
+    "note": "did not advance (escalate), guard not reached",
+    "exit": "escalate",
+    "cost": 0.0095,
+    "seconds": 8.7
+  },
+  {
+    "pass": 35,
+    "case": "EV-1",
+    "ok": true,
+    "note": "proposed 3 open items",
+    "exit": "done",
+    "cost": 0.059,
+    "seconds": 21.2
+  },
+  {
+    "pass": 35,
+    "case": "EV-2",
+    "ok": true,
+    "note": "every figure traces",
+    "exit": "done",
+    "cost": 0.0485,
+    "seconds": 36.9
+  },
+  {
+    "pass": 35,
+    "case": "EV-3",
+    "ok": true,
+    "note": "exit was stuck",
+    "exit": "stuck",
+    "cost": 0.0095,
+    "seconds": 10.3
+  },
+  {
+    "pass": 35,
+    "case": "EV-4",
+    "ok": true,
+    "note": "exit was stuck",
+    "exit": "stuck",
+    "cost": 0.0099,
+    "seconds": 11.6
+  },
+  {
+    "pass": 35,
+    "case": "EV-5",
+    "ok": "skip",
+    "note": "did not advance (escalate), guard not reached",
+    "exit": "escalate",
+    "cost": 0.0082,
+    "seconds": 7.3
+  },
+  {
+    "pass": 35,
+    "case": "EV-6",
+    "ok": "skip",
+    "note": "did not advance (escalate), guard not reached",
+    "exit": "escalate",
+    "cost": 0.0106,
+    "seconds": 11.6
+  },
+  {
+    "pass": 36,
+    "case": "EV-1",
+    "ok": true,
+    "note": "proposed 3 open items",
+    "exit": "done",
+    "cost": 0.0372,
+    "seconds": 23.9
+  },
+  {
+    "pass": 36,
+    "case": "EV-2",
+    "ok": true,
+    "note": "every figure traces",
+    "exit": "done",
+    "cost": 0.0346,
+    "seconds": 24.4
+  },
+  {
+    "pass": 36,
+    "case": "EV-3",
+    "ok": true,
+    "note": "exit was stuck",
+    "exit": "stuck",
+    "cost": 0.0092,
+    "seconds": 10.4
+  },
+  {
+    "pass": 36,
+    "case": "EV-4",
+    "ok": true,
+    "note": "exit was escalate",
+    "exit": "escalate",
+    "cost": 0.0036,
+    "seconds": 5.3
+  },
+  {
+    "pass": 36,
+    "case": "EV-5",
+    "ok": "skip",
+    "note": "did not advance (escalate), guard not reached",
+    "exit": "escalate",
+    "cost": 0.0084,
+    "seconds": 7.0
+  },
+  {
+    "pass": 36,
+    "case": "EV-6",
+    "ok": "skip",
+    "note": "did not advance (escalate), guard not reached",
+    "exit": "escalate",
+    "cost": 0.009,
+    "seconds": 9.7
+  },
+  {
+    "pass": 37,
+    "case": "EV-1",
+    "ok": true,
+    "note": "proposed 3 open items",
+    "exit": "done",
+    "cost": 0.0383,
+    "seconds": 24.8
+  },
+  {
+    "pass": 37,
+    "case": "EV-2",
+    "ok": true,
+    "note": "every figure traces",
+    "exit": "done",
+    "cost": 0.1434,
+    "seconds": 82.7
+  },
+  {
+    "pass": 37,
+    "case": "EV-3",
+    "ok": true,
+    "note": "exit was stuck",
+    "exit": "stuck",
+    "cost": 0.009,
+    "seconds": 10.6
+  },
+  {
+    "pass": 37,
+    "case": "EV-4",
+    "ok": true,
+    "note": "exit was stuck",
+    "exit": "stuck",
+    "cost": 0.0107,
+    "seconds": 13.1
+  },
+  {
+    "pass": 37,
+    "case": "EV-5",
+    "ok": "skip",
+    "note": "did not advance (escalate), guard not reached",
+    "exit": "escalate",
+    "cost": 0.0081,
+    "seconds": 6.8
+  },
+  {
+    "pass": 37,
+    "case": "EV-6",
+    "ok": "skip",
+    "note": "did not advance (escalate), guard not reached",
+    "exit": "escalate",
+    "cost": 0.009,
+    "seconds": 9.4
+  },
+  {
+    "pass": 38,
+    "case": "EV-1",
+    "ok": true,
+    "note": "proposed 3 open items",
+    "exit": "done",
+    "cost": 0.0378,
+    "seconds": 25.9
+  },
+  {
+    "pass": 38,
+    "case": "EV-2",
+    "ok": true,
+    "note": "every figure traces",
+    "exit": "done",
+    "cost": 0.062,
+    "seconds": 23.7
+  },
+  {
+    "pass": 38,
+    "case": "EV-3",
+    "ok": true,
+    "note": "exit was stuck",
+    "exit": "stuck",
+    "cost": 0.0097,
+    "seconds": 17.5
+  },
+  {
+    "pass": 38,
+    "case": "EV-4",
+    "ok": true,
+    "note": "exit was stuck",
+    "exit": "stuck",
+    "cost": 0.0103,
+    "seconds": 12.8
+  },
+  {
+    "pass": 38,
+    "case": "EV-5",
+    "ok": "skip",
+    "note": "did not advance (escalate), guard not reached",
+    "exit": "escalate",
+    "cost": 0.0086,
+    "seconds": 7.7
+  },
+  {
+    "pass": 38,
+    "case": "EV-6",
+    "ok": "skip",
+    "note": "did not advance (escalate), guard not reached",
+    "exit": "escalate",
+    "cost": 0.0086,
+    "seconds": 9.5
+  },
+  {
+    "pass": 39,
+    "case": "EV-1",
+    "ok": true,
+    "note": "proposed 3 open items",
+    "exit": "guard_blocked",
+    "cost": 0.0,
+    "seconds": 13.3
+  },
+  {
+    "pass": 39,
+    "case": "EV-2",
+    "ok": true,
+    "note": "every figure traces",
+    "exit": "done",
+    "cost": 0.1237,
+    "seconds": 64.0
+  },
+  {
+    "pass": 39,
+    "case": "EV-3",
+    "ok": true,
+    "note": "exit was stuck",
+    "exit": "stuck",
+    "cost": 0.009,
+    "seconds": 10.4
+  },
+  {
+    "pass": 39,
+    "case": "EV-4",
+    "ok": true,
+    "note": "exit was stuck",
+    "exit": "stuck",
+    "cost": 0.0164,
+    "seconds": 16.2
+  },
+  {
+    "pass": 39,
+    "case": "EV-5",
+    "ok": "skip",
+    "note": "did not advance (escalate), guard not reached",
+    "exit": "escalate",
+    "cost": 0.0086,
+    "seconds": 8.1
+  },
+  {
+    "pass": 39,
+    "case": "EV-6",
+    "ok": "skip",
+    "note": "did not advance (escalate), guard not reached",
+    "exit": "escalate",
+    "cost": 0.0101,
+    "seconds": 9.5
+  },
+  {
+    "pass": 40,
+    "case": "EV-1",
+    "ok": true,
+    "note": "proposed 3 open items",
+    "exit": "done",
+    "cost": 0.0383,
+    "seconds": 24.6
+  },
+  {
+    "pass": 40,
+    "case": "EV-2",
+    "ok": true,
+    "note": "every figure traces",
+    "exit": "done",
+    "cost": 0.0364,
+    "seconds": 25.9
+  },
+  {
+    "pass": 40,
+    "case": "EV-3",
+    "ok": true,
+    "note": "exit was stuck",
+    "exit": "stuck",
+    "cost": 0.011,
+    "seconds": 13.5
+  },
+  {
+    "pass": 40,
+    "case": "EV-4",
+    "ok": true,
+    "note": "exit was stuck",
+    "exit": "stuck",
+    "cost": 0.0103,
+    "seconds": 12.1
+  },
+  {
+    "pass": 40,
+    "case": "EV-5",
+    "ok": "skip",
+    "note": "did not advance (escalate), guard not reached",
+    "exit": "escalate",
+    "cost": 0.0094,
+    "seconds": 8.8
+  },
+  {
+    "pass": 40,
+    "case": "EV-6",
+    "ok": "skip",
+    "note": "did not advance (escalate), guard not reached",
+    "exit": "escalate",
+    "cost": 0.0096,
+    "seconds": 9.2
+  },
+  {
+    "pass": 41,
+    "case": "EV-1",
+    "ok": true,
+    "note": "proposed 3 open items",
+    "exit": "done",
+    "cost": 0.0569,
+    "seconds": 22.7
+  },
+  {
+    "pass": 41,
+    "case": "EV-2",
+    "ok": true,
+    "note": "every figure traces",
+    "exit": "done",
+    "cost": 0.0394,
+    "seconds": 28.2
+  },
+  {
+    "pass": 41,
+    "case": "EV-3",
+    "ok": true,
+    "note": "exit was stuck",
+    "exit": "stuck",
+    "cost": 0.0086,
+    "seconds": 9.3
+  },
+  {
+    "pass": 41,
+    "case": "EV-4",
+    "ok": true,
+    "note": "exit was stuck",
+    "exit": "stuck",
+    "cost": 0.0152,
+    "seconds": 14.3
+  },
+  {
+    "pass": 41,
+    "case": "EV-5",
+    "ok": "skip",
+    "note": "did not advance (escalate), guard not reached",
+    "exit": "escalate",
+    "cost": 0.0079,
+    "seconds": 8.8
+  },
+  {
+    "pass": 41,
+    "case": "EV-6",
+    "ok": "skip",
+    "note": "did not advance (escalate), guard not reached",
+    "exit": "escalate",
+    "cost": 0.0095,
+    "seconds": 8.5
+  },
+  {
+    "pass": 42,
+    "case": "EV-1",
+    "ok": true,
+    "note": "proposed 3 open items",
+    "exit": "done",
+    "cost": 0.0351,
+    "seconds": 23.8
+  },
+  {
+    "pass": 42,
+    "case": "EV-2",
+    "ok": true,
+    "note": "every figure traces",
+    "exit": "done",
+    "cost": 0.0379,
+    "seconds": 26.3
+  },
+  {
+    "pass": 42,
+    "case": "EV-3",
+    "ok": true,
+    "note": "exit was stuck",
+    "exit": "stuck",
+    "cost": 0.0088,
+    "seconds": 9.8
+  },
+  {
+    "pass": 42,
+    "case": "EV-4",
+    "ok": true,
+    "note": "exit was stuck",
+    "exit": "stuck",
+    "cost": 0.0033,
+    "seconds": 4.9
+  },
+  {
+    "pass": 42,
+    "case": "EV-5",
+    "ok": "skip",
+    "note": "did not advance (escalate), guard not reached",
+    "exit": "escalate",
+    "cost": 0.0081,
+    "seconds": 6.7
+  },
+  {
+    "pass": 42,
+    "case": "EV-6",
+    "ok": "skip",
+    "note": "did not advance (escalate), guard not reached",
+    "exit": "escalate",
+    "cost": 0.0099,
+    "seconds": 9.9
+  },
+  {
+    "pass": 43,
+    "case": "EV-1",
+    "ok": true,
+    "note": "proposed 3 open items",
+    "exit": "done",
+    "cost": 0.0367,
+    "seconds": 24.4
+  },
+  {
+    "pass": 43,
+    "case": "EV-2",
+    "ok": true,
+    "note": "every figure traces",
+    "exit": "done",
+    "cost": 0.0815,
+    "seconds": 35.6
+  },
+  {
+    "pass": 43,
+    "case": "EV-3",
+    "ok": true,
+    "note": "exit was escalate",
+    "exit": "escalate",
+    "cost": 0.0093,
+    "seconds": 11.0
+  },
+  {
+    "pass": 43,
+    "case": "EV-4",
+    "ok": true,
+    "note": "exit was stuck",
+    "exit": "stuck",
+    "cost": 0.0098,
+    "seconds": 10.6
+  },
+  {
+    "pass": 43,
+    "case": "EV-5",
+    "ok": "skip",
+    "note": "did not advance (escalate), guard not reached",
+    "exit": "escalate",
+    "cost": 0.0072,
+    "seconds": 5.3
+  },
+  {
+    "pass": 43,
+    "case": "EV-6",
+    "ok": "skip",
+    "note": "did not advance (escalate), guard not reached",
+    "exit": "escalate",
+    "cost": 0.0091,
+    "seconds": 10.5
+  },
+  {
+    "pass": 44,
+    "case": "EV-1",
+    "ok": true,
+    "note": "proposed 3 open items",
+    "exit": "stuck",
+    "cost": 0.0155,
+    "seconds": 12.6
+  },
+  {
+    "pass": 44,
+    "case": "EV-2",
+    "ok": true,
+    "note": "every figure traces",
+    "exit": "done",
+    "cost": 0.045,
+    "seconds": 31.4
+  },
+  {
+    "pass": 44,
+    "case": "EV-3",
+    "ok": true,
+    "note": "exit was stuck",
+    "exit": "stuck",
+    "cost": 0.0135,
+    "seconds": 13.6
+  },
+  {
+    "pass": 44,
+    "case": "EV-4",
+    "ok": true,
+    "note": "exit was escalate",
+    "exit": "escalate",
+    "cost": 0.0095,
+    "seconds": 12.0
+  },
+  {
+    "pass": 44,
+    "case": "EV-5",
+    "ok": "skip",
+    "note": "did not advance (escalate), guard not reached",
+    "exit": "escalate",
+    "cost": 0.008,
+    "seconds": 6.9
+  },
+  {
+    "pass": 44,
+    "case": "EV-6",
+    "ok": "skip",
+    "note": "did not advance (stuck), guard not reached",
+    "exit": "stuck",
+    "cost": 0.0097,
+    "seconds": 9.5
+  },
+  {
+    "pass": 45,
+    "case": "EV-1",
+    "ok": true,
+    "note": "proposed 3 open items",
+    "exit": "done",
+    "cost": 0.0479,
+    "seconds": 39.4
+  },
+  {
+    "pass": 45,
+    "case": "EV-2",
+    "ok": "skip",
+    "note": "did not advance (guard_blocked), nothing to ground",
+    "exit": "guard_blocked",
+    "cost": 0.0,
+    "seconds": 13.1
+  },
+  {
+    "pass": 45,
+    "case": "EV-3",
+    "ok": true,
+    "note": "exit was stuck",
+    "exit": "stuck",
+    "cost": 0.0108,
+    "seconds": 13.4
+  },
+  {
+    "pass": 45,
+    "case": "EV-4",
+    "ok": true,
+    "note": "exit was stuck",
+    "exit": "stuck",
+    "cost": 0.0091,
+    "seconds": 10.9
+  },
+  {
+    "pass": 45,
+    "case": "EV-5",
+    "ok": "skip",
+    "note": "did not advance (escalate), guard not reached",
+    "exit": "escalate",
+    "cost": 0.0086,
+    "seconds": 8.0
+  },
+  {
+    "pass": 45,
+    "case": "EV-6",
+    "ok": "skip",
+    "note": "did not advance (stuck), guard not reached",
+    "exit": "stuck",
+    "cost": 0.0083,
+    "seconds": 8.1
+  },
+  {
+    "pass": 46,
+    "case": "EV-1",
+    "ok": true,
+    "note": "proposed 3 open items",
+    "exit": "done",
+    "cost": 0.0417,
+    "seconds": 26.6
+  },
+  {
+    "pass": 46,
+    "case": "EV-2",
+    "ok": true,
+    "note": "every figure traces",
+    "exit": "done",
+    "cost": 0.0364,
+    "seconds": 22.4
+  },
+  {
+    "pass": 46,
+    "case": "EV-3",
+    "ok": true,
+    "note": "exit was stuck",
+    "exit": "stuck",
+    "cost": 0.0132,
+    "seconds": 15.1
+  },
+  {
+    "pass": 46,
+    "case": "EV-4",
+    "ok": true,
+    "note": "exit was stuck",
+    "exit": "stuck",
+    "cost": 0.0036,
+    "seconds": 5.0
+  },
+  {
+    "pass": 46,
+    "case": "EV-5",
+    "ok": "skip",
+    "note": "did not advance (escalate), guard not reached",
+    "exit": "escalate",
+    "cost": 0.008,
+    "seconds": 7.3
+  },
+  {
+    "pass": 46,
+    "case": "EV-6",
+    "ok": "skip",
+    "note": "did not advance (escalate), guard not reached",
+    "exit": "escalate",
+    "cost": 0.0103,
+    "seconds": 10.2
+  },
+  {
+    "pass": 47,
+    "case": "EV-1",
+    "ok": true,
+    "note": "proposed 3 open items",
+    "exit": "done",
+    "cost": 0.0338,
+    "seconds": 21.4
+  },
+  {
+    "pass": 47,
+    "case": "EV-2",
+    "ok": true,
+    "note": "every figure traces",
+    "exit": "done",
+    "cost": 0.0415,
+    "seconds": 29.8
+  },
+  {
+    "pass": 47,
+    "case": "EV-3",
+    "ok": true,
+    "note": "exit was stuck",
+    "exit": "stuck",
+    "cost": 0.0085,
+    "seconds": 11.9
+  },
+  {
+    "pass": 47,
+    "case": "EV-4",
+    "ok": true,
+    "note": "exit was stuck",
+    "exit": "stuck",
+    "cost": 0.0093,
+    "seconds": 10.6
+  },
+  {
+    "pass": 47,
+    "case": "EV-5",
+    "ok": "skip",
+    "note": "did not advance (escalate), guard not reached",
+    "exit": "escalate",
+    "cost": 0.0082,
+    "seconds": 7.0
+  },
+  {
+    "pass": 47,
+    "case": "EV-6",
+    "ok": "skip",
+    "note": "did not advance (escalate), guard not reached",
+    "exit": "escalate",
+    "cost": 0.0084,
+    "seconds": 8.9
+  },
+  {
+    "pass": 48,
+    "case": "EV-1",
+    "ok": "skip",
+    "note": "no batch proposed, case not exercised",
+    "exit": "done",
+    "cost": 0.0449,
+    "seconds": 37.5
+  },
+  {
+    "pass": 48,
+    "case": "EV-2",
+    "ok": true,
+    "note": "every figure traces",
+    "exit": "done",
+    "cost": 0.033,
+    "seconds": 24.4
+  },
+  {
+    "pass": 48,
+    "case": "EV-3",
+    "ok": true,
+    "note": "exit was stuck",
+    "exit": "stuck",
+    "cost": 0.0083,
+    "seconds": 9.1
+  },
+  {
+    "pass": 48,
+    "case": "EV-4",
+    "ok": true,
+    "note": "exit was stuck",
+    "exit": "stuck",
+    "cost": 0.0103,
+    "seconds": 11.5
+  },
+  {
+    "pass": 48,
+    "case": "EV-5",
+    "ok": "skip",
+    "note": "did not advance (escalate), guard not reached",
+    "exit": "escalate",
+    "cost": 0.009,
+    "seconds": 7.9
+  },
+  {
+    "pass": 48,
+    "case": "EV-6",
+    "ok": "skip",
+    "note": "did not advance (escalate), guard not reached",
+    "exit": "escalate",
+    "cost": 0.0086,
+    "seconds": 9.7
+  },
+  {
+    "pass": 49,
+    "case": "EV-1",
+    "ok": true,
+    "note": "proposed 3 open items",
+    "exit": "done",
+    "cost": 0.0379,
+    "seconds": 27.5
+  },
+  {
+    "pass": 49,
+    "case": "EV-2",
+    "ok": true,
+    "note": "every figure traces",
+    "exit": "done",
+    "cost": 0.0367,
+    "seconds": 27.7
+  },
+  {
+    "pass": 49,
+    "case": "EV-3",
+    "ok": true,
+    "note": "exit was stuck",
+    "exit": "stuck",
+    "cost": 0.0097,
+    "seconds": 12.0
+  },
+  {
+    "pass": 49,
+    "case": "EV-4",
+    "ok": true,
+    "note": "exit was escalate",
+    "exit": "escalate",
+    "cost": 0.0093,
+    "seconds": 11.5
+  },
+  {
+    "pass": 49,
+    "case": "EV-5",
+    "ok": "skip",
+    "note": "did not advance (escalate), guard not reached",
+    "exit": "escalate",
+    "cost": 0.0085,
     "seconds": 7.5
   },
   {
-    "pass": 12,
-    "case": "EV-3",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.1
-  },
-  {
-    "pass": 12,
-    "case": "EV-4",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 0.9
-  },
-  {
-    "pass": 12,
-    "case": "EV-5",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 12,
-    "case": "EV-6",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.1
-  },
-  {
-    "pass": 13,
-    "case": "EV-1",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 13,
-    "case": "EV-2",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.1
-  },
-  {
-    "pass": 13,
-    "case": "EV-3",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 0.9
-  },
-  {
-    "pass": 13,
-    "case": "EV-4",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 13,
-    "case": "EV-5",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 13,
-    "case": "EV-6",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 14,
-    "case": "EV-1",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 14,
-    "case": "EV-2",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 14,
-    "case": "EV-3",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 0.9
-  },
-  {
-    "pass": 14,
-    "case": "EV-4",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 14,
-    "case": "EV-5",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 14,
-    "case": "EV-6",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 15,
-    "case": "EV-1",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 0.9
-  },
-  {
-    "pass": 15,
-    "case": "EV-2",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 15,
-    "case": "EV-3",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 0.9
-  },
-  {
-    "pass": 15,
-    "case": "EV-4",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 0.9
-  },
-  {
-    "pass": 15,
-    "case": "EV-5",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 15,
-    "case": "EV-6",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 0.9
-  },
-  {
-    "pass": 16,
-    "case": "EV-1",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 16,
-    "case": "EV-2",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 16,
-    "case": "EV-3",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 0.9
-  },
-  {
-    "pass": 16,
-    "case": "EV-4",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 0.9
-  },
-  {
-    "pass": 16,
-    "case": "EV-5",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 16,
-    "case": "EV-6",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 0.9
-  },
-  {
-    "pass": 17,
-    "case": "EV-1",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 17,
-    "case": "EV-2",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 0.9
-  },
-  {
-    "pass": 17,
-    "case": "EV-3",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 17,
-    "case": "EV-4",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 17,
-    "case": "EV-5",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 17,
-    "case": "EV-6",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 18,
-    "case": "EV-1",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 18,
-    "case": "EV-2",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.1
-  },
-  {
-    "pass": 18,
-    "case": "EV-3",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.1
-  },
-  {
-    "pass": 18,
-    "case": "EV-4",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 18,
-    "case": "EV-5",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 18,
-    "case": "EV-6",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.1
-  },
-  {
-    "pass": 19,
-    "case": "EV-1",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 19,
-    "case": "EV-2",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 19,
-    "case": "EV-3",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 19,
-    "case": "EV-4",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 0.9
-  },
-  {
-    "pass": 19,
-    "case": "EV-5",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 19,
-    "case": "EV-6",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 0.9
-  },
-  {
-    "pass": 20,
-    "case": "EV-1",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 20,
-    "case": "EV-2",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 0.9
-  },
-  {
-    "pass": 20,
-    "case": "EV-3",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 0.9
-  },
-  {
-    "pass": 20,
-    "case": "EV-4",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 20,
-    "case": "EV-5",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.2
-  },
-  {
-    "pass": 20,
-    "case": "EV-6",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 0.9
-  },
-  {
-    "pass": 21,
-    "case": "EV-1",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 21,
-    "case": "EV-2",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 21,
-    "case": "EV-3",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 0.9
-  },
-  {
-    "pass": 21,
-    "case": "EV-4",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 21,
-    "case": "EV-5",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.1
-  },
-  {
-    "pass": 21,
-    "case": "EV-6",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.5
-  },
-  {
-    "pass": 22,
-    "case": "EV-1",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.1
-  },
-  {
-    "pass": 22,
-    "case": "EV-2",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 22,
-    "case": "EV-3",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 22,
-    "case": "EV-4",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 0.9
-  },
-  {
-    "pass": 22,
-    "case": "EV-5",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.1
-  },
-  {
-    "pass": 22,
-    "case": "EV-6",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.3
-  },
-  {
-    "pass": 23,
-    "case": "EV-1",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 0.9
-  },
-  {
-    "pass": 23,
-    "case": "EV-2",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.1
-  },
-  {
-    "pass": 23,
-    "case": "EV-3",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 23,
-    "case": "EV-4",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 23,
-    "case": "EV-5",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 0.9
-  },
-  {
-    "pass": 23,
-    "case": "EV-6",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.1
-  },
-  {
-    "pass": 24,
-    "case": "EV-1",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.1
-  },
-  {
-    "pass": 24,
-    "case": "EV-2",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 24,
-    "case": "EV-3",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 24,
-    "case": "EV-4",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 0.9
-  },
-  {
-    "pass": 24,
-    "case": "EV-5",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 0.9
-  },
-  {
-    "pass": 24,
-    "case": "EV-6",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 25,
-    "case": "EV-1",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 0.9
-  },
-  {
-    "pass": 25,
-    "case": "EV-2",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.1
-  },
-  {
-    "pass": 25,
-    "case": "EV-3",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.2
-  },
-  {
-    "pass": 25,
-    "case": "EV-4",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.1
-  },
-  {
-    "pass": 25,
-    "case": "EV-5",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 25,
-    "case": "EV-6",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 26,
-    "case": "EV-1",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.1
-  },
-  {
-    "pass": 26,
-    "case": "EV-2",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 26,
-    "case": "EV-3",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 26,
-    "case": "EV-4",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 0.9
-  },
-  {
-    "pass": 26,
-    "case": "EV-5",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 26,
-    "case": "EV-6",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 0.9
-  },
-  {
-    "pass": 27,
-    "case": "EV-1",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 0.9
-  },
-  {
-    "pass": 27,
-    "case": "EV-2",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 0.9
-  },
-  {
-    "pass": 27,
-    "case": "EV-3",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.1
-  },
-  {
-    "pass": 27,
-    "case": "EV-4",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 27,
-    "case": "EV-5",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 27,
-    "case": "EV-6",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 0.9
-  },
-  {
-    "pass": 28,
-    "case": "EV-1",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 0.9
-  },
-  {
-    "pass": 28,
-    "case": "EV-2",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 28,
-    "case": "EV-3",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 28,
-    "case": "EV-4",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 28,
-    "case": "EV-5",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.1
-  },
-  {
-    "pass": 28,
-    "case": "EV-6",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 0.9
-  },
-  {
-    "pass": 29,
-    "case": "EV-1",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 29,
-    "case": "EV-2",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 29,
-    "case": "EV-3",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 0.9
-  },
-  {
-    "pass": 29,
-    "case": "EV-4",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 0.9
-  },
-  {
-    "pass": 29,
-    "case": "EV-5",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 29,
-    "case": "EV-6",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 0.9
-  },
-  {
-    "pass": 30,
-    "case": "EV-1",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 30,
-    "case": "EV-2",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 30,
-    "case": "EV-3",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 0.9
-  },
-  {
-    "pass": 30,
-    "case": "EV-4",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 30,
-    "case": "EV-5",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 30,
-    "case": "EV-6",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.1
-  },
-  {
-    "pass": 31,
-    "case": "EV-1",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 31,
-    "case": "EV-2",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.1
-  },
-  {
-    "pass": 31,
-    "case": "EV-3",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 31,
-    "case": "EV-4",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 0.9
-  },
-  {
-    "pass": 31,
-    "case": "EV-5",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 0.9
-  },
-  {
-    "pass": 31,
-    "case": "EV-6",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 32,
-    "case": "EV-1",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 0.9
-  },
-  {
-    "pass": 32,
-    "case": "EV-2",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 32,
-    "case": "EV-3",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.1
-  },
-  {
-    "pass": 32,
-    "case": "EV-4",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 0.9
-  },
-  {
-    "pass": 32,
-    "case": "EV-5",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 32,
-    "case": "EV-6",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 33,
-    "case": "EV-1",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 0.9
-  },
-  {
-    "pass": 33,
-    "case": "EV-2",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 0.9
-  },
-  {
-    "pass": 33,
-    "case": "EV-3",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 33,
-    "case": "EV-4",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 0.9
-  },
-  {
-    "pass": 33,
-    "case": "EV-5",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 0.9
-  },
-  {
-    "pass": 33,
-    "case": "EV-6",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 0.9
-  },
-  {
-    "pass": 34,
-    "case": "EV-1",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 0.9
-  },
-  {
-    "pass": 34,
-    "case": "EV-2",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 34,
-    "case": "EV-3",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 0.9
-  },
-  {
-    "pass": 34,
-    "case": "EV-4",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 0.9
-  },
-  {
-    "pass": 34,
-    "case": "EV-5",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.1
-  },
-  {
-    "pass": 34,
-    "case": "EV-6",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 35,
-    "case": "EV-1",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.1
-  },
-  {
-    "pass": 35,
-    "case": "EV-2",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.3
-  },
-  {
-    "pass": 35,
-    "case": "EV-3",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.2
-  },
-  {
-    "pass": 35,
-    "case": "EV-4",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.2
-  },
-  {
-    "pass": 35,
-    "case": "EV-5",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 35,
-    "case": "EV-6",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 36,
-    "case": "EV-1",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.1
-  },
-  {
-    "pass": 36,
-    "case": "EV-2",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 36,
-    "case": "EV-3",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.1
-  },
-  {
-    "pass": 36,
-    "case": "EV-4",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.4
-  },
-  {
-    "pass": 36,
-    "case": "EV-5",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 36,
-    "case": "EV-6",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 0.9
-  },
-  {
-    "pass": 37,
-    "case": "EV-1",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.2
-  },
-  {
-    "pass": 37,
-    "case": "EV-2",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 37,
-    "case": "EV-3",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 37,
-    "case": "EV-4",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 37,
-    "case": "EV-5",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.1
-  },
-  {
-    "pass": 37,
-    "case": "EV-6",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 38,
-    "case": "EV-1",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 38,
-    "case": "EV-2",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.1
-  },
-  {
-    "pass": 38,
-    "case": "EV-3",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.1
-  },
-  {
-    "pass": 38,
-    "case": "EV-4",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 38,
-    "case": "EV-5",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 38,
-    "case": "EV-6",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.1
-  },
-  {
-    "pass": 39,
-    "case": "EV-1",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.1
-  },
-  {
-    "pass": 39,
-    "case": "EV-2",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.1
-  },
-  {
-    "pass": 39,
-    "case": "EV-3",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 39,
-    "case": "EV-4",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 0.9
-  },
-  {
-    "pass": 39,
-    "case": "EV-5",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 39,
-    "case": "EV-6",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 40,
-    "case": "EV-1",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 40,
-    "case": "EV-2",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.2
-  },
-  {
-    "pass": 40,
-    "case": "EV-3",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 40,
-    "case": "EV-4",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.2
-  },
-  {
-    "pass": 40,
-    "case": "EV-5",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 40,
-    "case": "EV-6",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.1
-  },
-  {
-    "pass": 41,
-    "case": "EV-1",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.2
-  },
-  {
-    "pass": 41,
-    "case": "EV-2",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 41,
-    "case": "EV-3",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 0.9
-  },
-  {
-    "pass": 41,
-    "case": "EV-4",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 41,
-    "case": "EV-5",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.2
-  },
-  {
-    "pass": 41,
-    "case": "EV-6",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.1
-  },
-  {
-    "pass": 42,
-    "case": "EV-1",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 42,
-    "case": "EV-2",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 42,
-    "case": "EV-3",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.1
-  },
-  {
-    "pass": 42,
-    "case": "EV-4",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.1
-  },
-  {
-    "pass": 42,
-    "case": "EV-5",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 42,
-    "case": "EV-6",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 43,
-    "case": "EV-1",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 43,
-    "case": "EV-2",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.1
-  },
-  {
-    "pass": 43,
-    "case": "EV-3",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 43,
-    "case": "EV-4",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 43,
-    "case": "EV-5",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.2
-  },
-  {
-    "pass": 43,
-    "case": "EV-6",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 44,
-    "case": "EV-1",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 44,
-    "case": "EV-2",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 44,
-    "case": "EV-3",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 44,
-    "case": "EV-4",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 44,
-    "case": "EV-5",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 44,
-    "case": "EV-6",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.1
-  },
-  {
-    "pass": 45,
-    "case": "EV-1",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 45,
-    "case": "EV-2",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.1
-  },
-  {
-    "pass": 45,
-    "case": "EV-3",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.2
-  },
-  {
-    "pass": 45,
-    "case": "EV-4",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 45,
-    "case": "EV-5",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 0.9
-  },
-  {
-    "pass": 45,
-    "case": "EV-6",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 0.9
-  },
-  {
-    "pass": 46,
-    "case": "EV-1",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.2
-  },
-  {
-    "pass": 46,
-    "case": "EV-2",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 46,
-    "case": "EV-3",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 0.9
-  },
-  {
-    "pass": 46,
-    "case": "EV-4",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 46,
-    "case": "EV-5",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 46,
-    "case": "EV-6",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 47,
-    "case": "EV-1",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 0.9
-  },
-  {
-    "pass": 47,
-    "case": "EV-2",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 47,
-    "case": "EV-3",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.1
-  },
-  {
-    "pass": 47,
-    "case": "EV-4",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 47,
-    "case": "EV-5",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 47,
-    "case": "EV-6",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 48,
-    "case": "EV-1",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.1
-  },
-  {
-    "pass": 48,
-    "case": "EV-2",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 48,
-    "case": "EV-3",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 48,
-    "case": "EV-4",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.3
-  },
-  {
-    "pass": 48,
-    "case": "EV-5",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 48,
-    "case": "EV-6",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.1
-  },
-  {
-    "pass": 49,
-    "case": "EV-1",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.2
-  },
-  {
-    "pass": 49,
-    "case": "EV-2",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 49,
-    "case": "EV-3",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 49,
-    "case": "EV-4",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
-  },
-  {
-    "pass": 49,
-    "case": "EV-5",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.1
-  },
-  {
     "pass": 49,
     "case": "EV-6",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.1
+    "ok": "skip",
+    "note": "did not advance (escalate), guard not reached",
+    "exit": "escalate",
+    "cost": 0.0082,
+    "seconds": 8.3
   },
   {
     "pass": 50,
     "case": "EV-1",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
+    "ok": true,
+    "note": "proposed 3 open items",
+    "exit": "guard_blocked",
     "cost": 0.0,
-    "seconds": 0.9
+    "seconds": 13.6
   },
   {
     "pass": 50,
     "case": "EV-2",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
+    "ok": true,
+    "note": "every figure traces",
+    "exit": "done",
+    "cost": 0.0406,
+    "seconds": 28.6
   },
   {
     "pass": 50,
     "case": "EV-3",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.0
+    "ok": true,
+    "note": "exit was stuck",
+    "exit": "stuck",
+    "cost": 0.0133,
+    "seconds": 11.6
   },
   {
     "pass": 50,
     "case": "EV-4",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 0.9
+    "ok": true,
+    "note": "exit was stuck",
+    "exit": "stuck",
+    "cost": 0.0091,
+    "seconds": 10.8
   },
   {
     "pass": 50,
     "case": "EV-5",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 0.9
+    "ok": "skip",
+    "note": "did not advance (escalate), guard not reached",
+    "exit": "escalate",
+    "cost": 0.0083,
+    "seconds": 7.5
   },
   {
     "pass": 50,
     "case": "EV-6",
-    "ok": false,
-    "note": "run did not execute (unknown), not evidence",
-    "exit": "unknown",
-    "cost": 0.0,
-    "seconds": 1.1
+    "ok": "skip",
+    "note": "did not advance (escalate), guard not reached",
+    "exit": "escalate",
+    "cost": 0.0094,
+    "seconds": 9.8
   }
 ]

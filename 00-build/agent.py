@@ -592,9 +592,10 @@ def run(which: str = "happy") -> None:
             stats["guards_fired"] = [code for code, _ in breaches]
             stats["exit"] = "guard_blocked"
             reason = "safety guard: " + "; ".join(msg for _, msg in breaches)
-            banner(f"BLOCKED, {reason}. Halting and escalating to a human.")
+            banner(f"BLOCKED, {reason}. Halting and escalating to a human. "
+                   f"Run cost \u2248 ${bounds.cost:.4f}")
             emit_deliverable(which, last_draft, accepted=False, project_id=project_of(task),
-                             staged=staged, reason=reason, cost=bounds.cost)
+                             staged=staged, stats=stats, reason=reason, cost=bounds.cost)
             return
 
         # The cap is checked again here, not only at the top of the loop. A run that
@@ -608,7 +609,7 @@ def run(which: str = "happy") -> None:
                       f"the draft was not validated")
             banner(f"BOUND TRIPPED, {reason}. Halting and escalating to a human.")
             emit_deliverable(which, last_draft, accepted=False, project_id=project_of(task),
-                             staged=staged, reason=reason, cost=bounds.cost)
+                             staged=staged, stats=stats, reason=reason, cost=bounds.cost)
             return
 
         stats["exit"] = "validating"

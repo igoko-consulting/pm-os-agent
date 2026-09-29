@@ -98,8 +98,9 @@ does:
 - **40% of runs reach the critic.** The cheap structural checks stop the rest first, which is the
   cost design working: most escalations never pay for validation.
 - **Both validated runs routed to Sonnet.** No risk signal fired.
-- **The guards have never fired in live running**, only in unit tests. A guard that never fires is
-  either unnecessary or untested in anger, and the ledger is what will tell you which.
+- **The guards fired for the first time on 2026-09-29**, 11 times in a 300-run eval suite, all of
+  them the tightened uncited-figure guard catching drafts that cited a past-updates figure as this
+  week's. The ledger recorded none of them until the instrumentation gap above was fixed.
 - **The dedupe rule is being broken**, three P-NORTH runs in one ISO week. The in-run warning says
   so each time; the ledger makes the pattern visible.
 
@@ -112,7 +113,13 @@ than described.
 |---|---|---|
 | 2026-09-29 | **The daily cap was weekly.** `spend_today()` summed the current ISO week, so a bound documented as "$2.00 per day" in `bounds-and-evals.md`, the README and the pitch enforced $2.00 per week for two modules. The contradiction was inside the function's own docstring, "for today's ISO week rows dated today", and nobody read it | Filters on the date in `run_id`. Rows written before `run_id` existed are ignored rather than guessed at |
 
-This one differs from the seven documentation-drift instances recorded in
+| 2026-09-29 | **The ledger was blind to guard fires.** The guard-block path was the only `emit_deliverable` call site missing `stats=stats`, and the pre-critic cost cap had the same gap. Neither wrote `exit` or `guards_fired`. The guards fired 11 times in a 300-run eval and `stats.py` would have reported zero | Both call sites pass stats. Verified offline and with a live run |
+
+The second is the sharper of the two. A control worked perfectly and the evidence of it working did
+not exist, which is a different failure from a control not working, and harder to notice: a monitor
+reporting zero looks identical whether nothing happened or nothing was recorded.
+
+The first differs from the seven documentation-drift instances recorded in
 `build-insights.md`. Those were documents falling behind the code. Here the code never matched the
 document: the bound was mislabelled the day it was written, and the only symptom was a cap tripping
 earlier than expected, which is indistinguishable from a cap working.
