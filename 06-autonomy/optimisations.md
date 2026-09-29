@@ -46,7 +46,7 @@ evidence present and a purely prose fabrication would route to the cheaper model
 
 | Change | What it replaced | Enforcement |
 |---|---|---|
-| **Confidential guard** | Prompt norms plus the critic's judgement | Code, before validation. Blocks an advancing draft naming a project whose record carries `flags: ["confidential"]` |
+| **Confidential guard** | Prompt norms plus the critic's judgement | Code, before validation. Blocks an advancing draft carrying any string the data uses to identify a project flagged `confidential`: id, name, PRD id, or a multi-word descriptor from the name. Widened after review: matching id and name alone passed "the unreleased AI features work", which discloses existence, scope and timing without using either |
 | **Sev-1 / launch_hold guard** | Prompt norms | Code. Blocks a green status where the project has an open `sev-1` or a `launch_hold` |
 | **Uncited-figure guard** | Nothing | Code. Blocks an advancing draft citing a PR id, issue id or percentage that appears in no tool result |
 | **Proposal rollback** | Nothing | Staged proposals commit only at the human checkpoint. Both cap trips had reported stories as queued from runs that produced no update |
@@ -119,3 +119,8 @@ than described.
 
 - **Prose-only fabrication.** No structural signal catches it. Today it is covered incidentally when
   evidence is missing.
+- **Paraphrased disclosure.** The confidential guard matches every string the record uses for a
+  restricted project, so "the unreleased AI features work" is caught. A paraphrase using none of
+  them is not. Closing it needs semantic matching, which means a model call, which is the dependency
+  a guard exists to avoid. The norms forbid disclosing existence, scope or timing; the guard
+  enforces the names, and critic check 3 covers the rest on judgement.

@@ -279,6 +279,29 @@ EXCLUSION_WORDS = ("no ", "not ", "none", "excluded", "omitted", "without",
                    "confidential", "embargo", "left out", "withheld")
 
 
+def confidential_needles(pid: str, record: dict) -> list[str]:
+    """Every string the data itself uses to identify a restricted project.
+
+    Matching the id and the name alone caught "P-ORBIT" and "Orbit" and missed
+    "the unreleased AI features work", which discloses existence, scope and timing
+    without using either. The norms forbid exactly that. This reads the record's own
+    fields rather than a name list, so a project added next week is covered.
+
+    Single-word descriptors are dropped: "unreleased" on its own would match any
+    sentence about any unreleased thing, and a guard that blocks good drafts costs
+    more trust than one that misses.
+    """
+    name = record.get("name", "")
+    needles = [pid.lower(), name.split(" (")[0].strip().lower()]
+    if record.get("prd"):
+        needles.append(record["prd"].lower())
+    if "(" in name:
+        descriptor = name[name.index("(") + 1:].rstrip(")")
+        needles += [part.strip().lower() for part in descriptor.split(",")
+                    if len(part.split()) > 1]
+    return [n for n in needles if n]
+
+
 def derived_from(pulled: set[str]) -> set[str]:
     """Percentages a draft can legitimately compute from figures it did cite.
 
@@ -303,8 +326,7 @@ def guard_violations(draft: str, source_log: list[str], project_id: str) -> list
     for pid, record in projects.items():
         if "confidential" not in record.get("flags", []):
             continue
-        name = record.get("name", "").split(" (")[0]
-        needles = [pid.lower()] + ([name.lower()] if name else [])
+        needles = confidential_needles(pid, record)
         # A draft that names an embargoed project in order to say it was left out is
         # complying, not leaking. Replaying recorded drafts through this guard caught
         # it blocking exactly that: "no confidential roadmap items (Orbit)".
