@@ -351,7 +351,13 @@ def guard_violations(draft: str, source_log: list[str], project_id: str) -> list
         why = "an open Sev-1" if sev1 else "a launch_hold flag"
         violations.append(("sev1_green", f"reports green while {project_id} carries {why}"))
 
-    pulled = artefacts_in("\n".join(source_log))
+    # Only this project's activity pull counts, matching the norm: every metric and
+    # progress claim must trace to pulled *activity*. Pooling the whole source log
+    # let a figure from search_past_updates be presented as this week's, which EV-2
+    # caught three times across 25 runs while this guard passed it. The guard was
+    # looser than the rule it enforces.
+    activity = [e for e in source_log if e.startswith("get_activity(")]
+    pulled = artefacts_in("\n".join(activity))
     uncited = artefacts_in(draft) - pulled - derived_from(pulled)
     if uncited:
         violations.append(("uncited_figure", "cites figures that appear in no tool result: "

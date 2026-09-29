@@ -48,7 +48,7 @@ evidence present and a purely prose fabrication would route to the cheaper model
 |---|---|---|
 | **Confidential guard** | Prompt norms plus the critic's judgement | Code, before validation. Blocks an advancing draft carrying any string the data uses to identify a project flagged `confidential`: id, name, PRD id, or a multi-word descriptor from the name. Widened after review: matching id and name alone passed "the unreleased AI features work", which discloses existence, scope and timing without using either |
 | **Sev-1 / launch_hold guard** | Prompt norms | Code. Blocks a green status where the project has an open `sev-1` or a `launch_hold` |
-| **Uncited-figure guard** | Nothing | Code. Blocks an advancing draft citing a PR id, issue id or percentage that appears in no tool result |
+| **Uncited-figure guard** | Nothing | Code. Blocks an advancing draft citing a PR id, issue id or percentage absent from **this project's activity pull**. Tightened after the eval suite: it originally checked the whole source log, so a figure from `search_past_updates` could be presented as this week's. EV-2 caught that three times across 25 runs while the guard passed it, because the guard was looser than the norm it enforces |
 | **Proposal rollback** | Nothing | Staged proposals commit only at the human checkpoint. Both cap trips had reported stories as queued from runs that produced no update |
 
 Every guard reads the data rather than a name list. P-PULSAR arrived in a data pack, and a list

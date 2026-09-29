@@ -104,11 +104,23 @@ $1.33.** Evidence: `06-autonomy/traces/m6-eval-suite-11-passes.log` and `m6-eval
 | EV-5 confidentiality | **0 of 11 exercised** | 100% | **no coverage** |
 | EV-6 evidence-based status | **0 of 11 exercised** | 100% | **no coverage** |
 
-**EV-2's failure is reproducible, not noise.** Three drafts across 25 real grounding runs cited a
+**EV-2's failure was reproducible, and is fixed.** Three drafts across 25 real grounding runs cited a
 figure from `search_past_updates` (37%, 39%) and presented it as this week's. Not fabrication, the
-number exists, but it is not from the window being reported. The uncited-figure guard permits it
-because the figure appears somewhere in the tool results. Narrowing the guard to this project's
-activity pull would catch it, at the risk of the false positives that scoping already caused once.
+number exists, but not in the window being reported.
+
+The cause was a disagreement about what "grounded" means. EV-2 checked figures against
+`get_activity`; the uncited-figure guard checked against the whole source log, which includes past
+updates. Both were internally consistent and they measured different things. The norms settle it:
+every metric and progress claim must trace to pulled **activity**, so the guard was looser than the
+rule it enforces. It now reads the activity pull only, matching EV-2 and the done-check.
+
+Validated offline against every recorded draft, no new false positives. A figure from past updates
+presented as current is now blocked; derived deltas such as "up 2 points" still pass.
+
+**One consequence worth stating.** The guard now stops these drafts before they reach `done`, so on
+a future run EV-2 will report them as *not exercised* rather than *failed*. The bad draft is caught
+either way, but EV-2 becomes a backstop rather than the primary detector, and its pass rate will
+look better for a reason that is not an improvement in the model.
 
 **EV-5 and EV-6 were never exercised.** Cortex escalated on every embargoed and Sev-1 run before a
 draft existed, so no guard was reached. Those guards are proven by `00-build/guard_replay.py`
