@@ -106,6 +106,17 @@ does:
 This is the production-traces stage of the eval lifecycle in `05-bounds-evals` §4, built rather
 than described.
 
+## Corrections
+
+| Found | What was wrong | Fix |
+|---|---|---|
+| 2026-09-29 | **The daily cap was weekly.** `spend_today()` summed the current ISO week, so a bound documented as "$2.00 per day" in `bounds-and-evals.md`, the README and the pitch enforced $2.00 per week for two modules. The contradiction was inside the function's own docstring, "for today's ISO week rows dated today", and nobody read it | Filters on the date in `run_id`. Rows written before `run_id` existed are ignored rather than guessed at |
+
+This one differs from the seven documentation-drift instances recorded in
+`build-insights.md`. Those were documents falling behind the code. Here the code never matched the
+document: the bound was mislabelled the day it was written, and the only symptom was a cap tripping
+earlier than expected, which is indistinguishable from a cap working.
+
 ## Still open
 
 - **The second-opinion path is unwitnessed in a saved trace.** It has fired once, a routine

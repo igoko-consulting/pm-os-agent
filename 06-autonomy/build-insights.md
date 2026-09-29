@@ -15,6 +15,13 @@ detects them was built.
 Not one was carelessness. Every one was correct when written, and stopped being correct because
 something downstream changed.
 
+An eighth was different and worse. The daily spend cap was never daily: it summed the ISO week, so a
+bound documented in three places as "$2.00 per day" enforced $2.00 per week for two modules. That was
+not drift. The code never matched the document, from the day it was written, and the only symptom
+was a cap tripping earlier than expected, which is indistinguishable from a cap working. A document
+that is wrong is findable by reading. A control that quietly does something other than what it says
+is only findable by measuring it.
+
 Nothing fails when a document is wrong, so the only way to find drift is to go looking. It never
 felt like the main work, yet it produced more corrections than testing did. This is a governance
 problem. A document nobody can trust is not a control.

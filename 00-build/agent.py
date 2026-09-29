@@ -174,12 +174,21 @@ def ledger_record(project_id: str, outcome: str, cost: float,
 
 
 def spend_today() -> float:
-    """Total cost recorded in the ledger for today's ISO week rows dated today."""
+    """Total cost recorded in the ledger for runs that happened today.
+
+    This summed the whole ISO week until 2026-09-29, so a bound documented as
+    "$2.00 per day" in bounds-and-evals.md, the README and the pitch was enforcing
+    $2.00 per week. The docstring contradicted itself and nobody read it: the name
+    said daily, the code said weekly, and the only symptom was a cap that seemed to
+    trip early. run_id carries the date, so the day is available without adding a
+    field. Rows written before run_id existed are ignored rather than guessed at.
+    """
     if not LEDGER.exists():
         return 0.0
     rows = json.loads(LEDGER.read_text(encoding="utf-8"))
-    week = iso_week(date.today())
-    return sum(r.get("cost_usd", 0.0) for r in rows if r.get("iso_week") == week)
+    today = date.today().strftime("%Y%m%d")
+    return sum(r.get("cost_usd", 0.0) for r in rows
+               if str(r.get("run_id", "")).startswith(today))
 
 
 def kill_switch_engaged() -> bool:
@@ -470,7 +479,7 @@ def run(which: str = "happy") -> None:
 
     already = spend_today()
     if already >= DAILY_CAP_USD:
-        banner(f"DAILY CAP ${DAILY_CAP_USD} reached (${already:.4f} spent this week). "
+        banner(f"DAILY CAP ${DAILY_CAP_USD} reached (${already:.4f} spent today). "
                f"Refusing to start.")
         return
 
