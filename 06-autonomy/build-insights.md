@@ -69,3 +69,14 @@ A halted run also discards its staged stories, so a stopped run leaves nothing q
 Write the eval cases in Module 2, not Module 5. I built checks for four modules with nothing to
 validate them against, which is how two of them shipped wrong. The replay harness that caught the
 guard false positives took twenty minutes and would have worked from the first module.
+
+Running the suite for the first time proved the point twice over. Its first report claimed 50/50 on
+two cases; 36 of those runs had never started, because the daily spend cap had stopped them and the
+check "did not advance" is trivially satisfied by a run that never began. An eval that cannot tell a
+non-run from a pass is the same fault as a done-check that cannot tell a missing evidence source
+from a quiet week, and I wrote both.
+
+The second attempt ran out of prepaid credits at pass 12. Both stops were the spending controls
+working. It also showed that the gate I wrote in Module 5 is unaffordable inside the bounds I wrote
+in Module 5: 50 passes cost about $6 against a $2 daily cap. Neither number was wrong on its own.
+Nobody had checked they were compatible, because nothing had been run.

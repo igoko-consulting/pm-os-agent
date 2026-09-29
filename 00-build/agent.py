@@ -113,6 +113,13 @@ TOOL_SCHEMAS = [
 ]
 
 
+# EV-3 withholds the evidence source to check that nothing advances without it.
+# It used to be done by hand-editing TOOL_SCHEMAS, which made the case unrunnable
+# unattended and therefore unrunnable fifty times.
+if os.environ.get("CORTEX_WITHHOLD_ACTIVITY"):
+    TOOL_SCHEMAS = [t for t in TOOL_SCHEMAS if t["name"] != "get_activity"]
+
+
 class Bounds:
     """Tracks spend and trips the cost cap. This is enforced OUTSIDE the model."""
 

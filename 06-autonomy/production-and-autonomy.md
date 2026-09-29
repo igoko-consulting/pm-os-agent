@@ -51,6 +51,14 @@ against fixtures.**
 | EV-1 tool accuracy, EV-2 grounding, EV-3 recovery | **≥95%** | These depend on the model. 95% across 50 runs is a real bar rather than a hopeful one |
 | Guard false positives | **Zero** | Added because replaying recorded drafts found two. A guard that blocks a good draft costs more trust than one that misses, because it interrupts a human who then finds nothing wrong |
 
+**Part 1 status, 2026-09-29: attempted, not met.** 11 complete passes of 50, stopped by the build's
+own spending controls. EV-3 and EV-4 clear their thresholds; EV-1 clears on a small sample; **EV-2
+grounding is at 90% against ≥95%**, with a reproducible fault where drafts cite a figure from past
+updates as this week's; **EV-5 and EV-6 were never exercised**, because Cortex escalates before a
+draft exists and the guards are never reached. Full numbers in `05-bounds-evals/bounds-and-evals.md`
+§3. The rung stays shadow, and would stay shadow even if part 1 had cleared, because part 2 has not
+started.
+
 **Part 2, live shadow. Four weeks on real Jira and Slack data**, every run reviewed by the owning
 PM, with two conditions: no incident of any class in the record below, and the PM agreeing with the
 status call on every run. A disagreement is not counted as a failure. It is a signal that the norms
