@@ -44,9 +44,14 @@ the only ungated row with low measurability.
   prompt.
 - **Memory:** durable context persists (team norms, roadmap, decision log). Per-run work is
   disposable (drafts, traces, tool results). Nothing about a run survives it.
-- **Loop:** placeholder, defined in M2 loop-spec.md
-- **Bounds:** placeholder, defined in M5 bounds-and-evals.md
-- **Evals:** placeholder, defined in M5 bounds-and-evals.md
+- **Loop:** a Monday 08:00 cron with a manual backup, three exits, dedupe by project and ISO week.
+  `02-loop-design/loop-spec.md`.
+- **Bounds:** eight iterations, two revisions, $0.25 per run, $2.00 per day, 180s, ten queued
+  stories, and a `STOP` file kill switch, all enforced outside the model. Plus three safety guards.
+  `05-bounds-evals/bounds-and-evals.md` §1.
+- **Evals:** six trajectory cases asserting structured outcomes, with a four-run replay set.
+  Specified, not yet run as a suite, which is why M6 places Cortex at shadow.
+  `05-bounds-evals/bounds-and-evals.md` §3.
 
 ## The golden rule, applied
 
@@ -74,7 +79,9 @@ decision, or the point where something reaches a person, sits above.
 7. **Propose a capped story batch** sits below the line with a gate. Easy to reverse, low blast
    radius, hard to verify. Deciding factor: measurability. Blast radius alone would leave it
    ungated, since `propose_stories` creates nothing and a wrong batch costs a deletion. But there
-   is no way to tell afterwards whether the right stories were proposed, and the batch already
+   was no way to tell afterwards whether the right stories were proposed. That is now half true:
+   `get_backlog` marks delivered items, so re-proposing finished work is detectable, while whether
+   the priority order was right remains unmeasurable. The batch also
    surfaces inside the draft a human reads, so it joins the same gate at no extra cost.
 8. **Post the update or approve a company-wide one** sits above the line. Hard to reverse, high
    blast radius, easy to verify. Deciding factor: reversibility. Nobody can un-read a false status

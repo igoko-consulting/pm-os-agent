@@ -4,9 +4,16 @@
 
 ## One friction
 
-Documents drifted from the build in every module. Each end-of-module audit found something: a critic
-model decided in M1 and still unwired in M3, a run ledger that two deliverables described in the
-present tense and that did not exist, stop conditions listing none of the four exits built that day.
+Documents drifted from the build in every module. Seven instances across six modules: a critic model
+decided in M1 and still unwired in M3, a run ledger that two deliverables described in the present
+tense and that did not exist, stop conditions listing none of the four exits built that day, a
+failure-mode register calling a shipped guard "proposed", an anatomy sketch still showing
+placeholders for three artefacts that existed, a ledger constraint enumerating four fields when it
+carried thirteen, and a claim that redundant story proposals were undetectable after the tool that
+detects them was built.
+
+Not one was carelessness. Every one was correct when written, and stopped being correct because
+something downstream changed.
 
 Nothing fails when a document is wrong, so the only way to find drift is to go looking. It never
 felt like the main work, yet it produced more corrections than testing did. This is a governance
