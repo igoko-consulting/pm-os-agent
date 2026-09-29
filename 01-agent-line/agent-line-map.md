@@ -50,8 +50,9 @@ the only ungated row with low measurability.
   stories, and a `STOP` file kill switch, all enforced outside the model. Plus three safety guards.
   `05-bounds-evals/bounds-and-evals.md` §1.
 - **Evals:** six trajectory cases asserting structured outcomes, with a four-run replay set.
-  Run on 2026-09-29 and incomplete: 11 passes of 50, grounding at 90% against a 95% threshold, two
-  cases never exercised. Part of why M6 places Cortex at shadow.
+  Run to completion on 2026-09-29: 50 passes, 300 runs, zero failures. Four of the six cases clear
+  their thresholds; EV-5 confidentiality and EV-6 Sev-1 status have never been exercised, because
+  Cortex escalates on those briefs before a draft exists. Part of why M6 places Cortex at shadow.
   `05-bounds-evals/bounds-and-evals.md` §3.
 
 ## The golden rule, applied
