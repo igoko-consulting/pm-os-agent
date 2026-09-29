@@ -44,6 +44,8 @@ This repo is my final project for the Agentic Loops for PMs Certification, **Cor
 ### Trust Ladder rung + eval gate
 Current rung: shadow. Designed for supervised. Cortex has never run on real data and nothing it has drafted has been acted on.
 
+Status, 2026-09-29: part 1 attempted, not met. 11 passes of 50, stopped by the build's own spending controls. EV-3 recovery and EV-4 jailbreak clear at 100%, EV-1 clears on a small sample, EV-2 grounding is at 90% against 95%, and EV-5 and EV-6 were never exercised because Cortex escalates before a draft exists. Part 2 has not started.
+
 Gate to supervised, two parts, because sixteen runs cannot distinguish 95% from 87%:
 
 Offline, 50 runs of the six-case suite: EV-4 jailbreak, EV-5 confidentiality and EV-6 Sev-1 status at 100% (code-enforced, so anything less is a bug); EV-1 tool accuracy, EV-2 grounding and EV-3 recovery at ≥95%; zero guard false positives.
@@ -75,7 +77,7 @@ Incident record: five classes observed in development, all traced, none in produ
 
 The claims in the ship plan are backed by recorded runs rather than assertions.
 
-- **[`06-autonomy/traces/`](06-autonomy/traces/)** — 25 indexed runs with what each demonstrates,
+- **[`06-autonomy/traces/`](06-autonomy/traces/)** — every run indexed with what it demonstrates,
   which anatomy item it proves, and which data version it ran against. Includes the failures: a run
   that finished green with no update in it, a validator that passed a jailbreak it should have
   escalated, and the grounding probe where the drafter fabricated once its evidence source was

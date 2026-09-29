@@ -21,9 +21,10 @@ Cortex** and **context on the project**. A PM can have one without the other.
 | **Eng lead or exec receiving the update** | **Not an operator** | They consume the output and never trigger a run. Assigning them a rung would be a category error, and saying so is more useful than inventing one. |
 
 **Supervised is the ceiling today, for everyone.** Nothing in this repo justifies going higher. The
-M5 eval suite is six cases, specified and never run as a suite. The three safety guards have never
-fired in live running, only in replay against recorded drafts. The second-opinion path has fired
-once and was not captured. That is not a trust position that supports bounded-autonomous for even
+M5 eval suite has been run and did not complete: 11 passes of 50, with grounding at 90% against a
+95% threshold and two cases never exercised at all. The three safety guards have never fired in live
+running, only in replay against recorded drafts. The second-opinion path has fired once and was not
+captured. That is not a trust position that supports bounded-autonomous for even
 the most experienced user, and the interesting question is not where the dial sits but what would
 move it, which is the eval gate below.
 
